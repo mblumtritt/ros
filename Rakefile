@@ -8,7 +8,7 @@ task list: :load_benchmarks do
   RubyOnSpeed.action = :list
 end
 
-desc 'perform benchmarks (* default)'
+desc 'perform benchmarks'
 task :benchmark, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
   RubyOnSpeed.action = :report
@@ -20,7 +20,7 @@ task :compare, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.action = :find_best
 end
 
-desc 'test benchmarks validity'
+desc 'test benchmarks validity (* default)'
 task :test, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
   RubyOnSpeed.action = :test

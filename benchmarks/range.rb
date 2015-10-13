@@ -12,4 +12,6 @@ RubyOnSpeed.check do
   DATE = SAMPLE_RANGE.last - 42
   code 'Range#include?', ->{ SAMPLE_RANGE.include?(DATE) }
   code 'Range#cover?',   ->{ SAMPLE_RANGE.cover?(DATE) }
+  code 'Range#member?',  ->{ SAMPLE_RANGE.member?(DATE) }
+  code 'plain_compare',  ->{ SAMPLE_RANGE.first <= DATE && DATE <= SAMPLE_RANGE.last }
 end

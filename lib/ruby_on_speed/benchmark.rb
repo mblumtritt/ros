@@ -38,11 +38,7 @@ module RubyOnSpeed
 
     def test!
       @skip_test_reason and raise(Skipped, @skip_test_reason)
-      if @uses_boolean_results
-        test_boolean_results(@entries.values)
-      else
-        test_results(@entries.values)
-      end
+      @uses_boolean_results ? test_boolean_results(@entries.values) : test_results(@entries.values)
     end
 
     def go!(reporter)

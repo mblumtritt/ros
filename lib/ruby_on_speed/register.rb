@@ -10,7 +10,7 @@ module RubyOnSpeed
 
     def add(benchmark)
       @reg.key?(benchmark.label) and raise("benchmark already registered - #{benchmark.label}")
-      @reg.store(benchmark.label, benchmark)
+      @reg[benchmark.label] = benchmark
     end
 
     def delete(name)

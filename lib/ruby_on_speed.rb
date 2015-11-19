@@ -39,7 +39,7 @@ module RubyOnSpeed
       regexp = Regexp.new(regexp)
       Registered.keep_if{ |name| regexp =~ name }
     rescue RegexpError => e
-      self.action = 'nop'
+      self.action = :nop
       abort "ERROR: #{e}"
     end
 
@@ -78,8 +78,7 @@ module RubyOnSpeed
     end
 
     def run(reporter)
-      entries = 0
-      Registered.each{ |bm| entries += bm.entries.size }
+      entries = Registered.size
       entries.zero? and return
       reporter.start(entries)
       Registered.each{ |bm| bm.go!(reporter) }

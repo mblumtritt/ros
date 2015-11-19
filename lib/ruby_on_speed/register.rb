@@ -18,13 +18,17 @@ module RubyOnSpeed
     end
 
     def each
-      block_given? or raise('no block given')
+      block_given? or return enum_for(__method__)
       names.map{ |name| yield @reg[name] }
     end
 
     def keep_if
-      block_given? or raise('no block given')
+      block_given? or return enum_for(__method__)
       names.each{ |name| yield(name) or delete(name) }
+    end
+
+    def size
+      @reg.values.inject(1){ |sum, bm| sum + bm.entries.size }
     end
   end
 end

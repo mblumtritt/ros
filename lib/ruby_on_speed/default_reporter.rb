@@ -12,7 +12,7 @@ module RubyOnSpeed
     end
 
     def start(size)
-      $stdout.puts "#{NAME} performs #{size} tests", ''
+      $stdout.puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{size} tests", nil
     end
 
     def warming_start

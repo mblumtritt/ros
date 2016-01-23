@@ -1,4 +1,8 @@
 module RubyOnSpeed
+  autoload :DefaultReporter, "#{__dir__}/default_reporter"
+  autoload :ProgressReporter, "#{__dir__}/progress_reporter"
+  autoload :TableReporter, "#{__dir__}/table_reporter"
+
   class Reporter
     def self.create(type)
       name = "#{type.to_s.capitalize}Reporter"

@@ -7,8 +7,7 @@ module RubyOnSpeed
 
   require_relative 'ruby_on_speed/register'
   require_relative 'ruby_on_speed/benchmark'
-  autoload :DefaultReporter, "#{__dir__}/ruby_on_speed/default_reporter"
-  autoload :ProgressReporter, "#{__dir__}/ruby_on_speed/progress_reporter"
+  require_relative 'ruby_on_speed/reporter'
 
   Registered = Register.new
 
@@ -60,6 +59,10 @@ module RubyOnSpeed
 
     def find_best!
       run Reporter.create(:progress)
+    end
+
+    def compare!
+      run Reporter.create(:table)
     end
 
     def create(proc)

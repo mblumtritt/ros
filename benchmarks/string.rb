@@ -30,35 +30,35 @@ RubyOnSpeed.check do
   REPLACEMENT = 'Ruby'
 
   code 'String#[string]=' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     str[TO_FIND] = REPLACEMENT
     str
   end
 
   code 'String#sub(string)' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     str.sub(TO_FIND, REPLACEMENT)
   end
 
   code 'String#sub!(string)' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     str.sub!(TO_FIND, REPLACEMENT)
     str
   end
 
   code 'String#gsub(string)' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     str.gsub(TO_FIND, REPLACEMENT)
   end
 
   code 'String#gsub!(string)' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     str.gsub!(TO_FIND, REPLACEMENT)
     str
   end
 
   code 'String#use_index' do
-    str = "#{SAMPLE_STRING}"
+    str = SAMPLE_STRING.dup
     idx = str.index(TO_FIND) and str[idx, TO_FIND.size] = REPLACEMENT
     str
   end

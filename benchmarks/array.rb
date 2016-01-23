@@ -2,6 +2,7 @@ require 'date'
 require_relative '../lib/ruby_on_speed'
 
 SAMPLE_ARRAY = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
+SAMPLE = SAMPLE_ARRAY.sample
 
 RubyOnSpeed.check do
   code 'Array::new',       ->{ Array.new(SAMPLE_ARRAY) }
@@ -62,12 +63,24 @@ end
 
 RubyOnSpeed.check do
   code 'Array#sort',    ->{ SAMPLE_ARRAY.sort{ |a, b| a.julian <=> b.julian } }
-  code 'Array.sort_by', ->{ SAMPLE_ARRAY.sort_by(&:julian) }
+  code 'Array#sort_by', ->{ SAMPLE_ARRAY.sort_by(&:julian) }
 end
 
 RubyOnSpeed.check do
   code 'Array#sort!',    ->{ Array.new(SAMPLE_ARRAY).sort!{ |a, b| a.julian <=> b.julian } }
-  code 'Array.sort_by!', ->{ Array.new(SAMPLE_ARRAY).sort_by!(&:julian) }
+  code 'Array.#sort_by!', ->{ Array.new(SAMPLE_ARRAY).sort_by!(&:julian) }
+end
+
+RubyOnSpeed.check do
+  # seems to be same on MRI
+  code 'Array#index(obj)',      ->{ SAMPLE_ARRAY.index(SAMPLE) }
+  code 'Array#find_index(obj)', ->{ SAMPLE_ARRAY.find_index(SAMPLE) }
+end
+
+RubyOnSpeed.check do
+  # seems to be same on MRI
+  code 'Array#index(&bl)',      ->{ SAMPLE_ARRAY.index{ |i| i == SAMPLE } }
+  code 'Array#find_index(&bl)', ->{ SAMPLE_ARRAY.find_index{ |i| i == SAMPLE } }
 end
 
 RubyOnSpeed.check do

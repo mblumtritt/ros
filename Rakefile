@@ -20,6 +20,12 @@ task :compare, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.action = :find_best
 end
 
+desc 'compare all - table outbut'
+task :cmp, [:regex] => :load_benchmarks do |_, args|
+  RubyOnSpeed.filter! args[:regex]
+  RubyOnSpeed.action = :compare
+end
+
 desc 'test benchmarks validity (* default)'
 task :test, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]

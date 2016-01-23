@@ -7,7 +7,8 @@ module RubyOnSpeed
 
   require_relative 'ruby_on_speed/register'
   require_relative 'ruby_on_speed/benchmark'
-  autoload :Reporter, "#{__dir__}/ruby_on_speed/reporter"
+  autoload :DefaultReporter, "#{__dir__}/ruby_on_speed/default_reporter"
+  autoload :ProgressReporter, "#{__dir__}/ruby_on_speed/progress_reporter"
 
   Registered = Register.new
 

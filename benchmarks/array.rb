@@ -18,6 +18,7 @@ end
 RubyOnSpeed.check do
   code 'Array#size',  ->{ SAMPLE_ARRAY.size }
   code 'Array#count', ->{ SAMPLE_ARRAY.count }
+  code 'Array#length', ->{ SAMPLE_ARRAY.length }
 end
 
 RubyOnSpeed.check do

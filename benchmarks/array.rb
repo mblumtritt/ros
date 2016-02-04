@@ -119,3 +119,8 @@ RubyOnSpeed.check do
     Array.new(SAMPLE_ARRAY).keep_if(&:saturday?).map!(&:to_s)
   end
 end
+
+RubyOnSpeed.check do
+  code 'Enumarable#each_with_object', ->{ SAMPLE_ARRAY.each_with_object([]){ |v, m| m << v} }
+  code 'Array#each',   ->{ m = []; SAMPLE_ARRAY.each{ |v| m << v} }
+end

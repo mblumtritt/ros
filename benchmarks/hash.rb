@@ -69,7 +69,11 @@ RubyOnSpeed.check do
 end
 
 RubyOnSpeed.check do
-  A, B = {}, {}
-  code 'Hash#store', ->{ A.store(42, :Ruby) }
-  code 'Hash#[]=',   ->{ B[42] = :Ruby }
+  code 'Hash#store', ->{ {}.store(42, :Ruby) }
+  code 'Hash#[]=',   ->{ {}[42] = :Ruby }
+end
+
+RubyOnSpeed.check do
+  code 'Enumarable#each_with_object', ->{ SAMPLE_HASH.each_with_object([]){ |(k, v), m| m << k << v} }
+  code 'Hash#each_pair',   ->{ m = []; SAMPLE_HASH.each_pair{ |k, v| m << k << v} }
 end

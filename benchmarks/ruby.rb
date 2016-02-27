@@ -47,3 +47,78 @@ RubyOnSpeed.check do
   code 'ternary if',  ->{ RETURN_TRUE[] ? 42 : 21 }
   code 'and',         ->{ RETURN_TRUE[] and 42 }
 end
+
+RubyOnSpeed.check do
+  class ConstA
+    CONST = 21
+    def self.check(x)
+      CONST + x
+    end
+  end
+
+  class ConstB
+    CONST = 21
+    def self.check(x)
+      self::CONST + x
+    end
+  end
+
+  class ConstC
+    def self.check(x)
+      21 + x
+    end
+  end
+
+  code 'CONST',         ->{ ConstA.check(21) }
+  code 'self::CONST',   ->{ ConstB.check(21) }
+  code 'direct',        ->{ ConstC.check(21) }
+end
+
+RubyOnSpeed.check do
+  class CallA
+    def check(x)
+      21 + x
+    end
+  end
+
+  class CallB < CallA
+  end
+
+  class CallC < CallA
+    def check(x)
+      super
+    end
+  end
+
+  module CallD
+    def check(x)
+      21 + x
+    end
+  end
+
+  class CallE
+    include CallD
+  end
+
+  CallAInstance = CallA.new
+  CallBInstance = CallB.new
+  CallCInstance = CallC.new
+  CallEInstance = CallE.new
+  CallFInstance = Class.new.extend(CallD)
+
+  code 'call',            ->{ CallAInstance.check(21) }
+  code 'send',            ->{ CallAInstance.send(:check, 21) }
+  code 'inherited_call',  ->{ CallBInstance.check(21) }
+  code 'super_call',      ->{ CallCInstance.check(21) }
+  code 'included_call',   ->{ CallEInstance.check(21) }
+  code 'extended_call',   ->{ CallFInstance.check(21) }
+end
+
+RubyOnSpeed.check do
+  def pack_unpack(format, *values)
+    values.pack(format).unpack(format)
+  end
+
+  code 'pack_unpack_fixed', ->{ pack_unpack('l<l<l<l<l<', 0, 1, 21, 42, 0xffff) }
+  code 'pack_unpack_count', ->{ pack_unpack('l<5', 0, 1, 21, 42, 0xffff) }
+end

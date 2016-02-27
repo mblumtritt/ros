@@ -2,6 +2,7 @@ require 'date'
 require_relative '../lib/ruby_on_speed'
 
 SAMPLE_ARRAY = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
+NONU_SAMPLE_ARRAY = (SAMPLE_ARRAY + SAMPLE_ARRAY).freeze
 SAMPLE = SAMPLE_ARRAY.sample
 
 RubyOnSpeed.check do
@@ -123,4 +124,20 @@ end
 RubyOnSpeed.check do
   code 'Enumarable#each_with_object', ->{ SAMPLE_ARRAY.each_with_object([]){ |v, m| m << v} }
   code 'Array#each',   ->{ m = []; SAMPLE_ARRAY.each{ |v| m << v} }
+end
+
+RubyOnSpeed.check do
+  code 'Array#uniq' do
+    NONU_SAMPLE_ARRAY.uniq
+  end
+
+  code 'Array#uniq!' do
+    ret = Array.new(NONU_SAMPLE_ARRAY)
+    ret.uniq!
+    ret
+  end
+
+  code 'Array#uniq*1' do
+    Hash[NONU_SAMPLE_ARRAY.map{ |e| [e, 1] }].keys
+  end
 end

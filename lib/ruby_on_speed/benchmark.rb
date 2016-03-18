@@ -48,7 +48,7 @@ module RubyOnSpeed
       reporter.warming_start
       ips_job.run_warmup
       reporter.run_start
-      ips_job.run
+      ips_job.run_benchmark
       reporter.report
     end
 

@@ -2,7 +2,8 @@ require 'date'
 require_relative '../lib/ruby_on_speed'
 
 SAMPLE_ARRAY = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
-NONU_SAMPLE_ARRAY = (SAMPLE_ARRAY + SAMPLE_ARRAY).freeze
+NONUNIQ_SAMPLE_ARRAY = (SAMPLE_ARRAY + SAMPLE_ARRAY).freeze
+NILED_SAMPLE_ARRAY = (SAMPLE_ARRAY + Array.new(1000)).shuffle!.freeze
 SAMPLE = SAMPLE_ARRAY.sample
 
 RubyOnSpeed.check do
@@ -128,16 +129,36 @@ end
 
 RubyOnSpeed.check do
   code 'Array#uniq' do
-    NONU_SAMPLE_ARRAY.uniq
+    NONUNIQ_SAMPLE_ARRAY.uniq
   end
 
   code 'Array#uniq!' do
-    ret = Array.new(NONU_SAMPLE_ARRAY)
+    ret = Array.new(NONUNIQ_SAMPLE_ARRAY)
     ret.uniq!
     ret
   end
 
   code 'Array#uniq*1' do
-    Hash[NONU_SAMPLE_ARRAY.map{ |e| [e, 1] }].keys
+    Hash[NONUNIQ_SAMPLE_ARRAY.map{ |e| [e, 1] }].keys
+  end
+end
+
+RubyOnSpeed.check do
+  code 'Array#compact!' do
+    ret = Array.new(NILED_SAMPLE_ARRAY)
+    ret.compact!
+    ret
+  end
+
+  code 'Array#delete_if' do
+    ret = Array.new(NILED_SAMPLE_ARRAY)
+    ret.delete_if(&:nil?)
+    ret
+  end
+
+  code 'Array#reject!' do
+    ret = Array.new(NILED_SAMPLE_ARRAY)
+    ret.reject!(&:nil?)
+    ret
   end
 end

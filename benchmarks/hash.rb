@@ -74,6 +74,23 @@ RubyOnSpeed.check do
 end
 
 RubyOnSpeed.check do
-  code 'Enumarable#each_with_object', ->{ SAMPLE_HASH.each_with_object([]){ |(k, v), m| m << k << v} }
-  code 'Hash#each_pair',   ->{ m = []; SAMPLE_HASH.each_pair{ |k, v| m << k << v} }
+  code 'Enumarable#each_with_object' do
+    SAMPLE_HASH.each_with_object([]){ |(k, v), m| m << k << v}
+  end
+
+  code 'Hash#each_pair' do
+    m = []
+    SAMPLE_HASH.each_pair{ |k, v| m << k << v}
+    m
+  end
+end
+
+RubyOnSpeed.check do # generate Hash from Array values
+  code 'Enumarable#each_with_object' do
+    SAMPLE_HASH.keys.each_with_object({}){ |key, ret| ret[key.to_sym] = key }
+  end
+
+  code 'Hash::[]' do
+    Hash[SAMPLE_HASH.keys.map!{ |key| [key.to_sym, key] }]
+  end
 end

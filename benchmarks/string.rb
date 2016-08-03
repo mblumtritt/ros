@@ -9,12 +9,26 @@ SAMPLE_STRING = <<-EOS.freeze
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 EOS
 
+SAMPLE_STRING_ARRAY = (1_000..1_100).map{ |n| n.odd? ? "--#{n}" : n.to_s }
+
 RubyOnSpeed.check do
-  code '"#{string}"', ->{ "#{SAMPLE_STRING}" }
-  code 'String::new', ->{ String.new(SAMPLE_STRING) }
-  code 'String#dup',  ->{ SAMPLE_STRING.dup }
-  code 'String#dump', ->{ SAMPLE_STRING.dup }
-  code 'String#<<',   ->{ '' << SAMPLE_STRING }
+  code 'String.start_with?' do
+    SAMPLE_STRING_ARRAY.map{ |s| s.start_with?('--'.freeze) }
+  end
+  code 'String[0..n].==' do
+    SAMPLE_STRING_ARRAY.map{ |s| s[0..1] == '--'.freeze }
+  end
+  code 'String[0, n].==' do
+    SAMPLE_STRING_ARRAY.map{ |s| s[0, 2] == '--'.freeze }
+  end
+end
+
+RubyOnSpeed.check do
+  code '"#{string}"',  ->{ "#{SAMPLE_STRING}" }
+  code 'String::new',  ->{ String.new(SAMPLE_STRING) }
+  code 'String#dup',   ->{ SAMPLE_STRING.dup }
+  code 'String#clone', ->{ SAMPLE_STRING.clone }
+  code 'String#<<',    ->{ '' << SAMPLE_STRING }
 end
 
 RubyOnSpeed.check do

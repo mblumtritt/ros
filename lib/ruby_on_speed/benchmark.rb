@@ -4,16 +4,17 @@ module RubyOnSpeed
   class Benchmark
     attr_reader :entries
 
-    def initialize
+    def initialize(label)
       @entries = {}
-      @label = @report = @skip_test_reason = @uses_boolean_results = nil
+      @label = label
+      @report = @skip_test_reason = @uses_boolean_results = nil
     end
 
-    def code(name, proc = nil, &block)
-      (proc ||= block).respond_to?(:call) or raise('no proc or block given')
-      entry = ::Benchmark::IPS::Job::Entry.new(name, proc)
-      entry.label.size.zero? and raise('no name given')
-      @entries.key?(entry.label) and raise("name already used - #{entry.label}")
+    def code(name, func = nil, &block)
+      raise('no proc or block given') unless (func ||= block).respond_to?(:call)
+      entry = ::Benchmark::IPS::Job::Entry.new(name, func)
+      raise('no name given') if entry.label.size.zero?
+      raise("name already used - #{entry.label}") if @entries.key?(entry.label)
       @entries[entry.label] = entry
     end
     alias report code
@@ -37,7 +38,7 @@ module RubyOnSpeed
     alias to_s label
 
     def test!
-      @skip_test_reason and raise(Skipped, @skip_test_reason)
+      raise(Skipped, @skip_test_reason) if @skip_test_reason 
       @uses_boolean_results ? test_boolean_results(@entries.values) : test_results(@entries.values)
     end
 

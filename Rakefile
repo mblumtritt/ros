@@ -1,37 +1,39 @@
-task default: :test
-BENCHMARKS = FileList.new("#{__dir__}/benchmarks/**/*.rb")
-autoload :RubyOnSpeed, "#{__dir__}/lib/ruby_on_speed"
 $stdout.sync = $stderr.sync = true
+
+require "#{__dir__}/lib/ruby_on_speed"
+
+task default: :list
 
 desc 'list all benchmarks'
 task list: :load_benchmarks do
-  RubyOnSpeed.action = :list
+  puts 'All registered benachmarks:', nil
+  RubyOnSpeed.names.each{ |name| puts(name) }
 end
 
 desc 'perform benchmarks'
-task :benchmark, [:regex] => :load_benchmarks do |_, args|
+task :bench, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
-  RubyOnSpeed.action = :report
+  RubyOnSpeed.report!
 end
 
 desc 'compare and find fastest code'
 task :compare, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
-  RubyOnSpeed.action = :find_best
+  RubyOnSpeed.find_best!
 end
 
 desc 'compare all - table output'
 task :cmp, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
-  RubyOnSpeed.action = :compare
+  RubyOnSpeed.compare!
 end
 
 desc 'test benchmarks validity (* default)'
 task :test, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
-  RubyOnSpeed.action = :test
+  RubyOnSpeed.test!
 end
 
 task :load_benchmarks do
-  BENCHMARKS.each{ |fname| load fname }
+  FileList.new("#{__dir__}/benchmarks/**/*_bench.rb").to_a.sort!.each{ |fname| load fname }
 end

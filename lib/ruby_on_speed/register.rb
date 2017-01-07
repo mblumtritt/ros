@@ -1,5 +1,5 @@
 module RubyOnSpeed
-  class Register
+  Register = Class.new do
     def initialize
       @reg = {}
     end
@@ -9,7 +9,7 @@ module RubyOnSpeed
     end
 
     def add(benchmark)
-      @reg.key?(benchmark.label) and raise("benchmark already registered - #{benchmark.label}")
+      raise("benchmark already registered - #{benchmark.label}") if @reg.key?(benchmark.label)
       @reg[benchmark.label] = benchmark
     end
 
@@ -18,17 +18,15 @@ module RubyOnSpeed
     end
 
     def each
-      block_given? or return enum_for(__method__)
-      names.map{ |name| yield @reg[name] }
+      block_given? ? names.map{ |name| yield(@reg[name]) } : enum_for(__method__)
     end
 
     def keep_if
-      block_given? or return enum_for(__method__)
-      names.each{ |name| yield(name) or delete(name) }
+      block_given? ? names.each{ |name| delete(name) unless yield(name)  } : enum_for(__method__)
     end
 
     def size
-      @reg.values.inject(1){ |sum, bm| sum + bm.entries.size }
+      @reg.values.inject(0){ |sum, bm| sum + bm.entries.size }
     end
-  end
+  end.new
 end

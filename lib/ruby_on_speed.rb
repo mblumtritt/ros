@@ -1,43 +1,56 @@
 module RubyOnSpeed
   NAME = name
-  VERSION = '0.1.1'
-  ACTION = 'test'
+  VERSION = '0.2.0'
   Error = Class.new(StandardError)
   Skipped = Class.new(StandardError)
 
   require_relative 'ruby_on_speed/register'
   require_relative 'ruby_on_speed/benchmark'
-  require_relative 'ruby_on_speed/reporter'
-
-  Registered = Register.new
 
   class << self
-
-    def check
-      block_given? or raise('no block given')
-      create(Proc.new)
+    def test(label = nil, &block)
+      raise('no block given') unless block
+      bm = Benchmark.new(label)
+      bm.instance_exec(&block)
+      Register.add(bm)
     end
-    alias benchmark check
+    alias benchmark test
+    alias check test
 
     def nop!
-      # NOP
+      # empty method - just to ignore a block
     end
     alias ignore nop!
-    alias check_not nop!
-    alias xcheck nop!
+    alias xtest nop!
+    alias _test nop!
 
-    def action=(action)
-      ACTION.replace(action.to_s)
+    def names
+      Register.names
     end
 
-    def action!
-      send "#{ACTION}!"
+    def test!
+      Register.each{ |bm| test_benchmark(bm) }
+    end
+
+    def report!
+      require_relative 'ruby_on_speed/reporter'
+      run Reporter.create(:default)
+    end
+
+    def find_best!
+      require_relative 'ruby_on_speed/reporter'
+      run Reporter.create(:progress)
+    end
+
+    def compare!
+      require_relative 'ruby_on_speed/reporter'
+      run Reporter.create(:table)
     end
 
     def filter!(regexp)
-      regexp or return
+      return unless regexp
       regexp = Regexp.new(regexp)
-      Registered.keep_if{ |name| regexp =~ name }
+      Register.keep_if{ |name| regexp.match?(name) }
     rescue RegexpError => e
       self.action = :nop
       abort "ERROR: #{e}"
@@ -45,33 +58,7 @@ module RubyOnSpeed
 
     private
 
-    def list!
-      Registered.names.each{ |name| $stdout.puts name }
-    end
-
-    def test!
-      Registered.each{ |bm| test bm }
-    end
-
-    def report!
-      run Reporter.create(:default)
-    end
-
-    def find_best!
-      run Reporter.create(:progress)
-    end
-
-    def compare!
-      run Reporter.create(:table)
-    end
-
-    def create(proc)
-      bm = Benchmark.new
-      bm.instance_exec(&proc)
-      Registered.add(bm)
-    end
-
-    def test(bm)
+    def test_benchmark(bm)
       $stdout.print "#{bm} ..."
       bm.test!
       $stdout.puts 'ok'
@@ -82,14 +69,12 @@ module RubyOnSpeed
     end
 
     def run(reporter)
-      entries = Registered.size
-      entries.zero? and return
+      entries = Register.size
+      return if entries.zero?
       reporter.start(entries)
-      Registered.each{ |bm| bm.go!(reporter) }
+      Register.each{ |bm| bm.go!(reporter) }
     rescue Interrupt
       $stderr.puts ' ABORTED'
     end
   end
-
-  at_exit{ RubyOnSpeed.action! }
 end

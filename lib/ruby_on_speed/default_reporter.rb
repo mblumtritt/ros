@@ -11,8 +11,8 @@ module RubyOnSpeed
       super
     end
 
-    def start(size)
-      $stdout.puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{size} tests", nil
+    def start(count)
+      $stdout.puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil
     end
 
     def warming_start

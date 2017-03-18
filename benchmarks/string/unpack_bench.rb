@@ -8,4 +8,4 @@ RubyOnSpeed.test 'String: unpack' do
   code 'unpack_dedicated', ->{ sample.unpack('l<l<l<l<l<') }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

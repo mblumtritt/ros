@@ -1,4 +1,4 @@
 source 'https://rubygems.org' do
-  gem 'rake'
   gem 'benchmark-ips'
+  gem 'rake'
 end

@@ -7,26 +7,26 @@ module RubyOnSpeed
     end
 
     def bm=(bm)
-      $stdout.puts bm.label
+      puts bm.label
       super
     end
 
     def start(count)
-      $stdout.puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil
+      puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil
     end
 
     def warming_start
-      $stdout.puts '--------------------------------------------------- warmup -'.freeze
+      puts '--------------------------------------------------- warmup -'.freeze
     end
 
     def run_start
-      $stdout.puts '------------------------------------------------ benchmark -'.freeze
+      puts '------------------------------------------------ benchmark -'.freeze
     end
 
     def compare(best, others)
-      $stdout.puts '-' * 60
+      puts '-' * 60
       super
-      $stdout.puts '=' * 60, nil
+      puts '=' * 60, nil
     end
   end
 end

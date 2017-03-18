@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Array: sort' do
   code '#sort!',    ->{ Array.new(sample_array).sort!{ |a, b| a.julian <=> b.julian } }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

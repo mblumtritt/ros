@@ -16,4 +16,4 @@ RubyOnSpeed.test 'Hash: get existing value' do
   code '#fetch(string)',     ->{ sample_hash.fetch('ru'.freeze) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

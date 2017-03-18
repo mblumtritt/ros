@@ -2,7 +2,7 @@ require_relative '../../lib/ruby_on_speed'
 
 RubyOnSpeed.test 'Array: remove nil' do
   sample_array = (Array.new(1000){ |n| n } + Array.new(1000)).shuffle!.freeze
-  
+
   code '#compact!' do
     ret = Array.new(sample_array)
     ret.compact!
@@ -22,5 +22,4 @@ RubyOnSpeed.test 'Array: remove nil' do
   end
 end
 
-RubyOnSpeed.test! if $0 == __FILE__
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

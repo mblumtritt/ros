@@ -3,7 +3,7 @@ require 'date'
 
 RubyOnSpeed.test 'Array: map some items' do
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze
-  
+
   code '#select#map!' do
     sample_array.select(&:saturday?).map!(&:to_s)
   end
@@ -15,7 +15,7 @@ RubyOnSpeed.test 'Array: map some items' do
   end
 
   code '#map#tap#compact!' do
-    sample_array.map{ |e| e.saturday? ? e.to_s : nil }.tap{ |ret| ret.compact! }
+    sample_array.map{ |e| e.saturday? ? e.to_s : nil }.tap(&:compact!)
   end
 
   code '#each#cmp' do
@@ -39,4 +39,5 @@ RubyOnSpeed.test 'Array: map some items' do
   end
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

@@ -2,7 +2,7 @@ require_relative '../../lib/ruby_on_speed'
 
 RubyOnSpeed.test 'Regexp: matches' do
   uses_boolean_results!
-  sample_regexp = /cillum/.freeze
+  sample_regexp = /cillum/
   sample_string = <<-EOS.freeze
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -20,4 +20,4 @@ RubyOnSpeed.test 'Regexp: matches' do
   code 'string#match', ->{ sample_string.match(sample_regexp) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

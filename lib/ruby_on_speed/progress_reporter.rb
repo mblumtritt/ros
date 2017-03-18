@@ -3,16 +3,16 @@ require_relative 'reporter'
 module RubyOnSpeed
   class ProgressReporter < Reporter
     def bm=(bm)
-      $stdout.print "#{bm.label} "
+      print "#{bm.label} "
       super
     end
 
     def start(size)
-      $stdout.puts "#{NAME} performs #{size} tests:"
+      puts "#{NAME} performs #{size} tests:"
     end
 
     def dot(*_)
-      $stdout.print '.'
+      print '.'
     end
 
     def warmup_stats(_time, ips)
@@ -27,8 +27,8 @@ module RubyOnSpeed
       dot super
     end
 
-    def compare(best, others)
-      $stdout.puts "ok - fastest: #{best.label}"
+    def compare(best, _others)
+      puts "ok - fastest: #{best.label}"
     end
   end
 end

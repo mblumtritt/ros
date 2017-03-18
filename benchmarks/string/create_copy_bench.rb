@@ -17,4 +17,4 @@ RubyOnSpeed.test 'String: create copy' do
   code '#clone',      ->{ sample_string.clone }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

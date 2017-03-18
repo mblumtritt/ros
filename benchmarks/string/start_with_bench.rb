@@ -1,7 +1,7 @@
 require_relative '../../lib/ruby_on_speed'
 
 RubyOnSpeed.test 'String: start with' do
-  sample_string = (1_000..5_000).map{ |n| n.odd? ? "--#{n}" : n.to_s}
+  sample_string = (1_000..5_000).map{ |n| n.odd? ? "--#{n}" : n.to_s }
 
   code '#start_with?' do
     sample_string.map{ |s| s.start_with?('--'.freeze) }
@@ -16,4 +16,4 @@ RubyOnSpeed.test 'String: start with' do
   end
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

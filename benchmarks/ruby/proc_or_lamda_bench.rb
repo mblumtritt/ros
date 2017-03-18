@@ -8,4 +8,4 @@ RubyOnSpeed.test 'Ruby: proc/lambda call' do
   code 'lambda',   ->{ sample_lambda.call(21) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

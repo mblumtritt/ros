@@ -6,14 +6,14 @@ module RubyOnSpeed
   class Reporter
     def self.create(type)
       name = "#{type.to_s.capitalize}Reporter"
-      RubyOnSpeed.const_defined?(name) ? RubyOnSpeed.const_get(name).new : raise("unknown reporter - #{type}")
+      raise("unknown reporter - #{type}") unless RubyOnSpeed.const_defined?(name)
+      RubyOnSpeed.const_get(name).new
     end
 
     attr_reader :jobs
 
     def initialize
-      @current_bm = nil
-      @bms = {}
+      @current_bm, @bms = nil, {}
     end
 
     def options
@@ -49,11 +49,11 @@ module RubyOnSpeed
     protected
 
     def compare(best, others)
-      $stdout.printf "%20s: %10.1f i/s\n", best.label, best.ips
+      printf "%20s: %10.1f i/s\n", best.label, best.ips
       others.each do |report|
         name = report.label
         x = (best.ips.to_f / report.ips.to_f)
-        $stdout.printf "%20s: %10.1f i/s - %.2fx slower\n", name, report.ips, x
+        printf "%20s: %10.1f i/s - %.2fx slower\n", name, report.ips, x
       end
     end
   end

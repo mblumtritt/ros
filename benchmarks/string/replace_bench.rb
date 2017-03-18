@@ -45,4 +45,4 @@ RubyOnSpeed.test 'String: replace' do
   end
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

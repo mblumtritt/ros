@@ -5,8 +5,7 @@ module RubyOnSpeed
     attr_reader :entries
 
     def initialize(label)
-      @entries = {}
-      @label = label
+      @entries, @label = {}, label
       @report = @skip_test_reason = @uses_boolean_results = nil
     end
 
@@ -38,7 +37,7 @@ module RubyOnSpeed
     alias to_s label
 
     def test!
-      raise(Skipped, @skip_test_reason) if @skip_test_reason 
+      raise(Skipped, @skip_test_reason) if @skip_test_reason
       @uses_boolean_results ? test_boolean_results(@entries.values) : test_results(@entries.values)
     end
 
@@ -59,7 +58,7 @@ module RubyOnSpeed
       first = entries.shift
       result = first.action.call
       entries.each do |entry|
-        entry.action.call == result or raise(Error, "#{entry.label} has different result as #{first.label}")
+        raise(Error, "#{entry.label} has different result as #{first.label}") unless entry.action.call == result
       end
     end
 
@@ -67,7 +66,7 @@ module RubyOnSpeed
       first = entries.shift
       result = !!first.action.call
       entries.each do |entry|
-        !!entry.action.call == result or raise(Error, "#{entry.label} has different result as #{first.label}")
+        raise(Error, "#{entry.label} has different result as #{first.label}") unless !!entry.action.call == result
       end
     end
   end

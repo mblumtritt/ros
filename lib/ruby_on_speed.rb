@@ -1,6 +1,6 @@
 module RubyOnSpeed
   NAME = name
-  VERSION = '0.2.0'
+  VERSION = '0.3.0'
   Error = Class.new(StandardError)
   Skipped = Class.new(StandardError)
 
@@ -59,13 +59,13 @@ module RubyOnSpeed
     private
 
     def test_benchmark(bm)
-      $stdout.print "#{bm} ..."
+      print "#{bm} ..."
       bm.test!
-      $stdout.puts 'ok'
+      puts 'ok'
     rescue Skipped => e
-      $stdout.puts "skipped - #{e}"
+      puts "skipped - #{e}"
     rescue Error => e
-      $stdout.puts "error - #{e}"
+      puts "error - #{e}"
     end
 
     def run(reporter)

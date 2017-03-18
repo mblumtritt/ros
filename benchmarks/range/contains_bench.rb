@@ -11,4 +11,4 @@ RubyOnSpeed.test 'Range: contains element' do
   code '#include?', ->{ sample_range.include?(sample) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

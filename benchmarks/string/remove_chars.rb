@@ -16,4 +16,4 @@ RubyOnSpeed.test 'String: remove many chars' do
   code '#delete', ->{ sample_string.delete(' e'.freeze) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

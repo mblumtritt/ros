@@ -40,4 +40,4 @@ RubyOnSpeed.test 'Ruby: method call' do
   code 'extended_call',   ->{ CallFInstance.check(21) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

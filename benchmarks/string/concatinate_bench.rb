@@ -15,6 +15,7 @@ RubyOnSpeed.test 'String: concatinate' do
   code '#<<',         ->{ 'just a test' << sample_string }
   code '#concat',     ->{ 'just a test'.concat(sample_string) }
   code '#%',          ->{ 'just a test%s' % sample_string }
+  code '#format',     ->{ format('just a test%s', sample_string) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

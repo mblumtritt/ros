@@ -46,4 +46,4 @@ RubyOnSpeed.test 'Ruby: CONST access' do
   code 'class::CONST',  ->{ ConstB2.check(21) }
 end
 
-RubyOnSpeed.report! if $0 == __FILE__
+RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

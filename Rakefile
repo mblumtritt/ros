@@ -4,7 +4,7 @@ require "#{__dir__}/lib/ruby_on_speed"
 
 task default: :list
 
-desc 'list all benchmarks'
+desc 'list all benchmarks (* default)'
 task list: :load_benchmarks do
   puts 'All registered benachmarks:', nil
   RubyOnSpeed.names.each{ |name| puts(name) }
@@ -28,7 +28,7 @@ task :cmp, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.compare!
 end
 
-desc 'test benchmarks validity (* default)'
+desc 'test benchmarks validity'
 task :test, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
   RubyOnSpeed.test!

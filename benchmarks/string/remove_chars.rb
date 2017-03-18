@@ -1,6 +1,6 @@
 require_relative '../../lib/ruby_on_speed'
 
-RubyOnSpeed.test 'Remove many chars from String' do
+RubyOnSpeed.test 'String: remove many chars' do
   sample_string = <<-EOS.freeze
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

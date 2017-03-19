@@ -10,8 +10,8 @@ RubyOnSpeed.test 'String: remove many chars' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   EOS
 
-  REGEX = / |e/
-  code '#gsub',   ->{ sample_string.gsub(REGEX, ''.freeze) }
+  regexp = / |e/
+  code '#gsub',   ->{ sample_string.gsub(regexp, ''.freeze) }
   code '#tr',     ->{ sample_string.tr(' e'.freeze, ''.freeze) }
   code '#delete', ->{ sample_string.delete(' e'.freeze) }
 end

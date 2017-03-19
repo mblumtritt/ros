@@ -10,8 +10,8 @@ RubyOnSpeed.test 'String: remove single char' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   EOS
 
-  REGEX = / /
-  code '#gsub',   ->{ sample_string.gsub(REGEX, ''.freeze) }
+  regexp = / /
+  code '#gsub',   ->{ sample_string.gsub(regexp, ''.freeze) }
   code '#tr',     ->{ sample_string.tr(' '.freeze, ''.freeze) }
   code '#delete', ->{ sample_string.delete(' '.freeze) }
 end

@@ -29,7 +29,9 @@ module RubyOnSpeed
     end
 
     def test!
-      Register.each{ |bm| test_benchmark(bm) }
+      errors = 0
+      Register.each{ |bm| errors += 1 unless test_benchmark(bm) }
+      errors
     end
 
     def report!
@@ -62,10 +64,13 @@ module RubyOnSpeed
       print "#{bm} ..."
       bm.test!
       puts 'ok'
+      true
     rescue Skipped => e
       puts "skipped - #{e}"
+      true
     rescue Error => e
-      puts "error - #{e}"
+      $stderr.puts "error - #{e}"
+      false
     end
 
     def run(reporter)

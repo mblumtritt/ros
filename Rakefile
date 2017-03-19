@@ -31,7 +31,7 @@ end
 desc 'test benchmarks validity'
 task :test, [:regex] => :load_benchmarks do |_, args|
   RubyOnSpeed.filter! args[:regex]
-  RubyOnSpeed.test!
+  exit RubyOnSpeed.test!.zero?
 end
 
 task :load_benchmarks do

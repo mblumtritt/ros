@@ -10,12 +10,14 @@ RubyOnSpeed.test 'Array: find first (sorted)' do
 
   code '#[array#find_index]' do
     result = sample_array.find_index{ |element| element.year > 2014 }
-    result ? sample_array[result] : nil
+    next sample_array[result] if result
+    nil
   end
 
   code '#[array#index]' do
     result = sample_array.index{ |element| element.year > 2014 }
-    result ? sample_array[result] : nil
+    next sample_array[result] if result
+    nil
   end
 
   code '#find' do # uses Enumerable#find

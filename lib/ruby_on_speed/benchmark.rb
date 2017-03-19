@@ -43,12 +43,12 @@ module RubyOnSpeed
 
     def go!(reporter)
       reporter.bm = self
-      ips_job = ::Benchmark::IPS::Job.new(reporter.options)
-      @entries.values.shuffle.each{ |entry| ips_job.list.push(entry) }
+      job = ::Benchmark::IPS::Job.new(reporter.options)
+      @entries.values.shuffle.each{ |entry| job.list.push(entry) }
       reporter.warming_start
-      ips_job.run_warmup
+      job.run_warmup
       reporter.run_start
-      ips_job.run_benchmark
+      job.run_benchmark
       reporter.report
     end
 

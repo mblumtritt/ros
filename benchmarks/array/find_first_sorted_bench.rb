@@ -2,7 +2,7 @@ require_relative '../../lib/ruby_on_speed'
 require 'date'
 
 RubyOnSpeed.test 'Array: find first (sorted)' do
-  sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze # is sorted!
+  sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze # is sorted
 
   code '#bsearch' do
     sample_array.bsearch{ |element| element.year > 2014 }

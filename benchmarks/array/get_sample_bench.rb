@@ -2,7 +2,7 @@ require_relative '../../lib/ruby_on_speed'
 
 RubyOnSpeed.test 'Array: get a sample' do
   uses_randomization!
-  sample_array = Array.new(1000){ |n| n }
+  sample_array = Array.new(1000, &:itself).freeze
 
   code '#sample',     ->{ sample_array.sample }
   code '#[rand]',     ->{ sample_array[Random.rand(sample_array.size - 1)] }

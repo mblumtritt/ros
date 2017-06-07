@@ -10,5 +10,4 @@ RubyOnSpeed.test 'Array: subset included' do
   code '#all?#index',    ->{ sample_subset.all?{ |e| sample_all.index(e) } }
 end
 
-RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

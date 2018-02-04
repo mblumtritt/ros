@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RubyOnSpeed
   autoload :DefaultReporter, "#{__dir__}/default_reporter"
   autoload :ProgressReporter, "#{__dir__}/progress_reporter"
@@ -34,7 +36,6 @@ module RubyOnSpeed
     alias warmup_stats nop
     alias run_start nop
     alias running nop
-    alias compare nop
 
     def add_report(report, _source)
       @current_bm << report

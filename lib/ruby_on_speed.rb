@@ -1,6 +1,6 @@
 module RubyOnSpeed
   NAME = name
-  VERSION = '0.3.0'
+  VERSION = '0.3.0'.freeze
   Error = Class.new(StandardError)
   Skipped = Class.new(StandardError)
 

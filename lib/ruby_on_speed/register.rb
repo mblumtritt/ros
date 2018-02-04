@@ -22,7 +22,7 @@ module RubyOnSpeed
     end
 
     def keep_if
-      block_given? ? names.each{ |name| delete(name) unless yield(name)  } : enum_for(__method__)
+      block_given? ? names.each{ |name| delete(name) unless yield(name) } : enum_for(__method__)
     end
 
     def size

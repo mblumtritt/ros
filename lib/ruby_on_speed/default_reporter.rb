@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'reporter'
 
 module RubyOnSpeed
@@ -16,11 +18,11 @@ module RubyOnSpeed
     end
 
     def warming_start
-      puts '--------------------------------------------------- warmup -'.freeze
+      puts '--------------------------------------------------- warmup -'
     end
 
     def run_start
-      puts '------------------------------------------------ benchmark -'.freeze
+      puts '------------------------------------------------ benchmark -'
     end
 
     def compare(best, others)

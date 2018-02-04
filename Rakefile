@@ -1,6 +1,6 @@
-$stdout.sync = $stderr.sync = true
+require_relative './lib/ruby_on_speed'
 
-require "#{__dir__}/lib/ruby_on_speed"
+$stdout.sync = $stderr.sync = true
 
 task default: :list
 

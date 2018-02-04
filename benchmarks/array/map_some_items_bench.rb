@@ -20,7 +20,7 @@ RubyOnSpeed.test 'Array: map some items' do
 
   code '#each#cmp' do
     ret = []
-    sample_array.each{ |e| ret << e.to_s if e.saturday?  }
+    sample_array.each{ |e| ret << e.to_s if e.saturday? }
     ret
   end
 

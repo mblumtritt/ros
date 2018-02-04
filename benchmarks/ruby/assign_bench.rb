@@ -13,13 +13,13 @@ RubyOnSpeed.test 'Ruby: assign' do
     h = 8
     i = 9
     j = x
-    nil
+    a + b + c + d + e + f + g + h + i + j + x
   end
 
   code 'parallel_assignment' do
     x = 42
     a, b, c, d, e, f, g, h, i, j = 1, 2, 3, 4, 5, 6, 7, 8, 9, x
-    nil
+    a + b + c + d + e + f + g + h + i + j + x
   end
 end
 

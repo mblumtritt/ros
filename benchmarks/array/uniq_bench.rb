@@ -16,7 +16,7 @@ RubyOnSpeed.test 'Array: unique values' do
   end
 
   code 'use hash' do
-    Hash[sample_array.map{ |e| [e, true] }].keys
+    sample_array.map{ |e| [e, true] }.to_h.keys
   end
 end
 

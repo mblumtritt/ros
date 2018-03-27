@@ -3,9 +3,9 @@ require_relative '../../lib/ruby_on_speed'
 RubyOnSpeed.test 'Hash: get non-existing value' do
   sample_hash = begin
     ary = ('a'..'z').to_a.permutation(2).to_a.map!(&:join)
-    Hash[ary.zip(ary)].freeze
+    ary.zip(ary).to_h.freeze
   end
-  sample_sym_hash = Hash[sample_hash.keys.map!(&:to_sym).zip(sample_hash.values)].freeze
+  sample_sym_hash = sample_hash.keys.map!(&:to_sym).zip(sample_hash.values).to_h.freeze
 
   code '#[symbol] || def',     ->{ sample_sym_hash[:not] || 'default'.freeze }
   code '#fetch(symbol, def)',  ->{ sample_sym_hash.fetch(:not, 'default'.freeze) }

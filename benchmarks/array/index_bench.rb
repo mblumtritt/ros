@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 # #index & #find_index seems to be same on MRI
 RubyOnSpeed.test 'Array: index' do

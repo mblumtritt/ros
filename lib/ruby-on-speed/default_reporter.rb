@@ -9,26 +9,26 @@ module RubyOnSpeed
     end
 
     def bm=(bm)
-      puts bm.label
+      puts(bm.label)
       super
     end
 
     def start(count)
-      puts "#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil
+      puts("#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil)
     end
 
     def warming_start
-      puts '--------------------------------------------------- warmup -'
+      puts('--------------------------------------------------- warmup -')
     end
 
     def run_start
-      puts '------------------------------------------------ benchmark -'
+      puts('------------------------------------------------ benchmark -')
     end
 
     def compare(best, others)
-      puts '-' * 60
+      puts('-' * 60)
       super
-      puts '=' * 60, nil
+      puts('=' * 60, nil)
     end
   end
 end

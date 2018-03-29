@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Ruby: block call' do
   def block_call(arg, &block)

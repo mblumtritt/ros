@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array: concatinate' do
   sample_array = Array.new(1000, &:itself).freeze

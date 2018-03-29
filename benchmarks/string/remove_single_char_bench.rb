@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: remove single char' do
   sample_string = <<-EOS.freeze

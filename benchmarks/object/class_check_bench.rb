@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Object: class check' do
   Foo = Class.new

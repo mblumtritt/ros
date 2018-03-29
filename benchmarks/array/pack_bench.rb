@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array: pack' do
   sample_array = [0, 1, 21, 42, 0xffff].freeze

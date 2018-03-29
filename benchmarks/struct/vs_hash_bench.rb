@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Struct vs. Hash: access' do
   struct = Struct.new(:a, :b, :c, :d).new

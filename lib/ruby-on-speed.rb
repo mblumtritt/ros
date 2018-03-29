@@ -1,11 +1,13 @@
-module RubyOnSpeed
-  NAME = name
-  VERSION = '0.3.0'.freeze
-  Error = Class.new(StandardError)
-  Skipped = Class.new(StandardError)
+# frozen_string_literal: true
 
-  require_relative 'ruby_on_speed/register'
-  require_relative 'ruby_on_speed/benchmark'
+module RubyOnSpeed
+  NAME = name.freeze
+  Error = Class.new(RuntimeError)
+  Skipped = Class.new(RuntimeError)
+
+  require_relative('ruby-on-speed/version')
+  require_relative('ruby-on-speed/register')
+  require_relative('ruby-on-speed/benchmark')
 
   class << self
     def test(label = nil, &block)
@@ -35,18 +37,13 @@ module RubyOnSpeed
     end
 
     def report!
-      require_relative 'ruby_on_speed/reporter'
-      run Reporter.create(:default)
+      require_relative('ruby-on-speed/default_reporter')
+      run(DefaultReporter.new)
     end
 
     def find_best!
-      require_relative 'ruby_on_speed/reporter'
-      run Reporter.create(:progress)
-    end
-
-    def compare!
-      require_relative 'ruby_on_speed/reporter'
-      run Reporter.create(:table)
+      require_relative('ruby-on-speed/progress_reporter')
+      run(ProgressReporter.new)
     end
 
     def filter!(regexp)
@@ -55,31 +52,32 @@ module RubyOnSpeed
       Register.keep_if{ |name| regexp.match?(name) }
     rescue RegexpError => e
       self.action = :nop
-      abort "ERROR: #{e}"
+      abort("ERROR: #{e}")
     end
 
     private
 
     def test_benchmark(bm)
-      print "#{bm} ..."
+      print("#{bm} ...")
       bm.test!
-      puts 'ok'
+      puts('ok')
       true
     rescue Skipped => e
-      puts "skipped - #{e}"
+      puts("skipped - #{e}")
       true
     rescue Error => e
-      $stderr.puts "error - #{e}"
+      $stderr.puts("error - #{e}")
       false
     end
 
     def run(reporter)
       entries = Register.size
-      return if entries.zero?
+      return false if entries.zero?
       reporter.start(entries)
       Register.each{ |bm| bm.go!(reporter) }
+      true
     rescue Interrupt
-      $stderr.puts ' ABORTED'
+      $stderr.puts(' ABORTED')
     end
   end
 end

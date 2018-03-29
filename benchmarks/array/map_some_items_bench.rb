@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 require 'date'
 
 RubyOnSpeed.test 'Array: map some items' do

@@ -1,17 +1,7 @@
 # frozen_string_literal: true
 
 module RubyOnSpeed
-  autoload :DefaultReporter, "#{__dir__}/default_reporter"
-  autoload :ProgressReporter, "#{__dir__}/progress_reporter"
-  autoload :TableReporter, "#{__dir__}/table_reporter"
-
   class Reporter
-    def self.create(type)
-      name = "#{type.to_s.capitalize}Reporter"
-      raise("unknown reporter - #{type}") unless RubyOnSpeed.const_defined?(name)
-      RubyOnSpeed.const_get(name).new
-    end
-
     attr_reader :jobs
 
     def initialize
@@ -50,11 +40,11 @@ module RubyOnSpeed
     protected
 
     def compare(best, others)
-      printf "%20s: %10.1f i/s\n", best.label, best.ips
+      print(format("%20s: %10.1f i/s\n", best.label, best.ips))
       others.each do |report|
         name = report.label
         x = (best.ips.to_f / report.ips.to_f)
-        printf "%20s: %10.1f i/s - %.2fx slower\n", name, report.ips, x
+        print(format("%20s: %10.1f i/s - %.2fx slower\n", name, report.ips, x))
       end
     end
   end

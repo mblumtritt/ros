@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Ruby: proc/lambda/method call' do
   sample_proc = proc{ |arg| 21 + arg }

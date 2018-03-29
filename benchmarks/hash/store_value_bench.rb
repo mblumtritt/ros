@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash: store value' do
   code '#store', ->{ {}.store(42, :Ruby) }

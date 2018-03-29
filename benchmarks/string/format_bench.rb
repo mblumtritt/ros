@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby_on_speed'
+require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: formatting Float' do
   code 'String#%',         ->{ '%.2f' % Math::PI }

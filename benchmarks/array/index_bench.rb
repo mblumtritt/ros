@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/ruby-on-speed'
 
 # #index & #find_index seems to be same on MRI

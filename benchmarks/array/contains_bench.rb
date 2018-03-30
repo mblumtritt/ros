@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.test 'Array: contains element' do
   uses_boolean_results!
   sample_array = Array.new(1000){ Object.new }.freeze
-  sample = sample_array[-42]
+  sample = sample_array[-42].freeze
 
   code '#index',      ->{ sample_array.index(sample) }
   code '#find_index', ->{ sample_array.find_index(sample) }

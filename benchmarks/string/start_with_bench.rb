@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: start with' do
-  sample_string = (1_000..5_000).map{ |n| n.odd? ? "--#{n}" : n.to_s }
+  sample_string = (1_000..5_000).map{ |n| n.odd? ? "--#{n}" : n.to_s }.freeze
 
   code '#start_with?' do
     sample_string.map{ |s| s.start_with?('--'.freeze) }

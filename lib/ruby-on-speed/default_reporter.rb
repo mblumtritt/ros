@@ -18,17 +18,17 @@ module RubyOnSpeed
     end
 
     def warming_start
-      puts('--------------------------------------------------- warmup -')
+      puts('---------------------------------------------------------------------- warmup -')
     end
 
     def run_start
-      puts('------------------------------------------------ benchmark -')
+      puts('------------------------------------------------------------------- benchmark -')
     end
 
     def compare(best, others)
-      puts('-' * 60)
+      puts('=' * 79)
       super
-      puts('=' * 60, nil)
+      puts('=' * 79, nil)
     end
   end
 end

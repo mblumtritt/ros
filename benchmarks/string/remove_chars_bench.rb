@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: remove many chars' do
-  sample_string = <<-EOS.freeze
+  sample_string = <<-EOS
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -13,9 +13,9 @@ RubyOnSpeed.test 'String: remove many chars' do
   EOS
 
   regexp = / |e/
-  code '#gsub',   ->{ sample_string.gsub(regexp, ''.freeze) }
-  code '#tr',     ->{ sample_string.tr(' e'.freeze, ''.freeze) }
-  code '#delete', ->{ sample_string.delete(' e'.freeze) }
+  code '#gsub',   ->{ sample_string.gsub(regexp, '') }
+  code '#tr',     ->{ sample_string.tr(' e', '') }
+  code '#delete', ->{ sample_string.delete(' e') }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: replace' do
-  sample_string = <<-EOS.freeze
+  sample_string = <<-EOS
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -14,35 +14,35 @@ RubyOnSpeed.test 'String: replace' do
 
   code '#[a]=b' do
     str = sample_string.dup
-    str['veniam'.freeze] = 'Ruby'.freeze.freeze
+    str['veniam'] = 'Ruby'
     str
   end
 
   code 'at_index' do
     str = sample_string.dup
-    idx = str.index('veniam'.freeze) and str[idx, 'veniam'.freeze.size] = 'Ruby'.freeze
+    idx = str.index('veniam') and str[idx, 'veniam'.size] = 'Ruby'
     str
   end
 
   code '#sub(a, b)' do
     str = sample_string.dup
-    str.sub('veniam'.freeze, 'Ruby'.freeze)
+    str.sub('veniam', 'Ruby')
   end
 
   code '#sub!(a, b)' do
     str = sample_string.dup
-    str.sub!('veniam'.freeze, 'Ruby'.freeze)
+    str.sub!('veniam', 'Ruby')
     str
   end
 
   code '#gsub(a, b)' do
     str = sample_string.dup
-    str.gsub('veniam'.freeze, 'Ruby'.freeze)
+    str.gsub('veniam', 'Ruby')
   end
 
   code '#gsub!(a, b)' do
     str = sample_string.dup
-    str.gsub!('veniam'.freeze, 'Ruby'.freeze)
+    str.gsub!('veniam', 'Ruby')
     str
   end
 end

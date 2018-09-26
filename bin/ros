@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-HELP = <<~æ.freeze
+HELP = <<~EOS
   usage: ros command [options]
 
   valid commands:
@@ -14,7 +14,7 @@ HELP = <<~æ.freeze
 
   If an optional regular expression is given ([regexp]) then only benchmarks with
   matching name will be used for the command.
-æ
+EOS
 
 def load_all!
   require "#{ROOT_DIR}/lib/ruby-on-speed"

@@ -3,10 +3,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Integer: convert from String' do
-  sample = '42'.freeze
-
-  code 'String#to_i', ->{ sample.to_i }
-  code 'Integer()',   ->{ Integer(sample) }
+  code 'String#to_i', ->{ '42'.to_i }
+  code 'Integer()',   ->{ Integer('42') }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

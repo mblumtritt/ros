@@ -14,8 +14,8 @@ RubyOnSpeed.test 'Hash: get existing value' do
   code '#fetch(symbol)',     ->{ sample_sym_hash.fetch(:ru) }
   code '#[symbol] (*)',      ->{ sample_sym_identity_hash[:ru] }
   code '#fetch(symbol) (*)', ->{ sample_sym_identity_hash.fetch(:ru) }
-  code '#[string]',          ->{ sample_hash['ru'.freeze] }
-  code '#fetch(string)',     ->{ sample_hash.fetch('ru'.freeze) }
+  code '#[string]',          ->{ sample_hash['ru'] }
+  code '#fetch(string)',     ->{ sample_hash.fetch('ru') }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

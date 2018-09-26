@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String: replace all' do
-  sample_string = <<-EOS.freeze
+  sample_string = <<-EOS
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -14,12 +14,12 @@ RubyOnSpeed.test 'String: replace all' do
 
   code '#gsub(a, b)' do
     str = sample_string.dup
-    str.gsub('in'.freeze, 'Ruby'.freeze)
+    str.gsub('in', 'Ruby')
   end
 
   code '#gsub!(a, b)' do
     str = sample_string.dup
-    str.gsub!('in'.freeze, 'Ruby'.freeze)
+    str.gsub!('in', 'Ruby')
     str
   end
 end

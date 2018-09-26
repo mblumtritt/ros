@@ -4,8 +4,8 @@ require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Ruby: method call' do
   class CallA
-    def check(x)
-      21 + x
+    def check(num)
+      21 + num
     end
   end
 
@@ -13,14 +13,14 @@ RubyOnSpeed.test 'Ruby: method call' do
   end
 
   class CallC < CallA
-    def check(x)
+    def check(num)
       super
     end
   end
 
   module CallD
-    def check(x)
-      21 + x
+    def check(num)
+      21 + num
     end
   end
 

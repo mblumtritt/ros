@@ -24,6 +24,10 @@ module RubyOnSpeed
       @skip_test_reason = 'uses randomization'
     end
 
+    def uses_different_objects!
+      @skip_test_reason = 'uses different objects'
+    end
+
     def uses_boolean_results!
       @uses_boolean_results = true
     end

@@ -1,34 +1,38 @@
 # frozen_string_literal: true
 
 module RubyOnSpeed
-  Register = Class.new do
-    def initialize
-      @reg = {}
-    end
+  module Register
+    @reg = {}
 
-    def names
-      @reg.keys.sort!
-    end
+    class << self
+      def names
+        @reg.keys.sort!
+      end
 
-    def add(benchmark)
-      raise("benchmark already registered - #{benchmark.label}") if @reg.key?(benchmark.label)
-      @reg[benchmark.label] = benchmark
-    end
+      def add(benchmark)
+        if @reg.key?(benchmark.label)
+          raise("benchmark already registered - #{benchmark.label}")
+        end
+        @reg[benchmark.label] = benchmark
+      end
 
-    def delete(name)
-      @reg.delete(name)
-    end
+      def delete(name)
+        @reg.delete(name)
+      end
 
-    def each
-      block_given? ? names.map{ |name| yield(@reg[name]) } : enum_for(__method__)
-    end
+      def each
+        return enum_for(__method__) unless block_given?
+        names.each { |name| yield(@reg[name]) }
+      end
 
-    def keep_if
-      block_given? ? names.each{ |name| delete(name) unless yield(name) } : enum_for(__method__)
-    end
+      def keep_if
+        return enum_for(__method__) unless block_given?
+        names.each { |name| delete(name) unless yield(name) }
+      end
 
-    def size
-      @reg.values.inject(0){ |sum, bm| sum + bm.entries.size }
+      def size
+        @reg.values.inject(0) { |sum, bm| sum + bm.entries.size }
+      end
     end
-  end.new
+  end
 end

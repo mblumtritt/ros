@@ -17,13 +17,13 @@ HELP = <<~HELP_TEXT
 HELP_TEXT
 
 def load_all!
-  require "#{ROOT_DIR}/lib/ruby-on-speed"
-  Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each{ |fname| load fname }
+  require("#{ROOT_DIR}/lib/ruby-on-speed")
+  Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each{ |fname| load(fname) }
   RubyOnSpeed.filter! ARGV.join(' ')
 end
 
 $stdout.sync = $stderr.sync = true
-ROOT_DIR = File.realdirpath('../..', __FILE__)
+ROOT_DIR = File.realdirpath('..', __dir__)
 case COMMAND = ARGV.shift
 when nil, '-h', '--help', 'help'
   puts HELP
@@ -32,8 +32,8 @@ when '-v', '--version', 'version'
   puts "RubyOnSpeed version #{RubyOnSpeed::VERSION}"
 when 'list'
   load_all!
-  puts 'All registered benachmarks:', nil
-  RubyOnSpeed.names.each{ |name| puts name }
+  puts 'All registered benachmarks:'
+  RubyOnSpeed.names.each{ |name| puts "  #{name}" }
 when 'run'
   load_all!
   exit RubyOnSpeed.report!

@@ -4,17 +4,26 @@ require 'benchmark/ips'
 
 module RubyOnSpeed
   class Benchmark
-    attr_reader :entries
+    def initialize(label, block)
+      @label, @block = label, block
+      @test_type = :call
+      @entries = @report = @skip_test_reason = nil
+    end
 
-    def initialize(label)
-      @entries, @label = {}, label
-      @report = @skip_test_reason = @uses_boolean_results = nil
+    def entries
+      unless @entries
+        @entries = {}
+        instance_exec(&@block)
+        @block = nil
+      end
+      @entries
     end
 
     def code(name, func = nil, &block)
-      raise('no proc or block given') unless (func ||= block).respond_to?(:call)
+      func ||= block
+      raise('no proc given') unless func.respond_to?(:call)
       entry = ::Benchmark::IPS::Job::Entry.new(name, func)
-      raise('no name given') if entry.label.size.zero?
+      raise('no name given') if entry.label.empty?
       raise("name already used - #{entry.label}") if @entries.key?(entry.label)
       @entries[entry.label] = entry
     end
@@ -29,28 +38,27 @@ module RubyOnSpeed
     end
 
     def uses_boolean_results!
-      @uses_boolean_results = true
+      @test_type = ->(f){ !!f.call }
     end
 
-    def nop(*_)
-    end
+    def nop(*_); end
     alias ignore nop
     alias xcode nop
 
     def label
-      @label ||= @entries.keys.join(' vs. ')
+      @label ||= entries.keys.join(' vs. ')
     end
     alias to_s label
 
     def test!
       raise(Skipped, @skip_test_reason) if @skip_test_reason
-      @uses_boolean_results ? test_boolean_results(@entries.values) : test_results(@entries.values)
+      test_all(entries.values, &@test_type)
     end
 
     def go!(reporter)
       reporter.bm = self
       job = ::Benchmark::IPS::Job.new(reporter.options)
-      job.list.concat(@entries.values.shuffle)
+      job.list.concat(entries.values.shuffle)
       reporter.warming_start
       job.run_warmup
       reporter.run_start
@@ -60,19 +68,13 @@ module RubyOnSpeed
 
     private
 
-    def test_results(entries)
+    def test_all(entries)
       first = entries.shift
-      result = first.action.call
+      result = yield(first.action)
       entries.each do |entry|
-        raise(Error, "#{entry.label} has different result as #{first.label}") unless entry.action.call == result
-      end
-    end
-
-    def test_boolean_results(entries)
-      first = entries.shift
-      result = !!first.action.call
-      entries.each do |entry|
-        raise(Error, "#{entry.label} has different result as #{first.label}") unless !!entry.action.call == result
+        unless yield(entry.action) == result
+          raise(Error, "#{entry.label} has different result as #{first.label}")
+        end
       end
     end
   end

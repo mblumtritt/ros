@@ -12,16 +12,12 @@ module RubyOnSpeed
   class << self
     def test(label = nil, &block)
       raise('no block given') unless block
-      bm = Benchmark.new(label)
-      bm.instance_exec(&block)
-      Register.add(bm)
+      Register.add(Benchmark.new(label, block))
     end
     alias benchmark test
     alias check test
 
-    def nop!
-      # empty method - just to ignore a block
-    end
+    def nop!; end
     alias ignore nop!
     alias xtest nop!
     alias _test nop!
@@ -32,7 +28,7 @@ module RubyOnSpeed
 
     def test!
       errors = 0
-      Register.each{ |bm| errors += 1 unless test_benchmark(bm) }
+      Register.each { |bm| errors += 1 unless test_benchmark(bm) }
       errors
     end
 
@@ -49,7 +45,7 @@ module RubyOnSpeed
     def filter!(regexp)
       return unless regexp
       regexp = Regexp.new(regexp)
-      Register.keep_if{ |name| regexp.match?(name) }
+      Register.keep_if { |name| regexp.match?(name) }
     rescue RegexpError => e
       self.action = :nop
       abort("ERROR: #{e}")
@@ -74,7 +70,7 @@ module RubyOnSpeed
       entries = Register.size
       return false if entries.zero?
       reporter.start(entries)
-      Register.each{ |bm| bm.go!(reporter) }
+      Register.each { |bm| bm.go!(reporter) }
       true
     rescue Interrupt
       $stderr.puts(' ABORTED')

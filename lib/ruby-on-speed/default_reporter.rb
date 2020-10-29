@@ -5,7 +5,7 @@ require_relative 'reporter'
 module RubyOnSpeed
   class DefaultReporter < Reporter
     def options
-      {quiet: false, suite: self}
+      { quiet: false, suite: self }
     end
 
     def bm=(bm)
@@ -18,17 +18,28 @@ module RubyOnSpeed
     end
 
     def warming_start
-      puts('---------------------------------------------------------------------- warmup -')
+      puts(section('warmup'))
     end
 
     def run_start
-      puts('------------------------------------------------------------------- benchmark -')
+      puts(section('benchmark'))
     end
 
     def compare(best, others)
-      puts('=' * 79)
+      puts(line)
       super
-      puts('=' * 79, nil)
+      puts(line, nil)
+    end
+
+    protected
+
+    def line(char = '=')
+      char * 79
+    end
+
+    def section(str)
+      str = " #{str} -"
+      line('-').tap{ |ret| ret[-str.size, str.size] = str }
     end
   end
 end

@@ -4,20 +4,20 @@ require_relative 'reporter'
 
 module RubyOnSpeed
   class ProgressReporter < Reporter
-    def bm=(bm)
-      print("#{bm.label} ")
+    def bm=(value)
+      print("#{value.label} ")
       super
     end
 
-    def start(size)
-      puts("#{NAME} performs #{size} tests:")
+    def start(count)
+      puts("#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil)
     end
 
     def dot(*_)
       print('.')
     end
 
-    def warmup_stats(_time, ips)
+    def warmup_stats(_time, _ips)
       dot(super)
     end
 

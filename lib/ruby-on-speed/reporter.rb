@@ -9,17 +9,14 @@ module RubyOnSpeed
     end
 
     def options
-      {quiet: true, suite: self}
+      { quiet: true, suite: self }
     end
 
-    def bm=(bm)
-      @current_bm = @bms[bm.label] = []
+    def bm=(value)
+      @current_bm = @bms[value.label] = []
     end
 
-    def nop(*_)
-      # NOP
-    end
-
+    def nop(*_); end
     alias start nop
     alias warming_start nop
     alias warming nop
@@ -32,7 +29,7 @@ module RubyOnSpeed
     end
 
     def report
-      sorted = @current_bm.sort{ |a, b| b.ips <=> a.ips }
+      sorted = @current_bm.sort_by(&:ips).reverse!
       compare(sorted.shift, sorted)
       @current_bm = nil
     end
@@ -40,11 +37,16 @@ module RubyOnSpeed
     protected
 
     def compare(best, others)
-      print(format("%20s: %10.1f i/s\n", best.label, best.ips))
+      puts(format('%20s: %10.1f i/s', best.label, best.ips))
       others.each do |report|
-        name = report.label
-        x = (best.ips.to_f / report.ips.to_f)
-        print(format("%20s: %10.1f i/s - %.2fx slower\n", name, report.ips, x))
+        puts(
+          format(
+            '%20s: %10.1f i/s - %.2fx slower',
+            report.label,
+            report.ips,
+            (best.ips.to_f / report.ips)
+          )
+        )
       end
     end
   end

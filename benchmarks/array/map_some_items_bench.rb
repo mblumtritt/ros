@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/ruby-on-speed'
-require 'date'
 
 RubyOnSpeed.test 'Array: map some items' do
+  require 'date'
+
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze
 
   code '#select#map!' do
@@ -34,6 +35,10 @@ RubyOnSpeed.test 'Array: map some items' do
 
   code '#each_with_object#cmp' do
     sample_array.each_with_object([]){ |e, ret| ret << e.to_s if e.saturday? }
+  end
+
+  code '#filter_map' do
+    sample_array.filter_map{ |e| e.saturday? ? e.to_s : nil }
   end
 
   code 'copy#keep_if#map!' do

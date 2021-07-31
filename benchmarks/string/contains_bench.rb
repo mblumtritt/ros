@@ -12,9 +12,9 @@ RubyOnSpeed.test 'String: contains' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   SAMPLE_STRING
 
-  code 'Y#index',    ->{ !sample_string.index('pariatur').nil? }
+  code 'Y#index',    ->{ sample_string.index('pariatur') }
   code 'Y#include?', ->{ sample_string.include?('pariatur') }
-  code 'N#index',    ->{ !sample_string.index('mike').nil? }
+  code 'N#index',    ->{ sample_string.index('mike') }
   code 'N#include?', ->{ sample_string.include?('mike') }
 end
 

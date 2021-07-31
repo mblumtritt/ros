@@ -7,7 +7,7 @@ RubyOnSpeed.test 'Ruby: getter/setter vs. accessor' do
     attr_accessor :bar
 
     def initialize
-      @bar = @baz = 1
+      @bar = @baz = @foo = 1
     end
 
     def baz
@@ -17,12 +17,19 @@ RubyOnSpeed.test 'Ruby: getter/setter vs. accessor' do
     def baz=(value)
       @baz = value
     end
+
+    def foo = @foo
+
+    def foo=(value)
+      @foo = value
+    end
   end
 
-  GetterSetterFooInstance = GetterSetterFoo.new
+  getter_setter_foo = GetterSetterFoo.new
 
-  code 'accessor',      ->{ GetterSetterFooInstance.bar = GetterSetterFooInstance.bar }
-  code 'getter/setter', ->{ GetterSetterFooInstance.baz = GetterSetterFooInstance.baz }
+  code 'accessor',           ->{ getter_setter_foo.bar = getter_setter_foo.bar }
+  code 'getter/setter',      ->{ getter_setter_foo.baz = getter_setter_foo.baz }
+  code 'endl getter/setter', ->{ getter_setter_foo.foo = getter_setter_foo.foo }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

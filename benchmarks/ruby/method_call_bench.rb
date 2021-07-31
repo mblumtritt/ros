@@ -28,20 +28,21 @@ RubyOnSpeed.test 'Ruby: method call' do
     include CallD
   end
 
-  CallAInstance = CallA.new
-  CallBInstance = CallB.new
-  CallCInstance = CallC.new
-  CallEInstance = CallE.new
-  CallFInstance = Class.new.extend(CallD)
+  call_a = CallA.new
+  call_b = CallB.new
+  call_c = CallC.new
+  call_e = CallE.new
+  call_f = Class.new.extend(CallD)
 
-  code 'call',            ->{ CallAInstance.check(21) }
-  code 'send',            ->{ CallAInstance.send(:check, 21) }
-  code '__send__',        ->{ CallAInstance.__send__(:check, 21) }
-  code 'method().call',   ->{ CallAInstance.method(:check).call(21) }
-  code 'inherited_call',  ->{ CallBInstance.check(21) }
-  code 'super_call',      ->{ CallCInstance.check(21) }
-  code 'included_call',   ->{ CallEInstance.check(21) }
-  code 'extended_call',   ->{ CallFInstance.check(21) }
+  code 'call',            ->{ call_a.check(21) }
+  code 'send',            ->{ call_a.send(:check, 21) }
+  code 'public_send',     ->{ call_a.public_send(:check, 21) }
+  code '__send__',        ->{ call_a.__send__(:check, 21) }
+  code 'method().call',   ->{ call_a.method(:check).call(21) }
+  code 'inherited_call',  ->{ call_b.check(21) }
+  code 'super_call',      ->{ call_c.check(21) }
+  code 'included_call',   ->{ call_e.check(21) }
+  code 'extended_call',   ->{ call_f.check(21) }
 end
 
 # RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME

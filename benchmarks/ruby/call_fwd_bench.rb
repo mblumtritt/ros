@@ -25,11 +25,30 @@ RubyOnSpeed.test 'Ruby: call forwarding' do
     end
 
     def value
-      @origin.__send__(@entity)
+      origin.__send__(entity)
     end
 
     def value=(arg)
-      @origin.__send__(@entity_setter, arg)
+      origin.__send__(entity_setter, arg)
+    end
+
+    attr_reader :entity, :entity_setter
+  end
+
+  class CallFaker
+    attr_reader :origin
+
+    def initialize(origin, entity)
+      @origin = origin
+      @entity = "@#{entity}"
+    end
+
+    def value
+      @origin.instance_variable_get(@entity)
+    end
+
+    def value=(arg)
+      @origin.instance_variable_set(@entity, arg)
     end
   end
 
@@ -49,6 +68,7 @@ RubyOnSpeed.test 'Ruby: call forwarding' do
 
   origin = CallOrigin.new
   shadow = CallShadow.new(origin, :value)
+  faker = CallFaker.new(origin, :value)
   caller = origin.caller
   caller2 = CallCaller.new(-> { origin.value }, ->(arg) { origin.value = arg })
 
@@ -56,6 +76,8 @@ RubyOnSpeed.test 'Ruby: call forwarding' do
   code 'origin#value=',  -> { origin.value = 42 }
   code 'shadow#value',   -> { shadow.value }
   code 'shadow#value=',  -> { shadow.value = 42 }
+  code 'faker#value',    -> { faker.value }
+  code 'faker#value=',   -> { faker.value = 42 }
   code 'caller#value',   -> { caller.value }
   code 'caller#value=',  -> { caller.value = 42 }
   code 'caller2#value',  -> { caller2.value }

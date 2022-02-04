@@ -8,20 +8,19 @@ module RubyOnSpeed
       { quiet: false, suite: self }
     end
 
-    def bm=(bm)
-      puts(bm.label)
-      super
+    def bm=(value)
+      puts(super(value).label)
     end
 
     def start(count)
       puts("#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil)
     end
 
-    def warming_start
+    def start_warming
       puts(section('warmup'))
     end
 
-    def run_start
+    def start_running
       puts(section('benchmark'))
     end
 

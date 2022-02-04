@@ -5,8 +5,7 @@ require_relative 'reporter'
 module RubyOnSpeed
   class ProgressReporter < Reporter
     def bm=(value)
-      print("#{value.label} ")
-      super
+      print("#{super(value).label} ")
     end
 
     def start(count)

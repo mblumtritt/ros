@@ -4,50 +4,54 @@ module RubyOnSpeed
   class Reporter
     attr_reader :jobs
 
-    def initialize
-      @current_bm, @bms = nil, {}
-    end
-
     def options
-      { quiet: true, suite: self }
+      { quiet: true, suite: nil }
     end
 
     def bm=(value)
-      @current_bm = @bms[value.label] = []
+      @entries = []
+      @bm = value
     end
 
     def nop(*_); end
     alias start nop
-    alias warming_start nop
+    alias start_warming nop
     alias warming nop
     alias warmup_stats nop
-    alias run_start nop
+    alias start_running nop
     alias running nop
+    alias footer nop
 
     def add_report(report, _source)
-      @current_bm << report
+      @entries << report
     end
 
-    def report
-      sorted = @current_bm.sort_by(&:ips).reverse!
+    def run_comparison
+      sorted = @entries.sort_by { |e| e.stats.central_tendency }.reverse
       compare(sorted.shift, sorted)
-      @current_bm = nil
     end
 
     protected
 
     def compare(best, others)
-      puts(format('%20s: %10.1f i/s', best.label, best.ips))
+      puts(format('%20s: %10.1f i/s', best.label, best.stats.central_tendency))
       others.each do |report|
-        puts(
+        line =
           format(
-            '%20s: %10.1f i/s - %.2fx slower',
+            '%20s: %10.1f i/s - ',
             report.label,
-            report.ips,
-            (best.ips.to_f / report.ips)
+            report.stats.central_tendency
           )
-        )
+        if report.stats.overlaps?(best.stats)
+          next puts("#{line}same-ish: difference falls within error")
+        end
+        slowdown, error = report.stats.slowdown(best.stats)
+        line << format('%.2fx ', slowdown)
+        line << format(' (± %.2f)', error) if error
+        puts("#{line} slower")
       end
+      footer = best.stats.footer
+      puts(footer.rjust(40)) if footer
     end
   end
 end

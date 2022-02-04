@@ -57,13 +57,15 @@ module RubyOnSpeed
 
     def go!(reporter)
       reporter.bm = self
-      job = ::Benchmark::IPS::Job.new(reporter.options)
+      job = ::Benchmark::IPS::Job.new()
+      job.config(reporter.options)
       job.list.concat(entries.values.shuffle)
-      reporter.warming_start
+      reporter.start_warming
       job.run_warmup
-      reporter.run_start
+      reporter.start_running
       job.run_benchmark
-      reporter.report
+      reporter.footer
+      reporter.run_comparison
     end
 
     private

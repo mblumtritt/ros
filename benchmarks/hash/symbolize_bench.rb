@@ -3,10 +3,11 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash: symbolize keys' do
-  sample_hash = begin
-    ary = ('a'..'z').to_a.permutation(2).to_a.map!(&:join)
-    ary.zip(ary).to_h.freeze
-  end
+  sample_hash =
+    begin
+      ary = ('a'..'z').to_a.permutation(2).to_a.map!(&:join)
+      ary.zip(ary).to_h.freeze
+    end
 
   code '#transform_keys' do
     sample_hash.transform_keys(&:to_sym)
@@ -14,7 +15,7 @@ RubyOnSpeed.test 'Hash: symbolize keys' do
 
   code 'iterate' do
     ret = {}
-    sample_hash.each_pair{ |k, v| ret[k.to_sym] = v }
+    sample_hash.each_pair { |k, v| ret[k.to_sym] = v }
     ret
   end
 
@@ -23,7 +24,7 @@ RubyOnSpeed.test 'Hash: symbolize keys' do
   end
 
   code 'iterate2' do
-    sample_hash.each_with_object({}){ |(k, v), h| h[k.to_sym] = v }
+    sample_hash.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
   end
 end
 

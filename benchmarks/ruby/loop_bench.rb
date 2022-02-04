@@ -14,12 +14,15 @@ RubyOnSpeed.test 'Ruby: loop vs. while' do
 
   code 'while' do
     x = 0
-    while x < 10
-      x += 1
-    end
+    x += 1 while x < 10
+    x
+  end
+
+  code 'until' do
+    x = 0
+    x += 1 until x == 10
     x
   end
 end
 
-# RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

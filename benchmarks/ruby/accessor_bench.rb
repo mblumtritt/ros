@@ -27,9 +27,17 @@ RubyOnSpeed.test 'Ruby: getter/setter vs. accessor' do
 
   getter_setter_foo = GetterSetterFoo.new
 
-  code 'accessor',           ->{ getter_setter_foo.bar = getter_setter_foo.bar }
-  code 'getter/setter',      ->{ getter_setter_foo.baz = getter_setter_foo.baz }
-  code 'endl getter/setter', ->{ getter_setter_foo.foo = getter_setter_foo.foo }
+  code 'accessor' do
+    getter_setter_foo.bar = getter_setter_foo.bar
+  end
+
+  code 'getter/setter' do
+    getter_setter_foo.baz = getter_setter_foo.baz
+  end
+
+  code 'endl getter/setter' do
+    getter_setter_foo.foo = getter_setter_foo.foo
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

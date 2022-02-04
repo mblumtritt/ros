@@ -5,20 +5,20 @@ HELP = <<~HELP_TEXT
   usage: ros command [options]
 
   valid commands:
+     compare [regexp]   compare benchmarks and present fastest code
+     help               display this help
      list               list all available benchmarks
      run [regexp]       run all benchmarks
-     compare [regexp]   compare benchmarks and present fastest code
      test [regexp]      test benchmarks validity
-     help               display this help
      version            display version information
 
-  If an optional regular expression is given ([regexp]) then only benchmarks with
-  matching name will be used for the command.
+  If an optional regular expression is given ([regexp]) then only benchmarks
+  with matching name will be used for the command.
 HELP_TEXT
 
 def load_all!
   require("#{ROOT_DIR}/lib/ruby-on-speed")
-  Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each{ |fname| load(fname) }
+  Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each { |fname| load(fname) }
   RubyOnSpeed.filter! ARGV.join(' ')
 end
 
@@ -29,13 +29,15 @@ when nil, '-h', '--help', 'help'
   puts HELP
 when '-v', '--version', 'version'
   require "#{ROOT_DIR}/lib/ruby-on-speed/version"
-  puts "RubyOnSpeed version #{RubyOnSpeed::VERSION}"
+  puts RubyOnSpeed::ID
 when 'list'
   load_all!
   puts 'All registered benachmarks:'
-  RubyOnSpeed.names.each{ |name| puts "  #{name}" }
+  RubyOnSpeed.names.each { |name| puts "  #{name}" }
 when 'run'
+  as_json = ARGV.delete('--json')
   load_all!
+  exit RubyOnSpeed.json_report! if as_json
   exit RubyOnSpeed.report!
 when 'compare'
   load_all!

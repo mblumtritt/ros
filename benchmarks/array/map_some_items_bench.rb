@@ -12,33 +12,31 @@ RubyOnSpeed.test 'Array: map some items' do
   end
 
   code '#map#compact!' do
-    ret = sample_array.map{ |e| e.saturday? ? e.to_s : nil }
+    ret = sample_array.map { |e| e.saturday? ? e.to_s : nil }
     ret.compact!
     ret
   end
 
   code '#map#tap#compact!' do
-    sample_array.map{ |e| e.saturday? ? e.to_s : nil }.tap(&:compact!)
+    sample_array.map { |e| e.saturday? ? e.to_s : nil }.tap(&:compact!)
   end
 
   code '#each#cmp' do
     ret = []
-    sample_array.each{ |e| ret << e.to_s if e.saturday? }
+    sample_array.each { |e| ret << e.to_s if e.saturday? }
     ret
   end
 
   code '#tap#each#cmp' do
-    [].tap do |ret|
-      sample_array.each{ |e| ret << e.to_s if e.saturday? }
-    end
+    [].tap { |ret| sample_array.each { |e| ret << e.to_s if e.saturday? } }
   end
 
   code '#each_with_object#cmp' do
-    sample_array.each_with_object([]){ |e, ret| ret << e.to_s if e.saturday? }
+    sample_array.each_with_object([]) { |e, ret| ret << e.to_s if e.saturday? }
   end
 
   code '#filter_map' do
-    sample_array.filter_map{ |e| e.saturday? ? e.to_s : nil }
+    sample_array.filter_map { |e| e.saturday? ? e.to_s : nil }
   end
 
   code 'copy#keep_if#map!' do

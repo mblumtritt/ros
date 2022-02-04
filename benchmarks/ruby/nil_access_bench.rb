@@ -13,8 +13,8 @@ RubyOnSpeed.test 'Ruby: nil access' do
 
   nil_access_foo = NilAccessFoo.new
 
-  code 'nil-test', ->{ nil_access_foo.bar ? 42 + nil_access_foo.bar : 42}
-  code '.getter',  ->{ (nil_access_foo.bar || 0) + 42 }
+  code 'nil-test', -> { nil_access_foo.bar ? 42 + nil_access_foo.bar : 42 }
+  code '.getter', -> { (nil_access_foo.bar || 0) + 42 }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

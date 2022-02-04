@@ -12,10 +12,9 @@ RubyOnSpeed.test 'String: remove many chars' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   SAMPLE_STRING
 
-  regexp = / |e/
-  code '#gsub',   ->{ sample_string.gsub(regexp, '') }
-  code '#tr',     ->{ sample_string.tr(' e', '') }
-  code '#delete', ->{ sample_string.delete(' e') }
+  code '#gsub', -> { sample_string.gsub(%r{ |e}, '') }
+  code '#tr', -> { sample_string.tr(' e', '') }
+  code '#delete', -> { sample_string.delete(' e') }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

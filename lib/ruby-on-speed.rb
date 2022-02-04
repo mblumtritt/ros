@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module RubyOnSpeed
-  NAME = name.freeze
-  Error = Class.new(RuntimeError)
-  Skipped = Class.new(RuntimeError)
+  Error = Class.new(StandardError)
+  Skipped = Class.new(StandardError)
 
   require_relative('ruby-on-speed/version')
   require_relative('ruby-on-speed/register')
@@ -17,24 +16,30 @@ module RubyOnSpeed
     alias benchmark test
     alias check test
 
-    def nop!; end
-    alias ignore nop!
-    alias xtest nop!
-    alias _test nop!
+    def ignore; end
+    alias xtest ignore
 
     def names
       Register.names
     end
 
     def test!
-      errors = 0
-      Register.each { |bm| errors += 1 unless test_benchmark(bm) }
-      errors
+      Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 }
+      true
     end
 
     def report!
       require_relative('ruby-on-speed/default_reporter')
       run(DefaultReporter.new)
+    end
+
+    def json_report!
+      require_relative('ruby-on-speed/json_reporter')
+      JSONReporter.new.then do |reporter|
+        run(reporter)
+        reporter.finalize
+      end
+      true
     end
 
     def find_best!
@@ -67,13 +72,13 @@ module RubyOnSpeed
     end
 
     def run(reporter)
-      entries = Register.size
-      return false if entries.zero?
-      reporter.start(entries)
+      return false if Register.size.zero?
+      reporter.start(Register.size)
       Register.each { |bm| bm.go!(reporter) }
       true
     rescue Interrupt
       $stderr.puts(' ABORTED')
+      130
     end
   end
 end

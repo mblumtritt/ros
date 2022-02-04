@@ -3,6 +3,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Ruby: call forwarding' do
+  has_truthy_results!
+
   class CallOrigin
     attr_accessor :value
 
@@ -72,15 +74,15 @@ RubyOnSpeed.test 'Ruby: call forwarding' do
   caller = origin.caller
   caller2 = CallCaller.new(-> { origin.value }, ->(arg) { origin.value = arg })
 
-  code 'origin#value',   -> { origin.value }
-  code 'origin#value=',  -> { origin.value = 42 }
-  code 'shadow#value',   -> { shadow.value }
-  code 'shadow#value=',  -> { shadow.value = 42 }
-  code 'faker#value',    -> { faker.value }
-  code 'faker#value=',   -> { faker.value = 42 }
-  code 'caller#value',   -> { caller.value }
-  code 'caller#value=',  -> { caller.value = 42 }
-  code 'caller2#value',  -> { caller2.value }
+  code 'origin#value', -> { origin.value }
+  code 'origin#value=', -> { origin.value = 42 }
+  code 'shadow#value', -> { shadow.value }
+  code 'shadow#value=', -> { shadow.value = 42 }
+  code 'faker#value', -> { faker.value }
+  code 'faker#value=', -> { faker.value = 42 }
+  code 'caller#value', -> { caller.value }
+  code 'caller#value=', -> { caller.value = 42 }
+  code 'caller2#value', -> { caller2.value }
   code 'caller2#value=', -> { caller2.value = 42 }
 end
 

@@ -16,5 +16,4 @@ RubyOnSpeed.test 'Date: day diff' do
   end
 end
 
-# RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

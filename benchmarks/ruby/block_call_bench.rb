@@ -17,10 +17,10 @@ RubyOnSpeed.test 'Ruby: block call' do
 
   BLOCK = proc { |i| i + i }
 
-  code 'yield',       ->{ use_yield(1){ |i| i + i } }
-  code '&block#call', ->{ block_call(1){ |i| i + i } }
-  code 'block#call',  ->{ BLOCK.call(1) }
-  code 'block#[]',    ->{ BLOCK[1] }
+  code 'yield', -> { use_yield(1) { |i| i + i } }
+  code '&block#call', -> { block_call(1) { |i| i + i } }
+  code 'block#call', -> { BLOCK.call(1) }
+  code 'block#[]', -> { BLOCK[1] }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

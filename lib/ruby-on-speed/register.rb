@@ -31,7 +31,7 @@ module RubyOnSpeed
       end
 
       def size
-        @reg.values.inject(0) { |sum, bm| sum + bm.entries.size }
+        @reg.values.sum { |bm| bm.entries.size }
       end
     end
   end

@@ -9,27 +9,15 @@ module RubyOnSpeed
     end
 
     def start(count)
-      puts("#{NAME} on Ruby v#{RUBY_VERSION} performs #{count} tests", nil)
+      puts("run #{count} benchmarks:", nil)
     end
 
-    def dot(*_)
+    def nop(*_)
       print('.')
     end
 
-    def warmup_stats(_time, _ips)
-      dot(super)
-    end
-
-    def running(_name, _count)
-      dot(super)
-    end
-
-    def add_report(_report, _source)
-      dot(super)
-    end
-
     def compare(best, _others)
-      puts("ok - fastest: #{best.label}")
+      puts(" fastest: #{best.map { |b| "'#{b.label}'" }.join(' and ')}")
     end
   end
 end

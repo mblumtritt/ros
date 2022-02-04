@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Regexp: matches' do
-  uses_boolean_results!
+  has_truthy_results!
   sample_regexp = /cillum/
   sample_string = <<-SAMPLE_STRING
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -14,12 +14,12 @@ RubyOnSpeed.test 'Regexp: matches' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   SAMPLE_STRING
 
-  code '#match?',      ->{ sample_regexp.match?(sample_string) }
-  code '#===',         ->{ sample_regexp === sample_string }
-  code '#=~',          ->{ sample_regexp =~ sample_string }
-  code 'string#=~',    ->{ sample_string =~ sample_regexp }
-  code '#match',       ->{ sample_regexp.match(sample_string) }
-  code 'string#match', ->{ sample_string.match(sample_regexp) }
+  code '#match?', -> { sample_regexp.match?(sample_string) }
+  code '#===', -> { sample_regexp === sample_string }
+  code '#=~', -> { sample_regexp =~ sample_string }
+  code 'string#=~', -> { sample_string =~ sample_regexp }
+  code '#match', -> { sample_regexp.match(sample_string) }
+  code 'string#match', -> { sample_string.match(sample_regexp) }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

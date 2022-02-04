@@ -7,43 +7,32 @@ module RubyOnSpeed
     def initialize(label, block)
       @label, @block = label, block
       @test_type = :call
-      @entries = @report = @skip_test_reason = nil
+      @entries = @skip_test_reason = nil
     end
 
     def entries
-      unless @entries
+      if @entries.nil?
         @entries = {}
-        instance_exec(&@block)
+        DSL.new(self, @block)
         @block = nil
       end
       @entries
     end
 
-    def code(name, func = nil, &block)
-      func ||= block
-      raise('no proc given') unless func.respond_to?(:call)
-      entry = ::Benchmark::IPS::Job::Entry.new(name, func)
-      raise('no name given') if entry.label.empty?
-      raise("name already used - #{entry.label}") if @entries.key?(entry.label)
-      @entries[entry.label] = entry
-    end
-    alias report code
-
-    def uses_randomization!
-      @skip_test_reason = 'uses randomization'
+    def add(entry)
+      label = entry.label
+      raise('no name given') if label.empty?
+      raise("name already used - #{label}") if @entries.key?(label)
+      @entries[label] = entry
     end
 
-    def uses_different_objects!
-      @skip_test_reason = 'uses different objects'
+    def skip_test_reason=(value)
+      @skip_test_reason = value
     end
 
-    def uses_boolean_results!
-      @test_type = ->(f){ !!f.call }
+    def test_with(&block)
+      @test_type = block
     end
-
-    def nop(*_); end
-    alias ignore nop
-    alias xcode nop
 
     def label
       @label ||= entries.keys.join(' vs. ')
@@ -51,24 +40,31 @@ module RubyOnSpeed
     alias to_s label
 
     def test!
+      values = entries.values
       raise(Skipped, @skip_test_reason) if @skip_test_reason
-      test_all(entries.values, &@test_type)
+      test_all(values, &@test_type)
     end
 
     def go!(reporter)
       reporter.bm = self
-      job = ::Benchmark::IPS::Job.new()
-      job.config(reporter.options)
+      job = Job.new
+      job.suite = nil
+      job.reporter = reporter
       job.list.concat(entries.values.shuffle)
       reporter.start_warming
       job.run_warmup
       reporter.start_running
       job.run_benchmark
-      reporter.footer
       reporter.run_comparison
     end
 
     private
+
+    class Job < ::Benchmark::IPS::Job
+      def reporter=(reporter)
+        @stdout = reporter
+      end
+    end
 
     def test_all(entries)
       first = entries.shift
@@ -79,5 +75,37 @@ module RubyOnSpeed
         end
       end
     end
+
+    class DSL
+      def initialize(bm, block)
+        @bm = bm
+        instance_exec(&block)
+      end
+
+      def code(name, func = nil, &block)
+        func ||= block
+        raise('no proc given') unless func.respond_to?(:call)
+        @bm.add(::Benchmark::IPS::Job::Entry.new(name, func))
+      end
+      alias report code
+
+      def ignore(*_); end
+      alias xcode ignore
+      alias xreport ignore
+
+      def has_random_results!
+        @bm.skip_test_reason = 'has random results'
+      end
+
+      def has_truthy_results!
+        @bw.test_with { |f| !!f.call }
+      end
+
+      def has_different_object_results!
+        @bm.test_with { |f| f.call.is_a?(Object) }
+      end
+    end
+
+    private_constant(:DSL)
   end
 end

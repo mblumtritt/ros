@@ -7,7 +7,7 @@ RubyOnSpeed.test 'Array: iterate with index' do
 
   code '#each_with_index' do
     ret = 0
-    sample_array.each_with_index{ |element, index| ret += element + index }
+    sample_array.each_with_index { |element, index| ret += element + index }
     ret
   end
 
@@ -22,9 +22,7 @@ RubyOnSpeed.test 'Array: iterate with index' do
 
   code '#[]' do
     ret = 0
-    sample_array.size.times do |index|
-      ret += sample_array[index] + index
-    end
+    sample_array.size.times { |index| ret += sample_array[index] + index }
     ret
   end
 end

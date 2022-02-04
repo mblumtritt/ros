@@ -41,11 +41,11 @@ RubyOnSpeed.test 'Ruby: CONST access' do
     end
   end
 
-  code 'direct',        ->{ ConstC.check(21) }
-  code 'class.CONST',   ->{ ConstA2.check(21) }
-  code 'module.CONST',  ->{ ConstA.check(21) }
-  code 'module::CONST', ->{ ConstB.check(21) }
-  code 'class::CONST',  ->{ ConstB2.check(21) }
+  code 'direct', -> { ConstC.check(21) }
+  code 'class.CONST', -> { ConstA2.check(21) }
+  code 'module.CONST', -> { ConstA.check(21) }
+  code 'module::CONST', -> { ConstB.check(21) }
+  code 'class::CONST', -> { ConstB2.check(21) }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

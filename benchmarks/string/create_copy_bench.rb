@@ -10,11 +10,11 @@ RubyOnSpeed.test 'String: create copy' do
     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   SAMPLE_STRING
 
-  code '::new',       ->{ String.new(sample_string) }
-  code '#dup',        ->{ sample_string.dup }
-  code 'string#<<',   ->{ '' << sample_string }
-  code '"#{string}"', ->{ "#{sample_string}" }
-  code '#clone',      ->{ sample_string.clone }
+  code '::new', -> { String.new(sample_string) }
+  code '#dup', -> { sample_string.dup }
+  code 'string#<<', -> { '' << sample_string }
+  code '"#{string}"', -> { "#{sample_string}" }
+  code '#clone', -> { sample_string.clone }
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

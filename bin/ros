@@ -29,7 +29,7 @@ when nil, '-h', '--help', 'help'
   puts HELP
 when '-v', '--version', 'version'
   require "#{ROOT_DIR}/lib/ruby-on-speed/version"
-  puts RubyOnSpeed::ID
+  puts "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{RUBY_DESCRIPTION.capitalize}"
 when 'list'
   load_all!
   puts 'All registered benachmarks:'

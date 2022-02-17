@@ -20,6 +20,10 @@ RubyOnSpeed.test 'Hash: create from Array' do
     sample_array.each { |i| ret[i.id] = i }
     ret
   end
+
+  code '#each_with_object' do
+    sample_array.each_with_object({}) { |i, ret| ret[i.id] = i }
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME

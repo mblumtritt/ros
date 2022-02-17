@@ -13,4 +13,4 @@ RubyOnSpeed.test 'Array: index' do
   code '#find_index(&bl)', -> { sample_array.find_index { |i| i == sample } }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

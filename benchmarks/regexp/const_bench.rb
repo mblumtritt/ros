@@ -18,4 +18,4 @@ RubyOnSpeed.test 'Regexp: const vs. inline' do
   code 'const', -> { TEST_RE_1.match(sample_string) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

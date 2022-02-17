@@ -55,4 +55,4 @@ RubyOnSpeed.test 'Ruby: method call' do
   code 'extended_call', -> { call_g.check(21) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

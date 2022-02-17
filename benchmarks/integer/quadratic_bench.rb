@@ -7,5 +7,5 @@ RubyOnSpeed.test 'Integer: compare X**2 vs. x * x' do
   code 'x * x', -> { 113 * 113 }
 end
 
-# RubyOnSpeed.test! if __FILE__ == $PROGRAM_NAME
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+# RubyOnSpeed.test! if __FILE__ == Process.argv0
+RubyOnSpeed.report! if __FILE__ == Process.argv0

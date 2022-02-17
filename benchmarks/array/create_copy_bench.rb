@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Array: create copy' do
   code '[*array]', -> { [*sample_array] }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

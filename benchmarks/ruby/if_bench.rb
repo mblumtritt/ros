@@ -9,4 +9,4 @@ RubyOnSpeed.test 'Ruby: if' do
   code 'and', -> { 1 == 1 and 42 }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

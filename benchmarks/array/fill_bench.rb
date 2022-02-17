@@ -7,4 +7,4 @@ RubyOnSpeed.test 'Array: fill' do
   code '#fill', -> { [].fill(0, 100, &:itself) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

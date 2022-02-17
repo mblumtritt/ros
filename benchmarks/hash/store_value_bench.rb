@@ -7,4 +7,4 @@ RubyOnSpeed.test 'Hash: store value' do
   code '#[]=', -> { {}[42] = :Ruby }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

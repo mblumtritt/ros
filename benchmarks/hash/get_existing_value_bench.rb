@@ -22,4 +22,4 @@ RubyOnSpeed.test 'Hash: get existing value' do
   code '#fetch(string)', -> { sample_hash.fetch('ru') }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

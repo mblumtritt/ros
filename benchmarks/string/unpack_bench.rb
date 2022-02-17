@@ -10,4 +10,4 @@ RubyOnSpeed.test 'String: unpack' do
   code 'unpack_dedicated', -> { sample.unpack('l<l<l<l<l<') }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

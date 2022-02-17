@@ -9,4 +9,4 @@ RubyOnSpeed.test 'Array: min' do
   code '#sort[0]', -> { sample_array.dup.sort![0] }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

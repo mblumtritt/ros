@@ -11,4 +11,4 @@ RubyOnSpeed.test 'Proc: call' do
   code '#yield', -> { sample_proc.yield(28, 14) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

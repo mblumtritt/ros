@@ -24,4 +24,4 @@ RubyOnSpeed.test 'Array: remove nil' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

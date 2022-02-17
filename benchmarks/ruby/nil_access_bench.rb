@@ -17,4 +17,4 @@ RubyOnSpeed.test 'Ruby: nil access' do
   code '.getter', -> { (nil_access_foo.bar || 0) + 42 }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

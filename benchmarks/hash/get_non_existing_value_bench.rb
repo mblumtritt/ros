@@ -20,4 +20,4 @@ RubyOnSpeed.test 'Hash: get non-existing value' do
   code '#fetch(string, &blk)', -> { sample_hash.fetch('not') { 'default' } }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

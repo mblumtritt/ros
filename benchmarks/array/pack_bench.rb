@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Array: pack' do
   code 'pack_dedicated', -> { sample_array.pack('l<l<l<l<l<') }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

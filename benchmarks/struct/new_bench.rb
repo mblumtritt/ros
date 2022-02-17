@@ -11,4 +11,4 @@ RubyOnSpeed.test 'Struct vs. Hash: new' do
   code 'Hash.new', -> { { a: 1, b: 2, c: 3, d: 4 } }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

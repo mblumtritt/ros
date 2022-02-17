@@ -7,4 +7,4 @@ RubyOnSpeed.test 'Float: convert from String' do
   code 'Float()', -> { Float('44.21') }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

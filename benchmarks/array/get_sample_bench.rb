@@ -14,4 +14,4 @@ RubyOnSpeed.test 'Array: get a sample' do
   code '#shuffle[0]', -> { sample_array.shuffle[0] }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

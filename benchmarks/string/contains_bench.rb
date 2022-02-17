@@ -34,4 +34,4 @@ RubyOnSpeed.test 'String: contains not' do
   code '#include?', -> { sample_string.include?('badsample') }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

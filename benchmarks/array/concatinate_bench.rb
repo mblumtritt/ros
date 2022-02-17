@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Array: concatinate' do
   code '#[]#flatten!', -> { [sample_array, sample_array].flatten!(1) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

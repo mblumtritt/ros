@@ -20,4 +20,4 @@ RubyOnSpeed.test 'Ruby: proc/lambda/method call' do
   code 'method', -> { sample_method.call(21) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

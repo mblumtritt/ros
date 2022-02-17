@@ -98,7 +98,7 @@ module RubyOnSpeed
       end
 
       def has_truthy_results!
-        @bw.test_with { |f| !!f.call }
+        @bm.test_with { |f| !!f.call }
       end
 
       def has_different_object_results!

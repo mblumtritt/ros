@@ -13,4 +13,4 @@ RubyOnSpeed.test 'Hash: create copy' do
   code '#dup', -> { sample_hash.dup }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

@@ -86,4 +86,4 @@ RubyOnSpeed.test 'Ruby: call forwarding' do
   code 'caller2#value=', -> { caller2.value = 42 }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

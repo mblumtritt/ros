@@ -9,4 +9,4 @@ RubyOnSpeed.test 'String: formatting Float' do
   code 'Float#round (embed)', -> { "#{Math::PI.round(2)}" }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

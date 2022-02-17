@@ -9,4 +9,4 @@ RubyOnSpeed.test 'Array: access first element' do
   code '#first', -> { sample_array.first }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

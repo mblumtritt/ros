@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Array: get count of entries ' do
   code '#length', -> { sample_array.length }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

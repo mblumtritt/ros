@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Integer: compare zero' do
   code 'zero?', -> { foo.zero? }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

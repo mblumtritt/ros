@@ -10,4 +10,4 @@ RubyOnSpeed.test 'Object: class check' do
   code 'kind_of?', -> { instance.kind_of?(Foo) }
 end
 
-RubyOnSpeed.report! if __FILE__ == $PROGRAM_NAME
+RubyOnSpeed.report! if __FILE__ == Process.argv0

@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-HELP = <<~HELP_TEXT
+HELP = <<~HELP
   usage: ros command [options]
 
   valid commands:
-     compare [regexp]   compare benchmarks and present fastest code
-     help               display this help
      list               list all available benchmarks
      run [regexp]       run all benchmarks
+     compare [regexp]   compare benchmarks and present fastest code
      test [regexp]      test benchmarks validity
+     help               display this help
      version            display version information
 
   If an optional regular expression is given ([regexp]) then only benchmarks
   with matching name will be used for the command.
-HELP_TEXT
+HELP
 
 def load_all!
-  require("#{ROOT_DIR}/lib/ruby-on-speed")
+  require "#{ROOT_DIR}/lib/ruby-on-speed"
   Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each { |fname| load(fname) }
   RubyOnSpeed.filter! ARGV.join(' ')
 end
@@ -32,13 +32,11 @@ when '-v', '--version', 'version'
   puts "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{RUBY_DESCRIPTION.capitalize}"
 when 'list'
   load_all!
-  puts 'All registered benachmarks:'
+  puts 'All registered benchmarks:'
   RubyOnSpeed.names.each { |name| puts "  #{name}" }
 when 'run'
-  as_json = ARGV.delete('--json')
   load_all!
-  exit RubyOnSpeed.json_report! if as_json
-  exit RubyOnSpeed.report!
+  exit ARGV.delete('--json') ? RubyOnSpeed.json_report! : RubyOnSpeed.report!
 when 'compare'
   load_all!
   exit RubyOnSpeed.find_best!

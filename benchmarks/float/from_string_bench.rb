@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Float:from_string - convert a String to Float' do
-  sample = '44.21'
+  sample = '42.21'.freeze
 
   code 'String#to_f', -> { sample.to_f }
   code 'Float()', -> { Float(sample) }

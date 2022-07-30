@@ -22,6 +22,12 @@ RubyOnSpeed.test 'Array:compact - remove any nil element from an Array' do
     ret.delete_if(&:nil?)
     ret
   end
+
+  code '#delete' do
+    ret = Array.new(sample_array)
+    ret.delete(nil)
+    ret
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

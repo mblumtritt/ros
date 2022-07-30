@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require_relative '../../lib/ruby-on-speed'
+
+RubyOnSpeed.test 'Float:zero - test if a Float is zero' do
+  sample = 42.21
+
+  code '== 0', -> { sample == 0 }
+  code '0 ==', -> { 0 == sample }
+  code '== 0.0', -> { sample == 0.0 }
+  code '0.0 ==', -> { 0.0 == sample }
+  code 'zero?', -> { sample.zero? }
+end
+
+RubyOnSpeed.report! if __FILE__ == Process.argv0

@@ -37,11 +37,13 @@ when '-v', '--version', 'version'
   puts "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{RUBY_DESCRIPTION.capitalize}"
 when 'list'
   load_all!
-  puts 'All registered benchmarks:'
-  RubyOnSpeed.names.each { |name| puts "  #{name}" }
+  info = RubyOnSpeed.names.map!{ |name| name.split(' - ', 2) }
+  width = info.max_by{ |i| i[0].size }.first.size
+  info.each { |(name, desc)| puts "#{name.ljust(width)}  #{desc}" }
 when 'run'
+  json = ARGV.delete('--json')
   load_all!
-  exit ARGV.delete('--json') ? RubyOnSpeed.json_report! : RubyOnSpeed.report!
+  exit json ? RubyOnSpeed.json_report! : RubyOnSpeed.report!
 when 'compare'
   load_all!
   exit RubyOnSpeed.find_best!

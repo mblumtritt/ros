@@ -38,8 +38,8 @@ module RubyOnSpeed
       JSONReporter.new.then do |reporter|
         run(reporter)
         reporter.finalize
+        true
       end
-      true
     end
 
     def find_best!

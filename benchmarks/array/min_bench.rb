@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: min - find the lowest element of an Array' do
+RubyOnSpeed.test 'Array:min - find the lowest element of an Array' do
   sample_array = Array.new(10, &:itself).shuffle!.freeze
 
   code '#min', -> { sample_array.dup.min }

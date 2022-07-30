@@ -7,19 +7,19 @@ RubyOnSpeed.test 'Array: sort' do
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
 
   code '#sort_by' do
-    sample_array.sort_by(&:julian)
+    sample_array.sort_by(&:jd)
   end
 
   code '#sort' do
-    sample_array.sort { |a, b| a.julian <=> b.julian }
+    sample_array.sort { |a, b| a.jd <=> b.jd }
   end
 
   code '#sort_by!' do
-    Array.new(sample_array).sort_by!(&:julian)
+    Array.new(sample_array).sort_by!(&:jd)
   end
 
   code '#sort!' do
-    Array.new(sample_array).sort! { |a, b| a.julian <=> b.julian }
+    Array.new(sample_array).sort! { |a, b| a.jd <=> b.jd }
   end
 end
 

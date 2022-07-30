@@ -3,8 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array: unique values' do
-  sample_array = Array.new(1000) { Object.new }
-  (sample_array += sample_array).freeze
+  sample_array = Array.new(1000) { Object.new }.freeze
 
   code 'uniq' do
     sample_array.uniq

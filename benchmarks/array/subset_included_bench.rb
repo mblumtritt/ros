@@ -3,8 +3,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array: subset included' do
-  sample_all = [*(1..500)].freeze
-  sample_subset = [*(400..500)].freeze
+  sample_all = Array.new(500, &:itself).freeze
+  sample_subset = Array.new(100){ |i| i + 399}.freeze
 
   code '#-#empty?' do
     (sample_subset - sample_all).empty?

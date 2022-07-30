@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: get count of entries ' do
+RubyOnSpeed.test 'Array:size - get the count of Array entries ' do
   sample_array = Array.new(1000).freeze
 
   code '#size', -> { sample_array.size }

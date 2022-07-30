@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: map all items' do
+RubyOnSpeed.test 'Array:map - modify all elements of an Array' do
   sample_array = Array.new(100_000, &:itself).freeze
 
   code '#map' do

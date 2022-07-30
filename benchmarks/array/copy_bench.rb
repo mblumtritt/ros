@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: create copy' do
+RubyOnSpeed.test 'Array:copy - create a copy of an Array' do
   sample_array = Array.new(1000) { Object.new }.freeze
 
   code '::new', -> { Array.new(sample_array) }

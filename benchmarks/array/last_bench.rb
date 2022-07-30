@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: access last element' do
+RubyOnSpeed.test 'Array:last - access the last element of an Array' do
   sample_array = Array.new(100, &:itself).freeze
 
   code '#[-1]', -> { sample_array[-1] }

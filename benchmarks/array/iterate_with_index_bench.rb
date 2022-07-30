@@ -2,8 +2,10 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: iterate with index' do
-  sample_array = Array.new(1000, &:itself)
+RubyOnSpeed.test 'Array:iterate_with_index - ' \
+                   'iterate over all elements of an Array' do
+
+  sample_array = Array.new(1000, &:itself).freeze
 
   code '#each_with_index' do
     ret = 0

@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 require 'date'
 
-RubyOnSpeed.test 'Array: sort' do
+RubyOnSpeed.test 'Array:sort - sort an Array' do
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
 
   code '#sort_by' do

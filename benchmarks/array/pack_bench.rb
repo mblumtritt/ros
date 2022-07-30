@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: pack' do
+RubyOnSpeed.test 'Array:pack - pack a binary sequence' do
   sample_array = [0, 1, 21, 42, 0xffff].freeze
 
   code 'pack_count', -> { sample_array.pack('l<5') }

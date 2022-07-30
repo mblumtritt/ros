@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: contains element' do
+RubyOnSpeed.test 'Array:contains - check if an Array contains an element' do
   has_truthy_results!
 
   sample_array = Array.new(1000) { Object.new }.freeze

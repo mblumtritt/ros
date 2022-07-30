@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: get a sample' do
+RubyOnSpeed.test 'Array:sample - get a random element of an Array' do
   has_random_results!
 
   sample_array = Array.new(1000, &:itself).freeze

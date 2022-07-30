@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array: map some items' do
+RubyOnSpeed.test 'Array:map_some - modify' do
   require 'date'
 
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze

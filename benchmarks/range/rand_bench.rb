@@ -2,15 +2,15 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Range: rand' do
-  sample_range = (100..2000).freeze
+RubyOnSpeed.test 'Range:rand - get a random element of a Range' do
+  sample = (100..2000).freeze
 
   code 'inline' do
     rand(100..2000)
   end
 
   code 'explicate' do
-    rand(sample_range)
+    rand(sample)
   end
 end
 

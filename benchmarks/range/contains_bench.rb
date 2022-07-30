@@ -3,24 +3,28 @@
 require_relative '../../lib/ruby-on-speed'
 require 'date'
 
-RubyOnSpeed.test 'Range: contains element' do
-  sample_range = (Date.new(2000)..Date.new(2001)).freeze
-  sample = (sample_range.last - 42).freeze
+RubyOnSpeed.test 'Range:contains - test if an item is in a Range' do
+  sample = (Date.new(2000)..Date.new(2001)).freeze
+  item = (sample.last - 42).freeze
 
   code '#cover?' do
-    sample_range.cover?(sample)
+    sample.cover?(item)
   end
 
-  code 'compare' do
-    sample_range.first <= sample && sample <= sample_range.last
+  code 'compare1' do
+    sample.first <= item && item <= sample.last
+  end
+
+  code 'compare2' do
+    sample.begin <= item && item <= sample.end
   end
 
   code '#member?' do
-    sample_range.member?(sample)
+    sample.member?(item)
   end
 
   code '#include?' do
-    sample_range.include?(sample)
+    sample.include?(item)
   end
 end
 

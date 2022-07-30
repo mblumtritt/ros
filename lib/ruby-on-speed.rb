@@ -49,7 +49,7 @@ module RubyOnSpeed
 
     def filter!(regexp)
       return unless regexp
-      regexp = Regexp.new(regexp)
+      regexp = Regexp.new(regexp, Regexp::IGNORECASE)
       Register.keep_if { |name| regexp.match?(name) }
     rescue RegexpError => e
       self.action = :nop

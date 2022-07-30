@@ -17,7 +17,12 @@ HELP = <<~HELP
 HELP
 
 def load_all!
-  require "#{ROOT_DIR}/lib/ruby-on-speed"
+  require('bundler/inline')
+  gemfile do
+    source('https://rubygems.org')
+    gem('benchmark-ips', '>=2.9.3')
+  end
+  require("#{ROOT_DIR}/lib/ruby-on-speed")
   Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each { |fname| load(fname) }
   RubyOnSpeed.filter! ARGV.join(' ')
 end

@@ -2,36 +2,20 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String: contains' do
+RubyOnSpeed.test 'String:contains - test if a String contains another String' do
   has_truthy_results!
 
-  sample_string = <<-SAMPLE_STRING
+  sample = <<-TEXT
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  SAMPLE_STRING
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  TEXT
 
-  code '#index', -> { sample_string.index('pariatur') }
-  code '#include?', -> { sample_string.include?('pariatur') }
-end
-
-RubyOnSpeed.test 'String: contains not' do
-  has_truthy_results!
-
-  sample_string = <<-SAMPLE_STRING
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  SAMPLE_STRING
-
-  code '#index', -> { sample_string.index('badsample') }
-  code '#include?', -> { sample_string.include?('badsample') }
+  code '#index', -> { sample.index('pariatur') }
+  code '#include?', -> { sample.include?('pariatur') }
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

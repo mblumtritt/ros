@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: method call' do
+RubyOnSpeed.test 'Ruby:method_call - different method calls' do
   class CallA
     def check(num)
       21 + num

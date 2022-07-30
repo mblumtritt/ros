@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: call forwarding' do
+RubyOnSpeed.test 'Ruby:forwarding - forward a call' do
   has_truthy_results!
 
   class CallOrigin

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: assign' do
+RubyOnSpeed.test 'Ruby:assign - variable assignment' do
   code 'sequential_assignment' do
     x = 42
     a = 1

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: loop vs. while' do
+RubyOnSpeed.test 'Ruby:loop - different loops' do
   code 'loop' do
     x = 0
     loop do

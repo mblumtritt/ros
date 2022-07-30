@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: variable vs. constant result' do
+RubyOnSpeed.test 'Ruby:variable - access a value' do
   sample =
     Class.new do
       def initialize

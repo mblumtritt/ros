@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: if' do
+RubyOnSpeed.test 'Ruby:if - if vs. ternary if vs. and' do
   code 'if_end', -> { 42 if 1 == 1 }
   code 'if modifier', -> { 42 if 1 == 1 }
   code 'ternary if', -> { 1 == 1 ? 42 : 21 }

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: block call' do
+RubyOnSpeed.test 'Ruby:block - call a block' do
   def use_yield(arg)
     yield(arg)
   end

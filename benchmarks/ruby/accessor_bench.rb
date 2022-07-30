@@ -2,8 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: getter/setter vs. accessor' do
-  class GetterSetterFoo
+RubyOnSpeed.test 'Ruby:accessor - access object member' do
+  class SampleClass
     attr_accessor :bar
 
     def initialize
@@ -25,18 +25,19 @@ RubyOnSpeed.test 'Ruby: getter/setter vs. accessor' do
     end
   end
 
-  getter_setter_foo = GetterSetterFoo.new
-
   code 'accessor' do
-    getter_setter_foo.bar = getter_setter_foo.bar
+    sample = SampleClass.new
+    sample.bar = sample.bar
   end
 
   code 'getter/setter' do
-    getter_setter_foo.baz = getter_setter_foo.baz
+    sample = SampleClass.new
+    sample.baz = sample.baz
   end
 
   code 'endl getter/setter' do
-    getter_setter_foo.foo = getter_setter_foo.foo
+    sample = SampleClass.new
+    sample.foo = sample.foo
   end
 end
 

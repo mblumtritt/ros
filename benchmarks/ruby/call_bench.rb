@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby: proc/lambda/method call' do
+RubyOnSpeed.test 'Ruby:call - call a Proc/Lambda/Method' do
   sample_proc = proc { |arg| 21 + arg }
   sample_lambda = ->(arg) { 21 + arg }
   sample_method =

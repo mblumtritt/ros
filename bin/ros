@@ -36,10 +36,17 @@ when '-v', '--version', 'version'
   require "#{ROOT_DIR}/lib/ruby-on-speed/version"
   puts "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{RUBY_DESCRIPTION.capitalize}"
 when 'list'
+  markdown = ARGV.delete('--markdown')
   load_all!
-  info = RubyOnSpeed.names.map!{ |name| name.split(' - ', 2) }
-  width = info.max_by{ |i| i[0].size }.first.size
-  info.each { |(name, desc)| puts "#{name.ljust(width)}  #{desc}" }
+  benchmarks = RubyOnSpeed.to_a
+  if markdown
+    benchmarks.each do |bm|
+      puts "- [#{bm.name}](#{bm.source_file_name}) - #{bm.description}"
+    end
+  else
+    width = benchmarks.max_by { |bm| bm.name.size }.name.size
+    benchmarks.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
+  end
 when 'run'
   json = ARGV.delete('--json')
   load_all!

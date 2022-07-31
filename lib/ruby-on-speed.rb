@@ -19,8 +19,8 @@ module RubyOnSpeed
     def ignore; end
     alias xtest ignore
 
-    def names
-      Register.names
+    def to_a
+      Register.each.to_a
     end
 
     def test!

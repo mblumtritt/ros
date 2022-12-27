@@ -2,12 +2,16 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:create_cmp - create a Struct vs. create a Hash' do
+RubyOnSpeed.test 'Struct:create_cmp - create a Struct/Data/Hash' do
   has_different_object_results!
 
-  Sample = Struct.new(:a, :b, :c, :d)
+  sample = Struct.new(:a, :b, :c, :d)
+  data_sample = Data.define(:a, :b, :c, :d)
 
-  code 'Struct.new', -> { Sample.new(1, 2, 3, 4) }
+  code 'Struct.new', -> { sample.new(1, 2, 3, 4) }
+  code 'Struct.new2', -> { sample.new(a: 1, b: 2, c: 3, d: 4) }
+  code 'Data.new', -> { data_sample.new(1, 2, 3, 4) }
+  code 'Data.new2', -> { data_sample.new(a: 1, b: 2, c: 3, d: 4) }
   code 'Hash.new', -> { { a: 1, b: 2, c: 3, d: 4 } }
 end
 

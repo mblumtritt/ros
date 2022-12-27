@@ -24,6 +24,10 @@ RubyOnSpeed.test 'Hash:from_array - create an Hash from an Array' do
   code '#each_with_object' do
     sample.each_with_object({}) { |i, ret| ret[i.id] = i }
   end
+
+  code '#zip#to_h' do
+    sample.map(&:id).zip(sample).to_h
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

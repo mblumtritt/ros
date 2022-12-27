@@ -25,20 +25,11 @@ RubyOnSpeed.test 'Ruby:accessor - access object member' do
     end
   end
 
-  code 'accessor' do
-    sample = SampleClass.new
-    sample.bar = sample.bar
-  end
+  sample = SampleClass.new
 
-  code 'getter/setter' do
-    sample = SampleClass.new
-    sample.baz = sample.baz
-  end
-
-  code 'endl getter/setter' do
-    sample = SampleClass.new
-    sample.foo = sample.foo
-  end
+  code 'accessor', -> { sample.bar = sample.bar }
+  code 'getter/setter', -> { sample.baz = sample.baz }
+  code 'getter/setter*', -> { sample.foo = sample.foo }
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

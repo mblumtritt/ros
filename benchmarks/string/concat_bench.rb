@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String:concat - concat two Strings' do
@@ -13,8 +15,8 @@ RubyOnSpeed.test 'String:concat - concat two Strings' do
 
   code '#+', -> { 'just a test' + sample }
   code '"...#{str}"', -> { "just a test#{sample}" }
-  code '#<<', -> { 'just a test' << sample }
-  code '#concat', -> { 'just a test'.concat(sample) }
+  code '#<<', -> { +'just a test' << sample }
+  code '#concat', -> { (+'just a test').concat(sample) }
   code '#%', -> { 'just a test%s' % sample }
   code '#format', -> { format('just a test%s', sample) }
 end

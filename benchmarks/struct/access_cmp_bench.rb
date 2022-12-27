@@ -2,23 +2,22 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:access_cmp - access Struct member vs. access Hash' \
-                   ' pairs' do
+RubyOnSpeed.test 'Struct:access_cmp - access member Struct/Hash' do
 
-  StructSample = Struct.new(:a, :b, :c, :d)
+  sample = Struct.new(:a, :b, :c, :d)
 
   code 'struct#' do
-    sample = StructSample.new
-    sample.a = sample.b = 1
-    sample.c, sample.d = sample.a, sample.b
-    sample.a += sample.b
+    instance = sample.new
+    instance.a = instance.b = 1
+    instance.c, instance.d = instance.a, instance.b
+    instance.a += instance.b
   end
 
   code 'hash#' do
-    sample = {}
-    sample[:a] = sample[:b] = 1
-    sample[:c], sample[:d] = sample[:a], sample[:b]
-    sample[:a] += sample[:b]
+    instance = {}
+    instance[:a] = instance[:b] = 1
+    instance[:c], instance[:d] = instance[:a], instance[:b]
+    instance[:a] += instance[:b]
   end
 end
 

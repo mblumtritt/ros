@@ -18,5 +18,4 @@ RubyOnSpeed.test 'String:start - test if s String starts with a given String' do
   end
 end
 
-RubyOnSpeed.test! if __FILE__ == Process.argv0
 RubyOnSpeed.report! if __FILE__ == Process.argv0

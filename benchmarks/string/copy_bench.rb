@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String:copy - create a String copy' do
@@ -12,9 +14,9 @@ RubyOnSpeed.test 'String:copy - create a String copy' do
 
   code '::new', -> { String.new(sample) }
   code '#dup', -> { sample.dup }
-  code 'string#<<', -> { '' << sample }
-  code '"#{string}"', -> { "#{sample}" }
   code '#clone', -> { sample.clone }
+  code '+', -> { +sample } # works only for frozen strings
+  code '"#{string}"', -> { "#{sample}" }
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

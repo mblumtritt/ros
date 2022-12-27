@@ -5,9 +5,17 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.test 'Array:copy - create a copy of an Array' do
   sample_array = Array.new(1000) { Object.new }.freeze
 
-  code '::new', -> { Array.new(sample_array) }
-  code '#dup', -> { sample_array.dup }
-  code '[*array]', -> { [*sample_array] }
+  code '::new' do
+    Array.new(sample_array)
+  end
+
+  code '#dup' do
+    sample_array.dup
+  end
+
+  code '[*array]' do
+    [*sample_array]
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

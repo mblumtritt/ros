@@ -15,12 +15,23 @@ RubyOnSpeed.test 'Ruby:block - call a block' do
     block[arg]
   end
 
-  BLOCK = proc { |i| i + i }
+  block = proc { |i| i + i }
 
-  code 'yield', -> { use_yield(1) { |i| i + i } }
-  code '&block#call', -> { block_call(1) { |i| i + i } }
-  code 'block#call', -> { BLOCK.call(1) }
-  code 'block#[]', -> { BLOCK[1] }
+  code 'yield' do
+    use_yield(1) { |i| i + i }
+  end
+
+  code '&block#call' do
+    block_call(1) { |i| i + i }
+  end
+
+  code 'block#call' do
+    block.call(1)
+  end
+
+  code 'block#[]' do
+    block[1]
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

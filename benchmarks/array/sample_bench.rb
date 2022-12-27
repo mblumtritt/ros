@@ -8,10 +8,21 @@ RubyOnSpeed.test 'Array:sample - get a random element of an Array' do
   sample_array = Array.new(1000, &:itself).freeze
   sample_array_max = sample_array.size - 1
 
-  code '#sample', -> { sample_array.sample }
-  code '#[rand]', -> { sample_array[Random.rand(sample_array.size - 1)] }
-  code '#[rand2]', -> { sample_array[Random.rand(sample_array_max)] }
-  code '#shuffle[0]', -> { sample_array.shuffle[0] }
+  code '#sample' do
+    sample_array.sample
+  end
+
+  code '#[rand]' do
+    sample_array[Random.rand(sample_array.size - 1)]
+  end
+
+  code '#[rand2]' do
+    sample_array[Random.rand(sample_array_max)]
+  end
+
+  code '#shuffle[0]' do
+    sample_array.shuffle[0]
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

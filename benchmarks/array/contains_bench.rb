@@ -8,9 +8,17 @@ RubyOnSpeed.test 'Array:contains - check if an Array contains an element' do
   sample_array = Array.new(1000) { Object.new }.freeze
   sample = sample_array[-42].freeze
 
-  code '#index', -> { sample_array.index(sample) }
-  code '#find_index', -> { sample_array.find_index(sample) }
-  code '#include?', -> { sample_array.include?(sample) }
+  code '#index' do
+    sample_array.index(sample)
+  end
+
+  code '#find_index' do
+    sample_array.find_index(sample)
+  end
+
+  code '#include?' do
+    sample_array.include?(sample)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

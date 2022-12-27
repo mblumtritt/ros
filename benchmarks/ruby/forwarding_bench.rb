@@ -74,16 +74,45 @@ RubyOnSpeed.test 'Ruby:forwarding - forward a call' do
   caller = origin.caller
   caller2 = CallCaller.new(-> { origin.value }, ->(arg) { origin.value = arg })
 
-  code 'origin#value', -> { origin.value }
-  code 'origin#value=', -> { origin.value = 42 }
-  code 'shadow#value', -> { shadow.value }
-  code 'shadow#value=', -> { shadow.value = 42 }
-  code 'faker#value', -> { faker.value }
-  code 'faker#value=', -> { faker.value = 42 }
-  code 'caller#value', -> { caller.value }
-  code 'caller#value=', -> { caller.value = 42 }
-  code 'caller2#value', -> { caller2.value }
-  code 'caller2#value=', -> { caller2.value = 42 }
+  code 'origin#value' do
+    origin.value
+  end
+
+  code 'origin#value=' do
+    origin.value = 42
+  end
+
+  code 'shadow#value' do
+    shadow.value
+  end
+
+  code 'shadow#value=' do
+    shadow.value = 42
+  end
+
+  code 'faker#value' do
+    faker.value
+  end
+
+  code 'faker#value=' do
+    faker.value = 42
+  end
+
+  code 'caller#value' do
+    caller.value
+  end
+
+  code 'caller#value=' do
+    caller.value = 42
+  end
+
+  code 'caller2#value' do
+    caller2.value
+  end
+
+  code 'caller2#value=' do
+    caller2.value = 42
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

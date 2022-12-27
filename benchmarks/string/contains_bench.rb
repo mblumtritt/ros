@@ -14,8 +14,13 @@ RubyOnSpeed.test 'String:contains - test if a String contains another String' do
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
 
-  code '#index', -> { sample.index('pariatur') }
-  code '#include?', -> { sample.include?('pariatur') }
+  code '#index' do
+    sample.index('pariatur')
+  end
+
+  code '#include?' do
+    sample.include?('pariatur')
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

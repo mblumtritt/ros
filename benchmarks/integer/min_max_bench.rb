@@ -13,8 +13,13 @@ RubyOnSpeed.test 'Integer:min_max - find min and max' do
     [a, b]
   end
 
-  code 'Array#minmax', -> { minmax(21, 42) << minmax(42, 21) }
-  code 'compare',      -> { compare(21, 42) << compare(42, 21) }
+  code 'Array#minmax' do
+    minmax(21, 42) << minmax(42, 21)
+  end
+
+  code 'compare' do
+    compare(21, 42) << compare(42, 21)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

@@ -41,11 +41,25 @@ RubyOnSpeed.test 'Ruby:CONST - using a constant' do
     end
   end
 
-  code 'direct', -> { ConstC.check(21) }
-  code 'class.CONST', -> { ConstA2.check(21) }
-  code 'module.CONST', -> { ConstA.check(21) }
-  code 'module::CONST', -> { ConstB.check(21) }
-  code 'class::CONST', -> { ConstB2.check(21) }
+  code 'direct' do
+    ConstC.check(21)
+  end
+
+  code 'class.CONST' do
+    ConstA2.check(21)
+  end
+
+  code 'module.CONST' do
+    ConstA.check(21)
+  end
+
+  code 'module::CONST' do
+    ConstB.check(21)
+  end
+
+  code 'class::CONST' do
+    ConstB2.check(21)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

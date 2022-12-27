@@ -12,11 +12,26 @@ RubyOnSpeed.test 'String:copy - create a String copy' do
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
 
-  code '::new', -> { String.new(sample) }
-  code '#dup', -> { sample.dup }
-  code '#clone', -> { sample.clone }
-  code '+', -> { +sample } # works only for frozen strings
-  code '"#{string}"', -> { "#{sample}" }
+  code '::new' do
+    String.new(sample)
+  end
+
+  code '#dup' do
+    sample.dup
+  end
+
+  code '#clone' do
+    sample.clone
+  end
+
+  # works only for frozen strings
+  code '+' do
+    +sample
+  end
+
+  code '"#{string}"' do
+    "#{sample}"
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

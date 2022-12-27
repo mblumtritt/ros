@@ -3,7 +3,6 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'String:concat - concat two Strings' do
-
   sample = <<-TEXT
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -13,12 +12,29 @@ RubyOnSpeed.test 'String:concat - concat two Strings' do
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
 
-  code '#+', -> { 'just a test' + sample }
-  code '"...#{str}"', -> { "just a test#{sample}" }
-  code '#<<', -> { +'just a test' << sample }
-  code '#concat', -> { (+'just a test').concat(sample) }
-  code '#%', -> { 'just a test%s' % sample }
-  code '#format', -> { format('just a test%s', sample) }
+  code '#+' do
+    'just a test' + sample
+  end
+
+  code '"...#{str}"' do
+    "just a test#{sample}"
+  end
+
+  code '#<<' do
+    +'just a test' << sample
+  end
+
+  code '#concat' do
+    (+'just a test').concat(sample)
+  end
+
+  code '#%' do
+    'just a test%s' % sample
+  end
+
+  code '#format' do
+    format('just a test%s', sample)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

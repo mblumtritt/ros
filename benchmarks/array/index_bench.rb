@@ -7,10 +7,21 @@ RubyOnSpeed.test 'Array:index - find the index of an Array element' do
   sample_array = Array.new(1000) { Object.new }.freeze
   sample = sample_array[-1].freeze
 
-  code '#index(obj)', -> { sample_array.index(sample) }
-  code '#find_index(obj)', -> { sample_array.find_index(sample) }
-  code '#index(&bl)', -> { sample_array.index { |i| i == sample } }
-  code '#find_index(&bl)', -> { sample_array.find_index { |i| i == sample } }
+  code '#index(obj)' do
+    sample_array.index(sample)
+  end
+
+  code '#find_index(obj)' do
+    sample_array.find_index(sample)
+  end
+
+  code '#index(&bl)' do
+    sample_array.index { |i| i == sample }
+  end
+
+  code '#find_index(&bl)' do
+    sample_array.find_index { |i| i == sample }
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

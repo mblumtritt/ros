@@ -3,9 +3,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash:from_array - create an Hash from an Array' do
-  TestItem = Struct.new(:id, :name)
-
-  sample = Array.new(1000) { |i| TestItem.new(i + 1, "name-#{i}") }.freeze
+  sample_class = Data.define(:id, :name)
+  sample = Array.new(1000) { |i| sample_class.new(i + 1, "name-#{i}") }.freeze
 
   code 'Hash.[]' do
     Hash[sample.map { |i| [i.id, i] }]

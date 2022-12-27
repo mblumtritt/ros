@@ -9,8 +9,13 @@ RubyOnSpeed.test 'Hash:copy - create a copy of a Hash' do
       ary.zip(ary).to_h.freeze
     end
 
-  code '::[]', -> { Hash[sample] }
-  code '#dup', -> { sample.dup }
+  code '::[]' do
+    Hash[sample]
+  end
+
+  code '#dup' do
+    sample.dup
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

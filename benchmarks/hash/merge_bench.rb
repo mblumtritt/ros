@@ -4,10 +4,15 @@ require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash:merge - merge two Hashes' do
   # does not work with Strings as keys?!
-  sample = ('a'..'z').to_a.map! { |c| [c.to_sym, c] }.to_h.freeze
+  sample = Hash[('a'..'z').to_a.map! { |c| [c.to_sym, c] }].freeze
 
-  code '#merge', -> { { :a => 1, :b => 2, 1 => :a, 2 => :b }.merge(sample) }
-  code '#**', -> { { :a => 1, :b => 2, 1 => :a, 2 => :b, **sample } }
+  code '#merge' do
+    { :a => 1, :b => 2, 1 => :a, 2 => :b }.merge(sample)
+  end
+
+  code '#**' do
+    { :a => 1, :b => 2, 1 => :a, 2 => :b, **sample }
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

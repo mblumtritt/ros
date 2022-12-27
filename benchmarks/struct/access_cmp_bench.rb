@@ -3,7 +3,6 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Struct:access_cmp - access member Struct/Hash' do
-
   sample = Struct.new(:a, :b, :c, :d)
 
   code 'struct#' do

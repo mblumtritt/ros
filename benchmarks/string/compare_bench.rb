@@ -12,9 +12,17 @@ RubyOnSpeed.test 'String:casecmp - comparing two Strings case-insensitive' do
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
 
-  code '#==', -> { sample.downcase == sample.downcase }
-  code '#casecmp', -> { sample.casecmp(sample).zero? }
-  code '#casecmp?', -> { sample.casecmp?(sample) }
+  code '#==' do
+    sample.downcase == sample.downcase
+  end
+
+  code '#casecmp' do
+    sample.casecmp(sample).zero?
+  end
+
+  code '#casecmp?' do
+    sample.casecmp?(sample)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

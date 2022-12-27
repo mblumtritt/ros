@@ -99,10 +99,9 @@ module RubyOnSpeed
         instance_exec(&block)
       end
 
-      def code(name, func = nil, &block)
-        func ||= block
-        raise('no proc given') unless func.respond_to?(:call)
-        @bm.add(::Benchmark::IPS::Job::Entry.new(name, func))
+      def code(name, &block)
+        raise('no block given') if block.nil?
+        @bm.add(::Benchmark::IPS::Job::Entry.new(name, block))
       end
       alias report code
 

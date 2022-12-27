@@ -11,11 +11,15 @@ RubyOnSpeed.test 'Regexp:match - find Match of an Regexp' do
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
-
   sample = /cillum\s/.freeze
 
-  code 'inline', -> { /cillum\s/.match(text) }
-  code 'const', -> { sample.match(text) }
+  code 'inline' do
+    /cillum\s/.match(text)
+  end
+
+  code 'const' do
+    sample.match(text)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

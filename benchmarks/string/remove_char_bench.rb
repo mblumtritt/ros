@@ -11,11 +11,19 @@ RubyOnSpeed.test 'String:remove_char - remove a single char' do
     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
+  regexp = %r{ }
 
-  regexp = / /
-  code '#gsub', -> { sample.gsub(regexp, '') }
-  code '#tr', -> { sample.tr(' ', '') }
-  code '#delete', -> { sample.delete(' ') }
+  code '#gsub' do
+    sample.gsub(regexp, '')
+  end
+
+  code '#tr' do
+    sample.tr(' ', '')
+  end
+
+  code '#delete' do
+    sample.delete(' ')
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

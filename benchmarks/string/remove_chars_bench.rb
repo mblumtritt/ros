@@ -12,9 +12,17 @@ RubyOnSpeed.test 'String:remove_chars - remove some chars' do
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   TEXT
 
-  code '#gsub', -> { sample.gsub(%r{ |e}, '') }
-  code '#tr', -> { sample.tr(' e', '') }
-  code '#delete', -> { sample.delete(' e') }
+  code '#gsub' do
+    sample.gsub(%r{ |e}, '')
+  end
+
+  code '#tr' do
+    sample.tr(' e', '')
+  end
+
+  code '#delete' do
+    sample.delete(' e')
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

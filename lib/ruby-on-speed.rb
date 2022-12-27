@@ -9,12 +9,10 @@ module RubyOnSpeed
   require_relative('ruby-on-speed/benchmark')
 
   class << self
-    def test(label = nil, &block)
+    def test(label, &block)
       raise('no block given') unless block
       Register.add(Benchmark.new(label, block))
     end
-    alias benchmark test
-    alias check test
 
     def ignore; end
     alias xtest ignore

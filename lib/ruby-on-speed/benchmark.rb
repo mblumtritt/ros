@@ -103,11 +103,9 @@ module RubyOnSpeed
         raise('no block given') if block.nil?
         @bm.add(::Benchmark::IPS::Job::Entry.new(name, block))
       end
-      alias report code
 
       def ignore(*_); end
       alias xcode ignore
-      alias xreport ignore
 
       def has_random_results!
         @bm.skip_test_reason = 'has random results'

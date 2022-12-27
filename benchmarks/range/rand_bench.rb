@@ -3,6 +3,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Range:rand - get a random element of a Range' do
+  has_random_results!
+
   sample = (100..2000).freeze
 
   code 'inline' do

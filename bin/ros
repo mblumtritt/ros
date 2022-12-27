@@ -56,7 +56,7 @@ when 'compare'
   exit RubyOnSpeed.find_best!
 when 'test'
   load_all!
-  exit RubyOnSpeed.test!.zero?
+  exit RubyOnSpeed.test!
 else
   $stderr.puts "ros: no such command - #{COMMAND}"
   exit 2

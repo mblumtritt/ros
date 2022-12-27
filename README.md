@@ -29,6 +29,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Float:from_string](./benchmarks/float/from_string_bench.rb) - convert a String to Float
 - [Float:square](./benchmarks/float/square_bench.rb) - calculate the square of a Float
 - [Float:zero](./benchmarks/float/zero_bench.rb) - test if a Float is zero
+- [Hash:access](./benchmarks/hash/access_bench.rb) - get values of Hash in Hash
 - [Hash:copy](./benchmarks/hash/copy_bench.rb) - create a copy of a Hash
 - [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create an Hash from an Array
 - [Hash:invalid_value](./benchmarks/hash/invalid_value_bench.rb) - find value of a non-existing key in a Hash
@@ -36,11 +37,13 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Hash:store](./benchmarks/hash/store_bench.rb) - add a key/value pair to a Hash
 - [Hash:symbolize](./benchmarks/hash/symbolize_bench.rb) - symbolize all keys of a Hash
 - [Hash:value](./benchmarks/hash/value_bench.rb) - find value from a key
+- [Integer:min_max](./benchmarks/integer/min_max_bench.rb) - find min and max
 - [Integer:from_string](./benchmarks/integer/from_string_bench.rb) - convert a String to Integer
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
 - [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a  Class
 - [Proc:call](./benchmarks/proc/call_bench.rb) - call a Proc with parameters
+- [Range:comparison](./benchmarks/range/comparison_bench.rb) - test if an Comparable is in a Range
 - [Range:contains](./benchmarks/range/contains_bench.rb) - test if an item is in a Range
 - [Range:rand](./benchmarks/range/rand_bench.rb) - get a random element of a Range
 - [Range:to_a](./benchmarks/range/to_a_bench.rb) - convert a Range to an Array
@@ -49,14 +52,14 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Ruby:accessor](./benchmarks/ruby/accessor_bench.rb) - access object member
 - [Ruby:assign](./benchmarks/ruby/assign_bench.rb) - variable assignment
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
-- [Ruby:call](./benchmarks/ruby/call_bench.rb) - call a Proc/Lambda/Method
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and
 - [Ruby:loop](./benchmarks/ruby/loop_bench.rb) - different loops
-- [Ruby:method_call](./benchmarks/ruby/method_call_bench.rb) - different method calls
+- [Ruby:method_call](./benchmarks/ruby/method_call_bench.rb) - calling methods
 - [Ruby:variable](./benchmarks/ruby/variable_bench.rb) - access a value
 - [String: replace_first](./benchmarks/string/replace_first_bench.rb) - replace first sub string
 - [String::format](./benchmarks/string/format_bench.rb) - format a Float with two digits
+- [String:casecmp](./benchmarks/string/compare_bench.rb) - comparing two Strings case-insensitive
 - [String:concat](./benchmarks/string/concat_bench.rb) - concat two Strings
 - [String:contains](./benchmarks/string/contains_bench.rb) - test if a String contains another String
 - [String:copy](./benchmarks/string/copy_bench.rb) - create a String copy
@@ -65,6 +68,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [String:replace](./benchmarks/string/replace_bench.rb) - replace all sub strings
 - [String:start](./benchmarks/string/start_bench.rb) - test if s String starts with a given String
 - [String:unpack](./benchmarks/string/unpack_bench.rb) - Integers from binary String
-- [Struct:access_cmp](./benchmarks/struct/access_cmp_bench.rb) - access Struct member vs. access Hash pairs
-- [Struct:create_cmp](./benchmarks/struct/create_cmp_bench.rb) - create a Struct vs. create a Hash
+- [Struct:access_cmp](./benchmarks/struct/access_cmp_bench.rb) - access member Struct/Hash
+- [Struct:access_cmp](./benchmarks/struct/read_cmp_bench.rb) - read access member Struct/Data/Hash
+- [Struct:create_cmp](./benchmarks/struct/create_cmp_bench.rb) - create a Struct/Data/Hash
 - [Struct:member](./benchmarks/struct/member_bench.rb) - access the member of a Struct

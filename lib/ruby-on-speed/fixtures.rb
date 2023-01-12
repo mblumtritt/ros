@@ -4,7 +4,7 @@ module RubyOnSpeed
   module Fixtures
     @fixtures = {}
 
-    def self.defined
+    def self.names
       @fixtures.keys
     end
 

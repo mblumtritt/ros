@@ -5,7 +5,6 @@ require 'date'
 
 RubyOnSpeed.test 'Array:find_sorted - find first matching element of a' \
                    ' sorted Array' do
-
   sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze # is sorted
 
   code '#bsearch' do

@@ -14,7 +14,8 @@ module RubyOnSpeed
       Register.add(Benchmark.new(label, block))
     end
 
-    def ignore; end
+    def ignore
+    end
     alias xtest ignore
 
     def to_a

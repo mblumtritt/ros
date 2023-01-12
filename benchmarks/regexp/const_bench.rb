@@ -22,4 +22,4 @@ RubyOnSpeed.test 'Regexp:match - find Match of an Regexp' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

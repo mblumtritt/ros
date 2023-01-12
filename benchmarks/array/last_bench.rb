@@ -8,10 +8,10 @@ RubyOnSpeed.test 'Array:last - access the last element of an Array' do
   code '#[-1]' do
     sample_array[-1]
   end
-  
+
   code '#last' do
     sample_array.last
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

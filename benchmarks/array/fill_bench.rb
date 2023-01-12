@@ -12,4 +12,4 @@ RubyOnSpeed.test 'Array:fill - create an Array with Integers' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -18,4 +18,4 @@ RubyOnSpeed.test 'Integer:zero - test if an Integer is zero' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -14,4 +14,4 @@ RubyOnSpeed.test 'Integer:square - calculate the square of a Integer' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

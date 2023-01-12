@@ -14,4 +14,4 @@ RubyOnSpeed.test 'Range:to_a - convert a Range to an Array' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

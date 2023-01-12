@@ -26,4 +26,4 @@ RubyOnSpeed.test 'String:remove_char - remove a single char' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

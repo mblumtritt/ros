@@ -7,7 +7,8 @@ module RubyOnSpeed
       @bm = value
     end
 
-    def nop; end
+    def nop
+    end
 
     %i[
       start_warming

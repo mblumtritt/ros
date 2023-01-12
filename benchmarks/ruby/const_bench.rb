@@ -62,4 +62,4 @@ RubyOnSpeed.test 'Ruby:CONST - using a constant' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

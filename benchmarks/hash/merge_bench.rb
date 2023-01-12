@@ -15,4 +15,4 @@ RubyOnSpeed.test 'Hash:merge - merge two Hashes' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

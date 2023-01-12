@@ -103,6 +103,14 @@ RubyOnSpeed.test 'Ruby:method_call - calling methods' do
   code 'unbound class method call' do
     sample_class_unbound.call(21)
   end
+
+  code 'public_send' do
+    sample_base.public_send(:call, 21)
+  end
+
+  code '__send__' do
+    sample_base.__send__(:call, 21)
+  end
 end
 
 RubyOnSpeed.report! if __FILE__ == Process.argv0

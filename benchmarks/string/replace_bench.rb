@@ -17,4 +17,4 @@ RubyOnSpeed.test 'String:replace - replace all sub strings' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

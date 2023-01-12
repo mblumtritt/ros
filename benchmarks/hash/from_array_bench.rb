@@ -29,4 +29,4 @@ RubyOnSpeed.test 'Hash:from_array - create an Hash from an Array' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -20,4 +20,4 @@ RubyOnSpeed.test 'Struct:access_cmp - read access member Struct/Data/Hash' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

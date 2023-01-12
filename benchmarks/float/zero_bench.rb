@@ -26,4 +26,4 @@ RubyOnSpeed.test 'Float:zero - test if a Float is zero' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

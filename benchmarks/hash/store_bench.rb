@@ -12,4 +12,4 @@ RubyOnSpeed.test 'Hash:store - add a key/value pair to a Hash' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

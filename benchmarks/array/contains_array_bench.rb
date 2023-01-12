@@ -24,4 +24,4 @@ RubyOnSpeed.test 'Array:contains_array - test if all elements of an Array are' \
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

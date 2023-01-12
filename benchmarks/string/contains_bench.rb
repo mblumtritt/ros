@@ -16,4 +16,4 @@ RubyOnSpeed.test 'String:contains - test if a String contains another String' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

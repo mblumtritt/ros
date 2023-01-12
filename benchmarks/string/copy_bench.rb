@@ -27,4 +27,4 @@ RubyOnSpeed.test 'String:copy - create a String copy' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

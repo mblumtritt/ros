@@ -28,4 +28,4 @@ RubyOnSpeed.test 'Range:contains - test if an item is in a Range' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

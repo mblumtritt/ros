@@ -33,7 +33,9 @@ module RubyOnSpeed
       true
     end
 
-    def report!
+    def report!(file_name = nil)
+      return if !file_name.nil? && file_name != Process.argv0
+
       require_relative('ruby-on-speed/default_reporter')
       run(DefaultReporter.new)
     end
@@ -54,6 +56,7 @@ module RubyOnSpeed
 
     def filter!(regexp)
       return unless regexp
+
       regexp = Regexp.new(regexp, Regexp::IGNORECASE)
       Register.keep_if { |name| regexp.match?(name) }
     rescue RegexpError => e
@@ -87,8 +90,9 @@ module RubyOnSpeed
 
     def run(reporter)
       return false if Register.size.zero?
+
       reporter.start(Register.size)
-      Register.each { |bm| bm.go!(reporter) }
+      Register.each { |benchmark| benchmark.go!(reporter) }
       true
     rescue Interrupt
       $stderr.puts(' ABORTED')

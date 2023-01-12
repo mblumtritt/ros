@@ -28,4 +28,4 @@ RubyOnSpeed.test 'Array:index_iterate - ' \
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -20,4 +20,4 @@ RubyOnSpeed.test 'Ruby:if - if vs. ternary if vs. and' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

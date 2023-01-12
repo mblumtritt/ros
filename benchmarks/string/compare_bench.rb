@@ -18,4 +18,4 @@ RubyOnSpeed.test 'String:casecmp - comparing two Strings case-insensitive' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

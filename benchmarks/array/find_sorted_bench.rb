@@ -32,4 +32,4 @@ RubyOnSpeed.test 'Array:find_sorted - find first matching element of a' \
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

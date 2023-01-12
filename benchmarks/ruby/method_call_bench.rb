@@ -113,4 +113,4 @@ RubyOnSpeed.test 'Ruby:method_call - calling methods' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -41,7 +41,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Integer:from_string](./benchmarks/integer/from_string_bench.rb) - convert a String to Integer
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
-- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a  Class
+- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a Class
 - [Proc:call](./benchmarks/proc/call_bench.rb) - call a Proc with parameters
 - [Range:comparison](./benchmarks/range/comparison_bench.rb) - test if an Comparable is in a Range
 - [Range:contains](./benchmarks/range/contains_bench.rb) - test if an item is in a Range

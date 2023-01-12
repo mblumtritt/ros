@@ -7,6 +7,7 @@ module RubyOnSpeed
 
   class Benchmark
     attr_reader :source_file_name
+    attr_writer :skip_test_reason
 
     def initialize(label, block)
       @label = label
@@ -29,10 +30,6 @@ module RubyOnSpeed
       raise('no name given') if label.empty?
       raise("name already used - #{label}") if entries.key?(label)
       @entries[label] = entry
-    end
-
-    def skip_test_reason=(value)
-      @skip_test_reason = value
     end
 
     def test_with(&block)
@@ -94,29 +91,34 @@ module RubyOnSpeed
     end
 
     class DSL
-      def initialize(bm, block)
-        @bm = bm
+      def initialize(benchmark, block)
+        @benchmark = benchmark
         instance_exec(&block)
       end
 
       def code(name, &block)
         raise('no block given') if block.nil?
-        @bm.add(::Benchmark::IPS::Job::Entry.new(name, block))
+        @benchmark.add(::Benchmark::IPS::Job::Entry.new(name, block))
       end
 
-      def ignore(*_); end
+      def ignore(*_)
+      end
       alias xcode ignore
 
+      def fixture(name)
+        Fixtures[name]
+      end
+
       def has_random_results!
-        @bm.skip_test_reason = 'has random results'
+        @benchmark.skip_test_reason = 'has random results'
       end
 
       def has_truthy_results!
-        @bm.test_with { |f| !!f.call }
+        @benchmark.test_with { |f| !!f.call }
       end
 
       def has_different_object_results!
-        @bm.test_with { |f| f.call.is_a?(Object) }
+        @benchmark.test_with { |f| f.call.is_a?(Object) }
       end
     end
 

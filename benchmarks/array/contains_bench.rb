@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.test 'Array:contains - check if an Array contains an element' do
   has_truthy_results!
 
-  sample_array = Array.new(1000) { Object.new }.freeze
+  sample_array = fixture(:objects)
   sample = sample_array[-42].freeze
 
   code '#index' do

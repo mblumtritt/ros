@@ -4,11 +4,7 @@ require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash:invalid_value - find value of a non-existing key in ' \
                    'a Hash' do
-  sample =
-    begin
-      ary = ('a'..'z').to_a.permutation(2).to_a.map!(&:join)
-      ary.zip(ary).to_h.freeze
-    end
+  sample = fixture(:chars_hash)
   sample_sym = sample.keys.map!(&:to_sym).zip(sample.values).to_h.freeze
 
   code '#[symbol] || def' do

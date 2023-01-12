@@ -7,15 +7,22 @@ module RubyOnSpeed
   require_relative('ruby-on-speed/version')
   require_relative('ruby-on-speed/register')
   require_relative('ruby-on-speed/benchmark')
+  require_relative('ruby-on-speed/fixtures')
 
   class << self
     def test(label, &block)
       raise('no block given') unless block
+      load_fixture_file!
       Register.add(Benchmark.new(label, block))
     end
 
-    def ignore; end
+    def ignore
+    end
     alias xtest ignore
+
+    def fixtures(**pairs)
+      pairs.each_pair { |name, value| Fixtures[name] = value }
+    end
 
     def to_a
       Register.each.to_a
@@ -56,9 +63,18 @@ module RubyOnSpeed
 
     private
 
-    def test_benchmark(bm)
-      print("#{bm} ...")
-      bm.test!
+    def load_fixture_file!
+      fname =
+        File.join(
+          File.dirname(caller_locations(2, 1).first.absolute_path),
+          'fixtures.rb'
+        )
+      require(fname) if File.file?(fname)
+    end
+
+    def test_benchmark(benchmark)
+      print("#{benchmark} ...")
+      benchmark.test!
       puts('ok')
       true
     rescue Skipped => e

@@ -8,11 +8,11 @@ RubyOnSpeed.test 'Array:pack - pack a binary sequence' do
   code 'count' do
     sample_array.pack('l<5')
   end
-  
+
   code 'combined' do
     sample_array.pack('l<2l<l<2')
   end
-  
+
   code 'dedicated' do
     sample_array.pack('l<l<l<l<l<')
   end

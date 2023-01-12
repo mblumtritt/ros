@@ -18,4 +18,4 @@ RubyOnSpeed.test 'Array:size - get the count of Array entries ' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

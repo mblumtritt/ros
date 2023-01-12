@@ -16,4 +16,4 @@ RubyOnSpeed.test 'Array:iterate - iterate over all Array elements' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

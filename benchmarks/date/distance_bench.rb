@@ -16,4 +16,4 @@ RubyOnSpeed.test 'Date:distance - calculate number of days between two dates' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

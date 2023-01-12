@@ -22,4 +22,4 @@ RubyOnSpeed.test 'Integer:min_max - find min and max' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

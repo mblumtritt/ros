@@ -41,4 +41,4 @@ RubyOnSpeed.test 'Ruby:accessor - access object member' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

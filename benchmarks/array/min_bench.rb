@@ -14,4 +14,4 @@ RubyOnSpeed.test 'Array:min - find the lowest element of an Array' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

@@ -21,7 +21,6 @@ RubyOnSpeed.test 'Range:comparison - test if an Comparable is in a Range' do
   code '#<=' do
     start_value <= sample && sample <= end_value
   end
-
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

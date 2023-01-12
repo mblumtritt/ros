@@ -19,4 +19,4 @@ RubyOnSpeed.test 'Object:class - test if an Object is derived from a  Class' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

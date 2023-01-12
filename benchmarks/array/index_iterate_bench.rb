@@ -4,7 +4,6 @@ require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array:index_iterate - ' \
                    'iterate over all elements of an Array' do
-
   sample_array = Array.new(1000, &:itself).freeze
 
   code '#each_with_index' do
@@ -29,4 +28,4 @@ RubyOnSpeed.test 'Array:index_iterate - ' \
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

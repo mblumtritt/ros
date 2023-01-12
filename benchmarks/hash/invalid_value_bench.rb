@@ -36,4 +36,4 @@ RubyOnSpeed.test 'Hash:invalid_value - find value of a non-existing key in ' \
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

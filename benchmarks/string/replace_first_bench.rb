@@ -47,4 +47,4 @@ RubyOnSpeed.test 'String: replace_first - replace first sub string' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

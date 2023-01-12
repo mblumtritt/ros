@@ -13,4 +13,4 @@ RubyOnSpeed.test 'Float:square - calculate the square of a Float' do
     sample * sample
   end
 end
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

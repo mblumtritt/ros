@@ -29,4 +29,4 @@ RubyOnSpeed.test 'Struct:create_cmp - create a Struct/Data/Hash' do
   end
 end
 
-RubyOnSpeed.report! if __FILE__ == Process.argv0
+RubyOnSpeed.report! __FILE__

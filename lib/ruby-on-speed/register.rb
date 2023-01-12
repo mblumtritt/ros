@@ -22,11 +22,13 @@ module RubyOnSpeed
 
       def each
         return enum_for(__method__) unless block_given?
+
         names.each { |name| yield(@reg[name]) }
       end
 
       def keep_if
         return enum_for(__method__) unless block_given?
+
         names.each { |name| delete(name) unless yield(name) }
       end
 

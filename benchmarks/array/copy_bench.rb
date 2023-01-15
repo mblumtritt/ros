@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array:copy - create a copy of an Array' do
-  sample_array = Array.new(1000) { Object.new }.freeze
+  sample_array = fixture(:objects)
 
   code '::new' do
     Array.new(sample_array)

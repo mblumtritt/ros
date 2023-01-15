@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.test 'Array:iterate - iterate over all Array elements' do
   has_different_object_results!
 
-  sample_array = Array.new(1000, &:itself).freeze
+  sample_array = fixture(:integers)
 
   code '#each' do
     sample_array.each { |element| element + 1 }

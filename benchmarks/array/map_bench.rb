@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array:map - modify all elements of an Array' do
-  sample_array = Array.new(100_000, &:itself).freeze
+  sample_array = fixture(:integers)
 
   code '#map' do
     sample_array.dup.map(&:to_s)

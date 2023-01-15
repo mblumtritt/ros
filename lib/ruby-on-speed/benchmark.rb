@@ -29,7 +29,6 @@ module RubyOnSpeed
       label = entry.label
       raise('no name given') if label.empty?
       raise("name already used - #{label}") if entries.key?(label)
-
       @entries[label] = entry
     end
 
@@ -53,7 +52,6 @@ module RubyOnSpeed
     def test!
       values = entries.values
       raise(Skipped, @skip_test_reason) if @skip_test_reason
-
       test_all(values, &@test_type)
     end
 
@@ -100,7 +98,6 @@ module RubyOnSpeed
 
       def code(name, &block)
         raise('no block given') if block.nil?
-
         @benchmark.add(::Benchmark::IPS::Job::Entry.new(name, block))
       end
 

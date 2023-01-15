@@ -3,11 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash:symbolize - symbolize all keys of a Hash' do
-  sample =
-    begin
-      ary = ('a'..'z').to_a.permutation(2).to_a.map!(&:join)
-      ary.zip(ary).to_h.freeze
-    end
+  sample = fixture(:chars_hash)
 
   code '#transform_keys' do
     sample.transform_keys(&:to_sym)

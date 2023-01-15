@@ -110,7 +110,7 @@ module RubyOnSpeed
       end
 
       def has_random_results!
-        @benchmark.skip_test_reason = 'has random results'
+        @benchmark.skip_test_reason = 'random results'
       end
 
       def has_truthy_results!

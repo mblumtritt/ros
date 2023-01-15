@@ -10,9 +10,8 @@ module RubyOnSpeed
       end
 
       def add(benchmark)
-        if @reg.key?(benchmark.label)
+        @reg.key?(benchmark.label) and
           raise("benchmark already registered - #{benchmark.label}")
-        end
         @reg[benchmark.label] = benchmark
       end
 
@@ -34,6 +33,10 @@ module RubyOnSpeed
 
       def size
         @reg.values.sum { |bm| bm.entries.size }
+      end
+
+      def empty?
+        @reg.empty?
       end
     end
   end

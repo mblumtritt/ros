@@ -29,8 +29,8 @@ module RubyOnSpeed
     end
 
     def test!
-      Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 }
-      true
+      count = Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 }
+      count == Register.size
     end
 
     def report!(file_name = nil)
@@ -76,26 +76,25 @@ module RubyOnSpeed
     end
 
     def test_benchmark(benchmark)
-      print("#{benchmark} ...")
       benchmark.test!
-      puts('ok')
+      puts("✓ #{benchmark}")
       true
     rescue Skipped => e
-      puts("skipped - #{e}")
+      puts("• #{benchmark} (#{e})")
       true
     rescue Error => e
-      $stderr.puts("error - #{e}")
+      $stderr.puts("❗️#{benchmark}: #{e}")
       false
     end
 
     def run(reporter)
-      return false if Register.size.zero?
-
+      return false if Register.empty?
       reporter.start(Register.size)
       Register.each { |benchmark| benchmark.go!(reporter) }
       true
     rescue Interrupt
-      $stderr.puts(' ABORTED')
+      puts("\b\b  ") if $stdout.tty?
+      $stderr.puts('ABORTED')
       130
     end
   end

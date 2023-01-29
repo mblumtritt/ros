@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:loop - different loops' do
+RubyOnSpeed.test 'Ruby:endless_loop - different (nearly) endless loops' do
   code 'loop' do
     x = 0
     loop do
@@ -14,18 +14,18 @@ RubyOnSpeed.test 'Ruby:loop - different loops' do
 
   code 'while' do
     x = 0
-    while x < 10
-      # we prevent one-liners
+    while true # rubocop: disable Style/InfiniteLoop
       x += 1
+      break if x == 10
     end
     x
   end
 
   code 'until' do
     x = 0
-    until x == 10
-      # we prevent one-liners
+    until false # rubocop: disable Style/InfiniteLoop
       x += 1
+      break if x == 10
     end
     x
   end

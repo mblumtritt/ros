@@ -1,2 +1,2 @@
-*.locked
 /results
+Gemfile.lock

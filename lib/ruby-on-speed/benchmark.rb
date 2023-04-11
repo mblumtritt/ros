@@ -86,7 +86,7 @@ module RubyOnSpeed
 
     class Job < ::Benchmark::IPS::Job
       def reporter=(reporter)
-        @stdout = reporter
+        @out = reporter
       end
     end
 

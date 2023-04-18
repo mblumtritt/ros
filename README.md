@@ -5,8 +5,7 @@ An open collection of Ruby benchmarks.
 Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and reproducible way. It's based on the wonderful [Benchmark/Ips](https://github.com/evanphx/benchmark-ips) gem and provides an easy to use DSL to create the benchmark collection.
 
 ## List of Benchmarks
-
-- [Array:compact](./benchmarks/array/compact_bench.rb) - remove any nil element from an Array
+- [Array:compact](./benchmarks/array/compact_bench.rb) - remove all nil elements from an Array
 - [Array:concat](./benchmarks/array/concat_bench.rb) - concatenate two Arrays
 - [Array:contains](./benchmarks/array/contains_bench.rb) - check if an Array contains an element
 - [Array:contains_array](./benchmarks/array/contains_array_bench.rb) - test if all elements of an Array are included in another Array
@@ -23,7 +22,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Array:min](./benchmarks/array/min_bench.rb) - find the lowest element of an Array
 - [Array:pack](./benchmarks/array/pack_bench.rb) - pack a binary sequence
 - [Array:sample](./benchmarks/array/sample_bench.rb) - get a random element of an Array
-- [Array:size](./benchmarks/array/size_bench.rb) - get the count of Array entries
+- [Array:size](./benchmarks/array/size_bench.rb) - get the count of Array entries 
 - [Array:unique](./benchmarks/array/uniq_bench.rb) - remove all duplicate from an Array
 - [Date:distance](./benchmarks/date/distance_bench.rb) - calculate number of days between two dates
 - [Float:from_string](./benchmarks/float/from_string_bench.rb) - convert a String to Float
@@ -37,11 +36,11 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Hash:store](./benchmarks/hash/store_bench.rb) - add a key/value pair to a Hash
 - [Hash:symbolize](./benchmarks/hash/symbolize_bench.rb) - symbolize all keys of a Hash
 - [Hash:value](./benchmarks/hash/value_bench.rb) - find value from a key
-- [Integer:min_max](./benchmarks/integer/min_max_bench.rb) - find min and max
 - [Integer:from_string](./benchmarks/integer/from_string_bench.rb) - convert a String to Integer
+- [Integer:min_max](./benchmarks/integer/min_max_bench.rb) - find min and max
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
-- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a Class
+- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a  Class
 - [Proc:call](./benchmarks/proc/call_bench.rb) - call a Proc with parameters
 - [Range:comparison](./benchmarks/range/comparison_bench.rb) - test if an Comparable is in a Range
 - [Range:contains](./benchmarks/range/contains_bench.rb) - test if an item is in a Range
@@ -50,8 +49,10 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Regexp:match](./benchmarks/regexp/const_bench.rb) - find Match of an Regexp
 - [Ruby:CONST](./benchmarks/ruby/const_bench.rb) - using a constant
 - [Ruby:accessor](./benchmarks/ruby/accessor_bench.rb) - access object member
+- [Ruby:any](./benchmarks/ruby/any_bench.rb) - single test vs. any
 - [Ruby:assign](./benchmarks/ruby/assign_bench.rb) - variable assignment
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
+- [Ruby:endless_loop](./benchmarks/ruby/loop2_bench.rb) - different (nearly) endless loops
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and
 - [Ruby:loop](./benchmarks/ruby/loop_bench.rb) - different loops

@@ -20,7 +20,9 @@ RubyOnSpeed.test 'Ruby:accessor - access object member' do
           @baz = value
         end
 
-        def foo = @foo
+        def foo
+          @foo
+        end
 
         def foo=(value)
           @foo = value

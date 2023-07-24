@@ -2,17 +2,17 @@
 # frozen_string_literal: true
 
 HELP = <<~HELP
-  usage: ros command [options]
+  Usage: ros <command> [options]
 
-  valid commands:
-     list               list all available benchmarks
-     run [regexp]       run all benchmarks
-     compare [regexp]   compare benchmarks and present fastest code
-     test [regexp]      test benchmarks validity
-     help               display this help
-     version            display version information
+  Commands:
+     list                 list all available benchmarks
+     run [<regexp>]       run all benchmarks
+     compare [<regexp>]   compare benchmarks and present fastest code
+     test [<regexp>]      test benchmarks validity
+     help                 display this help
+     version              display version information
 
-  If an optional regular expression is given ([regexp]) then only benchmarks
+  If an optional regular expression is given (<regexp>) then only benchmarks
   with matching name will be used for the command.
 HELP
 
@@ -48,8 +48,10 @@ when 'list'
     benchmarks.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
   end
 when 'run'
+  compact = ARGV.delete('--compact')
   json = ARGV.delete('--json')
   load_all!
+  exit RubyOnSpeed.report!(compact: true) if compact
   exit json ? RubyOnSpeed.json_report! : RubyOnSpeed.report!
 when 'compare'
   load_all!

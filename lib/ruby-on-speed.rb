@@ -33,8 +33,13 @@ module RubyOnSpeed
       count == Register.size
     end
 
-    def report!(file_name = nil)
+    def report!(file_name = nil, compact: false)
       return if !file_name.nil? && file_name != Process.argv0
+
+      if compact
+        require_relative('ruby-on-speed/compact_reporter')
+        return run(CompactReporter.new)
+      end
 
       require_relative('ruby-on-speed/default_reporter')
       run(DefaultReporter.new)
@@ -42,11 +47,10 @@ module RubyOnSpeed
 
     def json_report!
       require_relative('ruby-on-speed/json_reporter')
-      JSONReporter.new.then do |reporter|
-        run(reporter)
-        reporter.finalize
-        true
-      end
+      reporter = JSONReporter.new
+      run(reporter)
+      reporter.finalize
+      true
     end
 
     def find_best!
@@ -93,8 +97,8 @@ module RubyOnSpeed
       Register.each { |benchmark| benchmark.go!(reporter) }
       true
     rescue Interrupt
-      puts("\b\b  ") if $stdout.tty?
-      $stderr.puts('ABORTED')
+      puts("\b\b ") if $stdout.tty?
+      $stderr.puts(' ABORTED')
       130
     end
   end

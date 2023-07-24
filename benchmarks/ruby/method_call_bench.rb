@@ -65,6 +65,12 @@ RubyOnSpeed.test 'Ruby:method_call - calling methods' do
   code 'evaled method' do
     sample_base.evaled_call(21)
   end
+  code 'instance_exec*' do
+    sample_base.instance_exec(21) { |num| 21 + num }
+  end
+  code 'instance_exec' do
+    sample_base.instance_exec(21, &sample_proc)
+  end
 
   code 'child method' do
     sample_child.call(21)

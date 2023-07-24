@@ -24,7 +24,7 @@ RubyOnSpeed.test 'Ruby:variable - access a value' do
           const + const
         end
 
-        def user_reader
+        def use_reader
           var + var
         end
       end
@@ -39,7 +39,7 @@ RubyOnSpeed.test 'Ruby:variable - access a value' do
   end
 
   code '#reader' do
-    sample.user_reader
+    sample.use_reader
   end
 end
 

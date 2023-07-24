@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+return unless defined?(Data)
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Struct:access_cmp - read access member Struct/Data/Hash' do

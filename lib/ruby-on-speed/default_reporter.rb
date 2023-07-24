@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'reporter'
+require_relative 'compact_reporter'
 
 module RubyOnSpeed
-  class DefaultReporter < Reporter
-    def bm=(value)
-      puts(super(value).label)
-    end
-
-    def start(count)
-      puts("run #{count} benchmarks:", nil)
-    end
-
+  class DefaultReporter < CompactReporter
     def start_warming
       puts(section('warmup'))
     end
@@ -35,48 +27,11 @@ module RubyOnSpeed
       super
     end
 
-    def compare(best, others)
-      puts(line)
-      show_winners(best)
-      show_others(best[0], others)
-      puts(line, nil)
-    end
-
     protected
-
-    def show_others(best, others)
-      others.each do |report|
-        slowdown, error = report.stats.slowdown(best.stats)
-        printf(
-          '%20s: %10.1f i/s - %.2fx ',
-          report.label,
-          report.stats.central_tendency,
-          slowdown
-        )
-        printf('(± %.2f) ', error) if error
-        puts('slower')
-      end
-    end
-
-    def show_winners(best)
-      best.each do |report|
-        line =
-          format(
-            '%20s: %10.1f i/s',
-            report.label,
-            report.stats.central_tendency
-          )
-        puts(line)
-      end
-    end
 
     def rjust(label)
       label = label.to_s
       label.size > 20 ? "#{label}\n#{' ' * 20}" : label.rjust(20)
-    end
-
-    def line(char = '=')
-      char * 79
     end
 
     def section(str)

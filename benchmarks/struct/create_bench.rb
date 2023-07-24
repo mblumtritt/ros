@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+return unless defined?(Data)
+
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:create_cmp - create a Struct/Data/Hash' do
+RubyOnSpeed.test 'Struct:create - create a Struct/Data/Hash' do
   has_different_object_results!
 
   sample = Struct.new(:a, :b, :c, :d)

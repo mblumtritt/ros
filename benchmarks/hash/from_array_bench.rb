@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+return unless defined?(Data)
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Hash:from_array - create an Hash from an Array' do

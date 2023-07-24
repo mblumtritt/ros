@@ -14,6 +14,10 @@ RubyOnSpeed.test 'Range:rand - get a random element of a Range' do
   code 'explicate' do
     rand(sample)
   end
+
+  code 'no_range' do
+    rand(1900) + 100
+  end
 end
 
 RubyOnSpeed.report! __FILE__

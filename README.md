@@ -4,7 +4,16 @@ An open collection of Ruby benchmarks.
 
 Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and reproducible way. It's based on the wonderful [Benchmark/Ips](https://github.com/evanphx/benchmark-ips) gem and provides an easy to use DSL to create the benchmark collection.
 
+## Test All Benchmarks
+
+Just run
+
+```shell
+./bin/ros test
+```
+
 ## List of Benchmarks
+- [Array:combine](./benchmarks/array/combine_bench.rb) - create an combined Array
 - [Array:compact](./benchmarks/array/compact_bench.rb) - remove all nil elements from an Array
 - [Array:concat](./benchmarks/array/concat_bench.rb) - concatenate two Arrays
 - [Array:contains](./benchmarks/array/contains_bench.rb) - check if an Array contains an element
@@ -24,7 +33,9 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Array:sample](./benchmarks/array/sample_bench.rb) - get a random element of an Array
 - [Array:size](./benchmarks/array/size_bench.rb) - get the count of Array entries 
 - [Array:unique](./benchmarks/array/uniq_bench.rb) - remove all duplicate from an Array
+- [Boolean:assign](./benchmarks/boolean/assign_bench.rb) - assign value
 - [Date:distance](./benchmarks/date/distance_bench.rb) - calculate number of days between two dates
+- [Float:const](./benchmarks/float/consts_bench.rb) - float constants
 - [Float:from_string](./benchmarks/float/from_string_bench.rb) - convert a String to Float
 - [Float:square](./benchmarks/float/square_bench.rb) - calculate the square of a Float
 - [Float:zero](./benchmarks/float/zero_bench.rb) - test if a Float is zero
@@ -41,7 +52,10 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
 - [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a  Class
+- [Object:method_argument](./benchmarks/ruby/argument_bench.rb) - test (default) arguments
+- [Object:respond_to](./benchmarks/object/respond_to_bench.rb) - test if object responds to
 - [Proc:call](./benchmarks/proc/call_bench.rb) - call a Proc with parameters
+- [Proc:to_proc](./benchmarks/proc/to_proc_bench.rb) - to_proc vs. call
 - [Range:comparison](./benchmarks/range/comparison_bench.rb) - test if an Comparable is in a Range
 - [Range:contains](./benchmarks/range/contains_bench.rb) - test if an item is in a Range
 - [Range:rand](./benchmarks/range/rand_bench.rb) - get a random element of a Range
@@ -52,6 +66,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Ruby:any](./benchmarks/ruby/any_bench.rb) - single test vs. any
 - [Ruby:assign](./benchmarks/ruby/assign_bench.rb) - variable assignment
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
+- [Ruby:const](./benchmarks/ruby/const_val_bench.rb) - const access
 - [Ruby:endless_loop](./benchmarks/ruby/loop2_bench.rb) - different (nearly) endless loops
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and
@@ -69,7 +84,8 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [String:replace](./benchmarks/string/replace_bench.rb) - replace all sub strings
 - [String:start](./benchmarks/string/start_bench.rb) - test if s String starts with a given String
 - [String:unpack](./benchmarks/string/unpack_bench.rb) - Integers from binary String
-- [Struct:access_cmp](./benchmarks/struct/access_cmp_bench.rb) - access member Struct/Hash
+- [Struct:access](./benchmarks/struct/access_bench.rb) - access member Struct/Hash
 - [Struct:access_cmp](./benchmarks/struct/read_cmp_bench.rb) - read access member Struct/Data/Hash
-- [Struct:create_cmp](./benchmarks/struct/create_cmp_bench.rb) - create a Struct/Data/Hash
+- [Struct:create](./benchmarks/struct/create_bench.rb) - create a Struct/Data/Hash
 - [Struct:member](./benchmarks/struct/member_bench.rb) - access the member of a Struct
+- [Symbol:convert](./benchmarks/symbol/convert_bench.rb) - convert to a Symbol

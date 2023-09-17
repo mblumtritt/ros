@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Array:iterate - iterate over all Array elements' do
-  has_different_object_results!
+  has_result_type(Object)
 
   sample_array = fixture(:integers)
 

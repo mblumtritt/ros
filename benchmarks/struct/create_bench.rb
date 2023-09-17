@@ -5,7 +5,7 @@ return unless defined?(Data)
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Struct:create - create a Struct/Data/Hash' do
-  has_different_object_results!
+  has_result_type(Object)
 
   sample = Struct.new(:a, :b, :c, :d)
   data_sample = Data.define(:a, :b, :c, :d)

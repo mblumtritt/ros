@@ -109,16 +109,20 @@ module RubyOnSpeed
         Fixtures[name]
       end
 
+      def test_result
+        @benchmark.test_with { |f| yield(f.call) }
+      end
+
+      def has_result_type(type)
+        test_result { |o| o.is_a?(type) }
+      end
+
       def has_random_results!
         @benchmark.skip_test_reason = 'random results'
       end
 
       def has_truthy_results!
-        @benchmark.test_with { |f| !!f.call }
-      end
-
-      def has_different_object_results!
-        @benchmark.test_with { |f| f.call.is_a?(Object) }
+        test_result { |o| !!o }
       end
     end
 

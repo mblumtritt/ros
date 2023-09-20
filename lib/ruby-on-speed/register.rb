@@ -4,40 +4,42 @@ module RubyOnSpeed
   module Register
     @reg = {}
 
-    class << self
-      def names
-        @reg.keys.sort!
-      end
+    def self.empty?
+      @reg.empty?
+    end
 
-      def add(benchmark)
-        @reg.key?(benchmark.label) and
-          raise("benchmark already registered - #{benchmark.label}")
-        @reg[benchmark.label] = benchmark
-      end
+    def self.size
+      @reg.size
+    end
 
-      def delete(name)
-        @reg.delete(name)
-      end
+    def self.benchmark_size
+      sum = 0
+      @reg.each_value { |bm| sum += bm.entries.size }
+      sum
+    end
 
-      def each
-        return enum_for(__method__) unless block_given?
+    def self.names
+      @reg.keys.sort!
+    end
 
-        names.each { |name| yield(@reg[name]) }
-      end
+    def self.add(benchmark)
+      @reg.key?(benchmark.label) and
+        raise("benchmark already registered - #{benchmark.label}")
+      @reg[benchmark.label] = benchmark
+    end
 
-      def keep_if
-        return enum_for(__method__) unless block_given?
+    def self.delete(name)
+      @reg.delete(name)
+    end
 
-        names.each { |name| delete(name) unless yield(name) }
-      end
+    def self.each
+      return enum_for(__method__) unless block_given?
+      names.each { |name| yield(@reg[name]) }
+    end
 
-      def size
-        @reg.values.sum { |bm| bm.entries.size }
-      end
-
-      def empty?
-        @reg.empty?
-      end
+    def self.keep_if
+      return enum_for(__method__) unless block_given?
+      names.each { |name| delete(name) unless yield(name) }
     end
   end
 end

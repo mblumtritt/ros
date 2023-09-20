@@ -29,20 +29,18 @@ module RubyOnSpeed
     end
 
     def test!
-      count = Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 }
-      count == Register.size
+      Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 } == Register.size
     end
 
     def report!(file_name = nil, compact: false)
-      return if !file_name.nil? && file_name != Process.argv0
-
-      if compact
-        require_relative('ruby-on-speed/compact_reporter')
-        return run(CompactReporter.new)
-      end
-
+      return if file_name && file_name != Process.argv0
       require_relative('ruby-on-speed/default_reporter')
       run(DefaultReporter.new)
+    end
+
+    def compact_report!
+      require_relative('ruby-on-speed/compact_reporter')
+      run(CompactReporter.new)
     end
 
     def json_report!
@@ -60,7 +58,6 @@ module RubyOnSpeed
 
     def filter!(regexp)
       return unless regexp
-
       regexp = Regexp.new(regexp, Regexp::IGNORECASE)
       Register.keep_if { |name| regexp.match?(name) }
     rescue RegexpError => e

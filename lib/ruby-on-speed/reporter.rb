@@ -8,6 +8,7 @@ module RubyOnSpeed
     end
 
     def nop
+      # nop
     end
 
     %i[

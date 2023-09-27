@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:unpack - Integers from binary String' do
+RubyOnSpeed.benchmark 'String:unpack - Integers from binary String' do
   sample = [0, 1, 21, 42, 0xffff].pack('l<5').freeze
 
   code 'count' do

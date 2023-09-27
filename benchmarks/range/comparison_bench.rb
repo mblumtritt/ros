@@ -1,24 +1,32 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/ruby-on-speed'
 require 'date'
+require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Range:comparison - test if an Comparable is in a Range' do
+RubyOnSpeed.benchmark 'Range:comparison - is a Comparable in a Range' do
   start_value = Time.utc(2020)
   end_value = Time.utc(2020, 1, 2, 3, 4, 5)
 
   range = (start_value..end_value)
-  sample = start_value + 86_400
+  sample = range.begin + 86_400
 
-  code 'Range#cover?' do
+  code '#cover?' do
     range.cover?(sample)
   end
 
-  code 'Comparable#between?' do
+  code '#between?' do
     sample.between?(start_value, end_value)
   end
 
-  code '#<=' do
+  code '#member?' do
+    range.member?(sample)
+  end
+
+  code '#include?' do
+    range.include?(sample)
+  end
+
+  code 'explicite #<=' do
     start_value <= sample && sample <= end_value
   end
 end

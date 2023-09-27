@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:any - single test vs. any' do
+RubyOnSpeed.benchmark 'Ruby:any - single test vs. any' do
   def test_dedicated
     1.even? || 3.even? || 5.even? || 7.even?
   end

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Hash:value - find value from a key' do
+RubyOnSpeed.benchmark 'Hash:value - find value from a key' do
   sample = fixture(:chars_hash)
   sample_sym = sample.keys.map!(&:to_sym).zip(sample.values).to_h.freeze
   sample_sym_identity = Hash[sample_sym].compare_by_identity.freeze

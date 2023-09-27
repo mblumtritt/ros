@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:variable - access a value' do
+RubyOnSpeed.benchmark 'Ruby:variable - access a value' do
   sample =
     Class
       .new do

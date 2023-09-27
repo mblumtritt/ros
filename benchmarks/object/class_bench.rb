@@ -2,7 +2,9 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Object:class - test if an Object is derived from a  Class' do
+RubyOnSpeed.benchmark(
+  'Object:class - test if an Object is derived from a  Class'
+) do
   sample_class = Class.new
   sample = Class.new(sample_class).new
 

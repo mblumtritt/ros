@@ -2,32 +2,18 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Hash:invalid_value - find value of a non-existing key in ' \
-                   'a Hash' do
+RubyOnSpeed.benchmark 'Hash:invalid_value - find non-existing value of Hash' do
   sample = fixture(:chars_hash)
-  sample_sym = sample.keys.map!(&:to_sym).zip(sample.values).to_h.freeze
 
-  code '#[symbol] || def' do
-    sample_sym[:not] || 'default'
-  end
-
-  code '#fetch(symbol, def)' do
-    sample_sym.fetch(:not, 'default')
-  end
-
-  code '#[string] || def' do
+  code '#[] || def' do
     sample['not'] || 'default'
   end
 
-  code '#fetch(string, def)' do
+  code '#fetch(key, default)' do
     sample.fetch('not', 'default')
   end
 
-  code '#fetch(symbol, &blk)' do
-    sample_sym.fetch(:not) { 'default' }
-  end
-
-  code '#fetch(string, &blk)' do
+  code '#fetch(key, &block)' do
     sample.fetch('not') { 'default' }
   end
 end

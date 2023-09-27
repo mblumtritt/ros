@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:CONST - using a constant' do
+RubyOnSpeed.benchmark 'Ruby:CONST - using a constant' do
   module ConstA
     CONST = 21
 

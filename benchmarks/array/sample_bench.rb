@@ -2,10 +2,10 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:sample - get a random element of an Array' do
-  has_random_results!
+RubyOnSpeed.benchmark 'Array:sample - get a random element of an Array' do
+  test_by_type!
 
-  sample_array = Array.new(1000, &:itself).freeze
+  sample_array = fixture(:integers)
   sample_array_max = sample_array.size - 1
 
   code '#sample' do

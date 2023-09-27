@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:replace - replace all sub strings' do
+RubyOnSpeed.benchmark 'String:replace - replace all sub strings' do
   sample = fixture(:lorem_ipsum)
 
   code '#gsub(a, b)' do

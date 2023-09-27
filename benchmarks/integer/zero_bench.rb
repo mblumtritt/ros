@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Integer:zero - test if an Integer is zero' do
+RubyOnSpeed.benchmark 'Integer:zero - test if an Integer is zero' do
   sample = 42
 
   code '== 0' do

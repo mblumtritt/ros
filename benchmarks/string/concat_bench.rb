@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 require_relative 'fixtures'
 
-RubyOnSpeed.test 'String:concat - concat two Strings' do
+RubyOnSpeed.benchmark 'String:concat - concat two Strings' do
   sample = fixture(:lorem_ipsum)
 
   code '#+' do

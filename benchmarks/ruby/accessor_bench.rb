@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:accessor - access object member' do
+RubyOnSpeed.benchmark 'Ruby:accessor - access object member' do
   sample =
     Class
       .new do

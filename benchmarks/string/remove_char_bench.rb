@@ -2,12 +2,11 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:remove_char - remove a single char' do
+RubyOnSpeed.benchmark 'String:remove_char - remove a single char' do
   sample = fixture(:lorem_ipsum)
-  regexp = %r{ }
 
   code '#gsub' do
-    sample.gsub(regexp, '')
+    sample.gsub(%r{ }, '')
   end
 
   code '#tr' do

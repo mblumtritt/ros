@@ -2,8 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Symbol:convert - convert to a Symbol' do
-  has_result_type(Symbol)
+RubyOnSpeed.benchmark 'Symbol:convert - convert to a Symbol' do
+  test_by_type!
 
   samples = ['test', :test, -'sample', :sample, Object.new, 42].freeze
 

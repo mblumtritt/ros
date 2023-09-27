@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:concat - concatenate two Arrays' do
+RubyOnSpeed.benchmark 'Array:concat - concatenate two Arrays' do
   sample_array = fixture(:integers)
 
   code '#+' do

@@ -2,8 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Range:to_a - convert a Range to an Array' do
-  sample_range = (1..10_000).freeze
+RubyOnSpeed.benchmark 'Range:to_a - convert a Range to an Array' do
+  sample_range = (1..10_000)
 
   code '#to_a' do
     sample_range.to_a

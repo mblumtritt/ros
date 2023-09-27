@@ -2,10 +2,9 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-# #index & #find_index seems to be same on MRI
-RubyOnSpeed.test 'Array:index - find the index of an Array element' do
+RubyOnSpeed.benchmark 'Array:index - find the index of an Array element' do
   sample_array = fixture(:objects)
-  sample = sample_array[-1].freeze
+  sample = sample_array.sample
 
   code '#index(obj)' do
     sample_array.index(sample)

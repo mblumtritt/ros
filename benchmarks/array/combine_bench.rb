@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:combine - create an combined Array' do
+RubyOnSpeed.benchmark 'Array:combine - create an combined Array' do
   sample_array_a = Array.new(100, &:itself).shuffle!.freeze
   sample_array_b = Array.new(100, &:itself).map!(&:to_s).shuffle!.freeze
 

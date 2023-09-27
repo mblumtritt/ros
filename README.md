@@ -4,26 +4,45 @@ An open collection of Ruby benchmarks.
 
 Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and reproducible way. It's based on the wonderful [Benchmark/Ips](https://github.com/evanphx/benchmark-ips) gem and provides an easy to use DSL to create the benchmark collection.
 
-## Test All Benchmarks
+## Usage
 
-Just run
+### Get Help
+
+```shell
+./bin/ros help
+```
+
+### List All Benchmarks
+
+```shell
+./bin/ros list
+```
+
+### Test All Benchmarks
 
 ```shell
 ./bin/ros test
 ```
 
+### Run All Benchmarks
+
+```shell
+./bin/ros run
+```
+
 ## List of Benchmarks
+
 - [Array:combine](./benchmarks/array/combine_bench.rb) - create an combined Array
 - [Array:compact](./benchmarks/array/compact_bench.rb) - remove all nil elements from an Array
 - [Array:concat](./benchmarks/array/concat_bench.rb) - concatenate two Arrays
 - [Array:contains](./benchmarks/array/contains_bench.rb) - check if an Array contains an element
-- [Array:contains_array](./benchmarks/array/contains_array_bench.rb) - test if all elements of an Array are included in another Array
+- [Array:contains_array](./benchmarks/array/contains_array_bench.rb) - Array elements included in another Array
 - [Array:copy](./benchmarks/array/copy_bench.rb) - create a copy of an Array
 - [Array:fill](./benchmarks/array/fill_bench.rb) - create an Array with Integers
-- [Array:find_sorted](./benchmarks/array/find_sorted_bench.rb) - find first matching element of a sorted Array
+- [Array:find_sorted](./benchmarks/array/find_sorted_bench.rb) - find element in a sorted Array
 - [Array:first](./benchmarks/array/first_bench.rb) - access the first element of an Array
 - [Array:index](./benchmarks/array/index_bench.rb) - find the index of an Array element
-- [Array:index_iterate](./benchmarks/array/index_iterate_bench.rb) - iterate over all elements of an Array
+- [Array:index_iterate](./benchmarks/array/index_iterate_bench.rb) - iterate all elements
 - [Array:iterate](./benchmarks/array/iterate_bench.rb) - iterate over all Array elements
 - [Array:last](./benchmarks/array/last_bench.rb) - access the last element of an Array
 - [Array:map](./benchmarks/array/map_bench.rb) - modify all elements of an Array
@@ -31,8 +50,8 @@ Just run
 - [Array:min](./benchmarks/array/min_bench.rb) - find the lowest element of an Array
 - [Array:pack](./benchmarks/array/pack_bench.rb) - pack a binary sequence
 - [Array:sample](./benchmarks/array/sample_bench.rb) - get a random element of an Array
-- [Array:size](./benchmarks/array/size_bench.rb) - get the count of Array entries 
-- [Array:unique](./benchmarks/array/uniq_bench.rb) - remove all duplicate from an Array
+- [Array:size](./benchmarks/array/size_bench.rb) - get the count of Array entries
+- [Array:unique](./benchmarks/array/uniq_bench.rb) - remove all duplicates from an Array
 - [Boolean:assign](./benchmarks/boolean/assign_bench.rb) - assign value
 - [Date:distance](./benchmarks/date/distance_bench.rb) - calculate number of days between two dates
 - [Float:const](./benchmarks/float/consts_bench.rb) - float constants
@@ -42,7 +61,7 @@ Just run
 - [Hash:access](./benchmarks/hash/access_bench.rb) - get values of Hash in Hash
 - [Hash:copy](./benchmarks/hash/copy_bench.rb) - create a copy of a Hash
 - [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create an Hash from an Array
-- [Hash:invalid_value](./benchmarks/hash/invalid_value_bench.rb) - find value of a non-existing key in a Hash
+- [Hash:invalid_value](./benchmarks/hash/invalid_value_bench.rb) - find non-existing value of Hash
 - [Hash:merge](./benchmarks/hash/merge_bench.rb) - merge two Hashes
 - [Hash:store](./benchmarks/hash/store_bench.rb) - add a key/value pair to a Hash
 - [Hash:symbolize](./benchmarks/hash/symbolize_bench.rb) - symbolize all keys of a Hash
@@ -51,13 +70,12 @@ Just run
 - [Integer:min_max](./benchmarks/integer/min_max_bench.rb) - find min and max
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
-- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a  Class
+- [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a Class
 - [Object:method_argument](./benchmarks/ruby/argument_bench.rb) - test (default) arguments
 - [Object:respond_to](./benchmarks/object/respond_to_bench.rb) - test if object responds to
 - [Proc:call](./benchmarks/proc/call_bench.rb) - call a Proc with parameters
 - [Proc:to_proc](./benchmarks/proc/to_proc_bench.rb) - to_proc vs. call
-- [Range:comparison](./benchmarks/range/comparison_bench.rb) - test if an Comparable is in a Range
-- [Range:contains](./benchmarks/range/contains_bench.rb) - test if an item is in a Range
+- [Range:comparison](./benchmarks/range/comparison_bench.rb) - is a Comparable in a Range
 - [Range:rand](./benchmarks/range/rand_bench.rb) - get a random element of a Range
 - [Range:to_a](./benchmarks/range/to_a_bench.rb) - convert a Range to an Array
 - [Regexp:match](./benchmarks/regexp/const_bench.rb) - find Match of an Regexp
@@ -66,7 +84,7 @@ Just run
 - [Ruby:any](./benchmarks/ruby/any_bench.rb) - single test vs. any
 - [Ruby:assign](./benchmarks/ruby/assign_bench.rb) - variable assignment
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
-- [Ruby:const](./benchmarks/ruby/const_val_bench.rb) - const access
+- [Ruby:const](./benchmarks/ruby/const_val_bench.rb) - const value access
 - [Ruby:endless_loop](./benchmarks/ruby/loop2_bench.rb) - different (nearly) endless loops
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and

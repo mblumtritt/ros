@@ -1,45 +1,183 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-HELP = <<~HELP
-  Usage: ros <command> [options]
+HELP = {
+  'ros' => <<~HELP,
+    ros <command> [<options>]
 
-  Commands:
-     list                 list all available benchmarks
-     run [<regexp>]       run all benchmarks
-     compare [<regexp>]   compare benchmarks and present fastest code
-     test [<regexp>]      test benchmarks validity
-     help                 display this help
-     version              display version information
+    RubyOnSpeed is a framework and a set of benchmarks of Ruby code idioms.
 
-  If an optional regular expression is given (<regexp>) then only benchmarks
-  with matching name will be used for the command.
-HELP
+    commands:
+      list      list benchmarks
+      run       run benchmarks
+      test      test benchmarks
+      help      print command specific help
+      version   print version information
+  HELP
+  'list' => <<~HELP,
+    ros list [<options>] [<regexp> ...]
 
-def load_all!
+    List all available benchmarks or all benchmarks which match any of the regular
+    expressions <regexp>.
+
+    options:
+    --format <format>   specify the output format
+                        default  - simple list
+                        markdown - markdown list with links
+    --dir <name>        use <name> as directory to find benchmarks
+    --no-bundle         don't use Bundler
+  HELP
+  'run' => <<~HELP,
+    ros run [<options>] [<regexp> ...]
+
+    Run all available benchmarks or all benchmarks which match any of the regular
+    expressions <regexp>.
+
+    options:
+    --format <format>   specify the output format
+                        default - detailed information
+                        compact - print only result details
+                        winner  - print only fastest code name
+                        json    - JSON information
+    --dir <name>        use <name> as directory to find benchmarks
+    --no-bundle         don't use Bundler
+  HELP
+  'test' => <<~HELP,
+    ros test [<options>] [<regexp> ...]
+
+    Test all available benchmarks or all benchmarks which match any of the regular
+    expressions <regexp>.
+
+     options:
+    --format <format>   specify the output format
+                        default - status list
+                        quite   - no output, just set the error code
+    --dir <name>        use <name> as directory to find benchmarks
+    --no-bundle         don't use Bundler
+  HELP
+  'help' => <<~HELP,
+    ros help [<command>]
+
+    Print <command> specific or generic help.
+  HELP
+  'version' => <<~HELP
+    ros version
+
+    Print RubyOnSpeed version information.
+  HELP
+}.freeze
+
+COMMAND = ARGV.shift || 'help'
+
+if %w[--version version].include?(COMMAND)
+  require_relative('../lib/ruby-on-speed/version')
+  puts("RubyOnSpeed v#{RubyOnSpeed::VERSION}")
+  exit
+end
+
+def die!(msg, include_command: true, code: 1)
+  $stderr.puts("#{include_command ? "ros-#{COMMAND}" : 'ros'}: #{msg}")
+  exit(code)
+end
+
+def cmd_help(command = ARGV.shift || 'ros')
+  help = HELP[command] or die!("unknown command - #{command}")
+  print('usage: ')
+  puts(help)
+  exit
+end
+
+cmd_help if %w[-h --help help].include?(COMMAND)
+
+OPTIONS = Struct.new(:format, :bundle, :dir, :regexp).new('default', true)
+
+def as_directory(dir)
+  dir = File.expand_path(dir)
+  return dir if File.directory?(dir) && File.readable?(dir)
+  die!("not a readble directory - #{dir}")
+end
+
+def as_regexp(*args)
+  args =
+    args.filter_map do |arg|
+      Regexp.new(arg, Regexp::IGNORECASE) unless arg.empty?
+    rescue RegexpError => e
+      die("invalid regular expression `#{arg}` - #{e}")
+    end
+  args.empty? ? nil : args
+end
+
+def parse_args(formats:)
+  while ARGV[0]&.start_with?('-')
+    case opt = ARGV.shift
+    when '--'
+      break
+    when '-h', '--help'
+      cmd_help(COMMAND)
+    when '--format'
+      OPTIONS.format = ARGV.shift or die!('argument missing - --format')
+      next if formats.include?(OPTIONS.format)
+      die!("unknown --format argument - #{OPTIONS.format}")
+    when '--no-bundle'
+      OPTIONS.bundle = false
+    when '--dir'
+      OPTIONS.dir = as_directory(ARGV.shift || die!('argument missing - --dir'))
+    else
+      # (block_given? && yield(opt, ARGV)) or
+      die!("unknown option - #{opt}")
+    end
+  end
+  OPTIONS.regexp = as_regexp(*ARGV)
+  nil
+end
+
+def bundle!
   require('bundler/inline')
   gemfile do
     source('https://rubygems.org')
     gem('benchmark-ips', '>=2.9.3')
+    gem('host-os')
   end
-  require("#{ROOT_DIR}/lib/ruby-on-speed")
-  Dir["#{ROOT_DIR}/benchmarks/**/*_bench.rb"].sort!.each { |fname| load(fname) }
-  RubyOnSpeed.filter! ARGV.join(' ')
+rescue LoadError => e
+  die!(e, code: 3)
 end
 
-$stdout.sync = $stderr.sync = true
-ROOT_DIR = File.realdirpath('..', __dir__)
-case COMMAND = ARGV.shift
-when nil, '-h', '--help', 'help'
-  puts HELP
-when '-v', '--version', 'version'
-  require "#{ROOT_DIR}/lib/ruby-on-speed/version"
-  puts "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{RUBY_DESCRIPTION.capitalize}"
-when 'list'
-  markdown = ARGV.delete('--markdown')
-  load_all!
+def perform
+  bundle! if OPTIONS.bundle
+  require_relative('../lib/ruby-on-speed')
+  OPTIONS.dir ||= File.expand_path('../benchmarks', __dir__)
+  Dir.glob(File.join(OPTIONS.dir, '**/*_bench.rb')) { |fname| load(fname) }
+  RubyOnSpeed.filter!(*OPTIONS.regexp) if OPTIONS.regexp
+  $stdout.sync = true
+  exit(yield)
+end
+
+if COMMAND == 'test'
+  parse_args(formats: %w[default quiet])
+  perform do
+    OPTIONS.format == 'quiet' ? RubyOnSpeed.test! {} : RubyOnSpeed.test!
+  end
+end
+
+if COMMAND == 'compare'
+  parse_args(formats: %w[default])
+  perform { RubyOnSpeed.find_best! }
+end
+
+if COMMAND == 'run'
+  parse_args(formats: %w[default simple compact winner json])
+  perform { RubyOnSpeed.report!(format: OPTIONS.format) }
+end
+
+unless COMMAND == 'list'
+  die!("unknown command - #{COMMAND}", include_command: false)
+end
+
+parse_args(formats: %w[default markdown])
+perform do
   benchmarks = RubyOnSpeed.to_a
-  if markdown
+  case OPTIONS.format
+  when 'markdown'
     benchmarks.each do |bm|
       puts "- [#{bm.name}](#{bm.source_file_name}) - #{bm.description}"
     end
@@ -47,19 +185,5 @@ when 'list'
     width = benchmarks.max_by { |bm| bm.name.size }.name.size
     benchmarks.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
   end
-when 'run'
-  compact = ARGV.delete('--compact')
-  json = ARGV.delete('--json')
-  load_all!
-  exit RubyOnSpeed.report!(compact: true) if compact
-  exit json ? RubyOnSpeed.json_report! : RubyOnSpeed.report!
-when 'compare'
-  load_all!
-  exit RubyOnSpeed.find_best!
-when 'test'
-  load_all!
-  exit RubyOnSpeed.test!
-else
-  $stderr.puts "ros: no such command - #{COMMAND}"
-  exit 2
+  true
 end

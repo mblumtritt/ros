@@ -2,7 +2,9 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:contains - test if a String contains another String' do
+RubyOnSpeed.benchmark(
+  'String:contains - test if a String contains another String'
+) do
   has_truthy_results!
 
   sample = fixture(:lorem_ipsum)

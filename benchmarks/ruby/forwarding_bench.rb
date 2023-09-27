@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:forwarding - forward a call' do
+RubyOnSpeed.benchmark 'Ruby:forwarding - forward a call' do
   has_truthy_results!
 
   class CallOrigin
@@ -18,7 +18,7 @@ RubyOnSpeed.test 'Ruby:forwarding - forward a call' do
   end
 
   class CallShadow
-    attr_reader :origin
+    attr_reader :origin, :entity, :entity_setter
 
     def initialize(origin, entity)
       @origin = origin
@@ -33,8 +33,6 @@ RubyOnSpeed.test 'Ruby:forwarding - forward a call' do
     def value=(arg)
       origin.__send__(entity_setter, arg)
     end
-
-    attr_reader :entity, :entity_setter
   end
 
   class CallFaker

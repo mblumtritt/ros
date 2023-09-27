@@ -2,9 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:unique - remove all duplicate from an Array' do
-  sample_elements = Array.new(500) { Object.new }
-  sample_array = (sample_elements + sample_elements).shuffle!.freeze
+RubyOnSpeed.benchmark 'Array:unique - remove all duplicates from an Array' do
+  sample_array = (fixture(:objects) * 2).shuffle!.freeze
 
   code 'uniq' do
     sample_array.uniq
@@ -16,12 +15,12 @@ RubyOnSpeed.test 'Array:unique - remove all duplicate from an Array' do
     ret
   end
 
-  code 'hashing1' do
-    sample_array.map { |e| [e, true] }.to_h.keys
+  code 'viaSet' do
+    Set.new(sample_array).to_a
   end
 
-  code 'hashing2' do
-    h = {}
+  code 'viaHash' do
+    h = {}.compare_by_identity
     sample_array.each { |e| h[e] = 1 }
     h.keys
   end

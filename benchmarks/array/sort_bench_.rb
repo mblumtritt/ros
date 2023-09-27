@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/ruby-on-speed'
-require 'date'
 
-RubyOnSpeed.test 'Array:sort - sort an Array' do
-  sample_array = (Date.new(2000)..Date.new(2015)).to_a.shuffle!.freeze
+RubyOnSpeed.benchmark 'Array:sort - sort an Array' do
+  sample_array = fixture(:dates)
 
   code '#sort_by' do
     sample_array.sort_by(&:jd)

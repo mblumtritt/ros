@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String: replace_first - replace first sub string' do
+RubyOnSpeed.benchmark 'String: replace_first - replace first sub string' do
   sample = fixture(:lorem_ipsum)
 
   code '#[a]=b' do

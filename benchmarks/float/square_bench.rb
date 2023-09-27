@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Float:square - calculate the square of a Float' do
+RubyOnSpeed.benchmark 'Float:square - calculate the square of a Float' do
   sample = 113.11
 
   code 'x**2' do

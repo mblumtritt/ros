@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:access - access member Struct/Hash' do
+RubyOnSpeed.benchmark 'Struct:access - access member Struct/Hash' do
   sample_struct = Struct.new(:a, :b, :c, :d)
 
   code 'struct#' do

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Float:zero - test if a Float is zero' do
+RubyOnSpeed.benchmark 'Float:zero - test if a Float is zero' do
   sample = 42.21
 
   code '== 0' do

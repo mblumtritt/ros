@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:map - modify all elements of an Array' do
+RubyOnSpeed.benchmark 'Array:map - modify all elements of an Array' do
   sample_array = fixture(:integers)
 
   code '#map' do

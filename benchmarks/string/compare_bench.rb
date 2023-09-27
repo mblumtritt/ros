@@ -2,7 +2,9 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:casecmp - comparing two Strings case-insensitive' do
+RubyOnSpeed.benchmark(
+  'String:casecmp - comparing two Strings case-insensitive'
+) do
   sample = fixture(:lorem_ipsum)
 
   code '#==' do

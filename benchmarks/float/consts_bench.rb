@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Float:const - float constants' do
+RubyOnSpeed.benchmark 'Float:const - float constants' do
   sample = 4.45
 
   code 'const' do

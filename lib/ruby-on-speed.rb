@@ -6,19 +6,27 @@ module RubyOnSpeed
 
   require_relative('ruby-on-speed/version')
   require_relative('ruby-on-speed/register')
-  require_relative('ruby-on-speed/benchmark')
   require_relative('ruby-on-speed/fixtures')
+  require_relative('ruby-on-speed/benchmark')
 
   class << self
-    def test(label, &block)
+    def benchmark(label, &block)
       raise('no block given') unless block
       load_fixture_file!
       Register.add(Benchmark.new(label, block))
+      label
     end
+    alias test benchmark
 
     def ignore
+      # nop
     end
+    alias xbenchmark ignore
     alias xtest ignore
+
+    def fixture(name)
+      Fixtures[name]
+    end
 
     def fixtures(**pairs)
       pairs.each_pair { |name, value| Fixtures[name] = value }
@@ -28,47 +36,43 @@ module RubyOnSpeed
       Register.each.to_a
     end
 
-    def test!
-      count = Register.each.sum { |bm| test_benchmark(bm) ? 0 : 1 }
-      count == Register.size
+    def test!(&block)
+      block ||= DEFAULT_TEST_REPORT
+      Register.each.sum { |bm| test_benchmark(bm, &block) } == Register.size
     end
 
-    def report!(file_name = nil, compact: false)
-      return if !file_name.nil? && file_name != Process.argv0
-
-      if compact
-        require_relative('ruby-on-speed/compact_reporter')
-        return run(CompactReporter.new)
-      end
-
-      require_relative('ruby-on-speed/default_reporter')
-      run(DefaultReporter.new)
+    def report_formats
+      REPORT_FORMATS.keys
     end
 
-    def json_report!
-      require_relative('ruby-on-speed/json_reporter')
-      reporter = JSONReporter.new
-      run(reporter)
-      reporter.finalize
-      true
+    def report!(file_name = nil, format: nil)
+      return if file_name && file_name != Process.argv0
+      format ||= 'default'
+      require_relative("ruby-on-speed/reporter/#{format}")
+      run(const_get("#{format.capitalize}Reporter").new)
+    rescue LoadError
+      raise(ArgumentError, "unknown report format - #{format}")
     end
 
-    def find_best!
-      require_relative('ruby-on-speed/progress_reporter')
-      run(ProgressReporter.new)
-    end
-
-    def filter!(regexp)
-      return unless regexp
-
-      regexp = Regexp.new(regexp, Regexp::IGNORECASE)
-      Register.keep_if { |name| regexp.match?(name) }
-    rescue RegexpError => e
-      self.action = :nop
-      abort("ERROR: #{e}")
+    def filter!(*regexp)
+      return if regexp.empty?
+      Register.keep_if { |name| regexp.any? { |re| re.match?(name) } }
     end
 
     private
+
+    DEFAULT_TEST_REPORT =
+      proc do |state, benchmark, msg|
+        case state
+        when :ok
+          puts("✓ #{benchmark}")
+        when :skipped
+          puts("• #{benchmark} (#{msg})")
+        when :error
+          $stderr.puts("❗️ #{benchmark}: #{msg}")
+        end
+      end
+    private_constant(:DEFAULT_TEST_REPORT)
 
     def load_fixture_file!
       fname =
@@ -81,24 +85,24 @@ module RubyOnSpeed
 
     def test_benchmark(benchmark)
       benchmark.test!
-      puts("✓ #{benchmark}")
-      true
+      yield(:ok, benchmark)
+      1
     rescue Skipped => e
-      puts("• #{benchmark} (#{e})")
-      true
+      yield(:skipped, benchmark, e)
+      1
     rescue Error => e
-      $stderr.puts("❗️#{benchmark}: #{e}")
-      false
+      yield(:error, benchmark, e)
+      0
     end
 
     def run(reporter)
       return false if Register.empty?
-      reporter.start(Register.size)
-      Register.each { |benchmark| benchmark.go!(reporter) }
+      reporter.suite_start(Register.size)
+      Register.each { |benchmark| benchmark.run(reporter) }
+      reporter.suite_end
       true
     rescue Interrupt
-      puts("\b\b ") if $stdout.tty?
-      $stderr.puts(' ABORTED')
+      reporter.interrupted!
       130
     end
   end

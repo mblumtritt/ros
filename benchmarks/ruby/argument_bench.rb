@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Object:method_argument - test (default) arguments' do
+RubyOnSpeed.benchmark 'Object:method_argument - test (default) arguments' do
   def val
     21
   end

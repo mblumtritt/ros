@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'benchmark/ips'
+require_relative 'fixtures'
 
 module RubyOnSpeed
   ROOT_DIR = File.expand_path('../..', __dir__)
@@ -55,17 +56,12 @@ module RubyOnSpeed
       test_all(values, &@test_type)
     end
 
-    def go!(reporter)
-      reporter.bm = self
+    def run(reporter)
       job = Job.new
-      job.suite = nil
-      job.reporter = reporter
       job.list.concat(entries.values.shuffle)
-      reporter.start_warming
-      job.run_warmup
-      reporter.start_running
-      job.run_benchmark
-      reporter.run_comparison
+      job.reporter = reporter
+      reporter.benchmark_start(self)
+      job.run
     end
 
     private
@@ -113,8 +109,8 @@ module RubyOnSpeed
         @benchmark.test_with { |f| yield(f.call) }
       end
 
-      def has_result_type(type)
-        test_result { |o| o.is_a?(type) }
+      def test_by_type!
+        test_result(&:class)
       end
 
       def has_random_results!
@@ -123,6 +119,10 @@ module RubyOnSpeed
 
       def has_truthy_results!
         test_result { |o| !!o }
+      end
+
+      def has_boolean_results!
+        test_result { |o| (o == true) || (o == false) ? :truthy : :other }
       end
     end
 

@@ -2,10 +2,11 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:contains_array - test if all elements of an Array are' \
-                   ' included in another Array' do
+RubyOnSpeed.benchmark(
+  'Array:contains_array - Array elements included in another Array'
+) do
   sample_array = fixture(:integers)
-  sample_subset = Array.new(100) { |i| i + 399 }.freeze
+  sample_subset = fixture(:integers_subset)
 
   code '#-#empty?' do
     (sample_subset - sample_array).empty?

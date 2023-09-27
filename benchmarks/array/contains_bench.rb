@@ -2,11 +2,13 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:contains - check if an Array contains an element' do
+RubyOnSpeed.benchmark(
+  'Array:contains - check if an Array contains an element'
+) do
   has_truthy_results!
 
   sample_array = fixture(:objects)
-  sample = sample_array[-42].freeze
+  sample = sample_array.sample
 
   code '#index' do
     sample_array.index(sample)

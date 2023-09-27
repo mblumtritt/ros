@@ -2,7 +2,9 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:start - test if s String starts with a given String' do
+RubyOnSpeed.benchmark(
+  'String:start - test if s String starts with a given String'
+) do
   sample = 'Hello World!'
 
   code '#start_with?' do

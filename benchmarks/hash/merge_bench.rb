@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Hash:merge - merge two Hashes' do
+RubyOnSpeed.benchmark 'Hash:merge - merge two Hashes' do
   # does not work with Strings as keys?!
   sample = Hash[('a'..'z').to_a.map! { |c| [c.to_sym, c] }].freeze
 

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String::format - format a Float with two digits' do
+RubyOnSpeed.benchmark 'String::format - format a Float with two digits' do
   code 'String#%' do
     '%.2f' % Math::PI
   end

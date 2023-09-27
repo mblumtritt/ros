@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:remove_chars - remove some chars' do
+RubyOnSpeed.benchmark 'String:remove_chars - remove some chars' do
   sample = fixture(:lorem_ipsum)
 
   code '#gsub' do

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/ruby-on-speed'
-require 'date'
 
-RubyOnSpeed.test 'Array:find_sorted - find first matching element of a' \
-                   ' sorted Array' do
-  sample_array = (Date.new(2000)..Date.new(2015)).to_a.freeze # is sorted
+RubyOnSpeed.benchmark 'Array:find_sorted - find element in a sorted Array' do
+  sample_array = fixture(:sorted_dates)
 
   code '#bsearch' do
     sample_array.bsearch { |element| element.year > 2014 }

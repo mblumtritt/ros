@@ -2,8 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:compact - remove all nil elements from an Array' do
-  sample_array = (Array.new(1000, &:itself) + Array.new(1000)).shuffle!.freeze
+RubyOnSpeed.benchmark 'Array:compact - remove all nil elements from an Array' do
+  sample_array = (fixture(:integers) * 2).freeze
 
   code '#compact!' do
     ret = Array.new(sample_array)

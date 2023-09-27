@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Hash:store - add a key/value pair to a Hash' do
+RubyOnSpeed.benchmark 'Hash:store - add a key/value pair to a Hash' do
   code '#store' do
     {}.store(42, :Ruby)
   end

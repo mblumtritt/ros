@@ -4,7 +4,9 @@ return unless defined?(Data)
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:access_cmp - read access member Struct/Data/Hash' do
+RubyOnSpeed.benchmark(
+  'Struct:access_cmp - read access member Struct/Data/Hash'
+) do
   struct = Struct.new(:a, :b, :c, :d).new(1, 2, 3, 4)
   data = Data.define(:a, :b, :c, :d).new(1, 2, 3, 4)
   hash = { a: 1, b: 2, c: 3, d: 4 }

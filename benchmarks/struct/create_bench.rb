@@ -4,7 +4,7 @@ return unless defined?(Data)
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:create - create a Struct/Data/Hash' do
+RubyOnSpeed.benchmark 'Struct:create - create a Struct/Data/Hash' do
   test_result { |o| o.to_h == { a: 1, b: 2, c: 3, d: 4 } }
 
   sample = Struct.new(:a, :b, :c, :d)

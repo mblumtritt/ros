@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:defined - const_defined' do
+RubyOnSpeed.benchmark 'Ruby:defined - const_defined' do
   sample = Module.new
   sample::MAX = 10
 

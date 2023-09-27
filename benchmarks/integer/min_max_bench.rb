@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Integer:min_max - find min and max' do
+RubyOnSpeed.benchmark 'Integer:min_max - find min and max' do
   def minmax(a, b)
     a, b = [a, b].minmax
     [a, b]

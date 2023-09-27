@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:method_call - calling methods' do
+RubyOnSpeed.benchmark 'Ruby:method_call - calling methods' do
   class SampleBase
     def self.call(num)
       21 + num

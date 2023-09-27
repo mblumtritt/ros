@@ -2,8 +2,8 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Ruby:const - const access' do
-  module ConstTest
+RubyOnSpeed.benchmark 'Ruby:const - const value access' do
+  module SampleMod
     def self.create_mod(value)
       Module.new { define_singleton_method(:value) { value + value } }
     end
@@ -19,15 +19,15 @@ RubyOnSpeed.test 'Ruby:const - const access' do
     end
   end
 
-  TestMod = ConstTest.create_mod(21)
-  test = ConstTest::Test.new(21)
+  sample_module = SampleMod.create_mod(21)
+  sample_instane = SampleMod::Test.new(21)
 
   code 'module' do
-    TestMod.value
+    sample_module.value
   end
 
   code 'instance' do
-    test.value
+    sample_instane.value
   end
 end
 

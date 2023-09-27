@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Hash:copy - create a copy of a Hash' do
+RubyOnSpeed.benchmark 'Hash:copy - create a copy of a Hash' do
   sample = fixture(:chars_hash)
 
   code '::[]' do

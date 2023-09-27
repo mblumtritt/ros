@@ -2,8 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:index_iterate - ' \
-                   'iterate over all elements of an Array' do
+RubyOnSpeed.benchmark 'Array:index_iterate - iterate all elements' do
   sample_array = fixture(:integers)
 
   code '#each_with_index' do

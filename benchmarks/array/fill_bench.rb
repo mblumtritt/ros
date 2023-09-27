@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:fill - create an Array with Integers' do
+RubyOnSpeed.benchmark 'Array:fill - create an Array with Integers' do
   code '::new' do
     Array.new(100, &:itself)
   end

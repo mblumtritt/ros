@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Array:last - access the last element of an Array' do
+RubyOnSpeed.benchmark 'Array:last - access the last element of an Array' do
   sample_array = fixture(:integers)
 
   code '#[-1]' do

@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Struct:member - access the member of a Struct' do
+RubyOnSpeed.benchmark 'Struct:member - access the member of a Struct' do
   sample_struct = Struct.new(:a, :b, :c, :d)
 
   code '#method' do

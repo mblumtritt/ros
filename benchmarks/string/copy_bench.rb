@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'String:copy - create a String copy' do
+RubyOnSpeed.benchmark 'String:copy - create a String copy' do
   sample = fixture(:lorem_ipsum)
 
   code '::new' do

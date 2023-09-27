@@ -2,7 +2,7 @@
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.test 'Proc:call - call a Proc with parameters' do
+RubyOnSpeed.benchmark 'Proc:call - call a Proc with parameters' do
   sample = proc { |x, y| x + y }
 
   code '#call' do

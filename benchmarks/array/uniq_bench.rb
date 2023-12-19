@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'set' # for some older Ruby versions
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:unique - remove all duplicates from an Array' do

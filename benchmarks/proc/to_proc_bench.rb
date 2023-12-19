@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+return unless defined?(Data) # for some older Ruby versions
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Proc:to_proc - to_proc vs. call' do

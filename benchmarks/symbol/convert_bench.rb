@@ -12,6 +12,11 @@ RubyOnSpeed.benchmark 'Symbol:convert - convert to a Symbol' do
     sample.to_s.to_sym
   end
 
+  code 'interpolation' do
+    sample = samples.sample
+    :"#{sample}"
+  end
+
   code '#respond_to?+#to_x' do
     sample = samples.sample
     sample.respond_to?(:to_sym) ? sample.to_sym : sample.to_s.to_sym

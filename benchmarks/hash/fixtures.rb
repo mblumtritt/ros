@@ -8,6 +8,9 @@ RubyOnSpeed.fixtures(
 RubyOnSpeed.fixtures(
   chars_hash: RubyOnSpeed.fixture(:chars).zip(RubyOnSpeed.fixture(:chars)).to_h
 )
+RubyOnSpeed.fixtures(
+  chars_hash_sym: RubyOnSpeed.fixture(:chars_hash).transform_keys(&:to_sym)
+)
 
 if defined?(Data)
   RubyOnSpeed.fixtures(

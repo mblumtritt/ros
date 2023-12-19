@@ -4,7 +4,7 @@ return unless defined?(Data)
 
 require_relative '../../lib/ruby-on-speed'
 
-RubyOnSpeed.benchmark 'Hash:from_array - create an Hash from an Array' do
+RubyOnSpeed.benchmark 'Hash:from_array - create a Hash from an Array' do
   data = fixture(:data)
 
   code 'Hash.[]' do

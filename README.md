@@ -38,9 +38,11 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Array:contains](./benchmarks/array/contains_bench.rb) - check if an Array contains an element
 - [Array:contains_array](./benchmarks/array/contains_array_bench.rb) - Array elements included in another Array
 - [Array:copy](./benchmarks/array/copy_bench.rb) - create a copy of an Array
+- [Array:empty](./benchmarks/array/empty_bench.rb) - use of an empty Array
 - [Array:fill](./benchmarks/array/fill_bench.rb) - create an Array with Integers
 - [Array:find_sorted](./benchmarks/array/find_sorted_bench.rb) - find element in a sorted Array
 - [Array:first](./benchmarks/array/first_bench.rb) - access the first element of an Array
+- [Array:group](./benchmarks/array/group_bench.rb) - group Array in number of sub-arrays
 - [Array:index](./benchmarks/array/index_bench.rb) - find the index of an Array element
 - [Array:index_iterate](./benchmarks/array/index_iterate_bench.rb) - iterate all elements
 - [Array:iterate](./benchmarks/array/iterate_bench.rb) - iterate over all Array elements
@@ -60,7 +62,8 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Float:zero](./benchmarks/float/zero_bench.rb) - test if a Float is zero
 - [Hash:access](./benchmarks/hash/access_bench.rb) - get values of Hash in Hash
 - [Hash:copy](./benchmarks/hash/copy_bench.rb) - create a copy of a Hash
-- [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create an Hash from an Array
+- [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create a Hash from an Array
+- [Hash:from_indexed_array](./benchmarks/hash/from_indexed_array_bench.rb) - create a Hash from positional Array
 - [Hash:invalid_value](./benchmarks/hash/invalid_value_bench.rb) - find non-existing value of Hash
 - [Hash:merge](./benchmarks/hash/merge_bench.rb) - merge two Hashes
 - [Hash:store](./benchmarks/hash/store_bench.rb) - add a key/value pair to a Hash
@@ -68,6 +71,8 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Hash:value](./benchmarks/hash/value_bench.rb) - find value from a key
 - [Integer:from_string](./benchmarks/integer/from_string_bench.rb) - convert a String to Integer
 - [Integer:min_max](./benchmarks/integer/min_max_bench.rb) - find min and max
+- [Integer:rand](./benchmarks/integer/rand_bench.rb) - check 50% chance
+- [Integer:range](./benchmarks/integer/range_bench.rb) - check if value is in a range
 - [Integer:square](./benchmarks/integer/square_bench.rb) - calculate the square of a Integer
 - [Integer:zero](./benchmarks/integer/zero_bench.rb) - test if an Integer is zero
 - [Object:class](./benchmarks/object/class_bench.rb) - test if an Object is derived from a Class
@@ -85,6 +90,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Ruby:assign](./benchmarks/ruby/assign_bench.rb) - variable assignment
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
 - [Ruby:const](./benchmarks/ruby/const_val_bench.rb) - const value access
+- [Ruby:const_get](./benchmarks/ruby/const_get_bench.rb) - get a constant value
 - [Ruby:endless_loop](./benchmarks/ruby/loop2_bench.rb) - different (nearly) endless loops
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and
@@ -97,6 +103,8 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [String:concat](./benchmarks/string/concat_bench.rb) - concat two Strings
 - [String:contains](./benchmarks/string/contains_bench.rb) - test if a String contains another String
 - [String:copy](./benchmarks/string/copy_bench.rb) - create a String copy
+- [String:line_split](./benchmarks/string/line_split_bench.rb) - split lines
+- [String:lines_count](./benchmarks/string/lines_count_bench.rb) - count number of lines
 - [String:remove_char](./benchmarks/string/remove_char_bench.rb) - remove a single char
 - [String:remove_chars](./benchmarks/string/remove_chars_bench.rb) - remove some chars
 - [String:replace](./benchmarks/string/replace_bench.rb) - replace all sub strings

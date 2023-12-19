@@ -12,19 +12,22 @@ module RubyOnSpeed
     def benchmark_start(benchmark)
       super
       @benchmarks << (
-        @current = { name: benchmark.name, description: benchmark.description }
+        @current = {
+          'name' => benchmark.name,
+          'description' => benchmark.description
+        }
       )
     end
 
     def benchmark_end
-      @current[:data] = @reports.map do |entry|
+      @current['data'] = @reports.map do |entry|
         {
-          name: entry.label,
-          central_tendency: entry.stats.central_tendency,
-          error: entry.stats.error,
-          microseconds: entry.microseconds,
-          iterations: entry.iterations,
-          cycles: entry.measurement_cycle
+          'name' => entry.label,
+          'central_tendency' => entry.stats.central_tendency,
+          'iterations' => entry.iterations,
+          'microseconds' => entry.microseconds,
+          'error' => entry.stats.error,
+          'cycles' => entry.measurement_cycle
         }
       end
       @current = nil
@@ -34,13 +37,14 @@ module RubyOnSpeed
     def suite_end
       puts(
         as_json(
-          meta: {
-            suite: 'RubyOnSpeed',
-            version: RubyOnSpeed::VERSION,
-            interpreter: HostOS.interpreter.id.to_s,
-            hostOS: HostOS.id.to_s
+          'meta' => {
+            'suite' => 'RubyOnSpeed',
+            'version' => RubyOnSpeed::VERSION,
+            'interpreter' => HostOS.interpreter.id.to_s,
+            'hostOS' => HostOS.id.to_s,
+            'jit' => HostOS.interpreter.jit_type.to_s
           },
-          benchmarks: @benchmarks
+          'benchmarks' => @benchmarks
         )
       )
       @benchmarks = nil

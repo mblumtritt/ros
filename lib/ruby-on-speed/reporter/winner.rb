@@ -8,11 +8,13 @@ require_relative 'base'
 module RubyOnSpeed
   class WinnerReporter < CompetitionReporter
     def suite_start(_benchmark_count)
-      puts(
+      str =
         "RubyOnSpeed v#{RubyOnSpeed::VERSION} for " \
-          "#{HostOS.interpreter} v#{RUBY_VERSION} on " \
-          "#{HostOS}"
-      )
+          "#{HostOS.interpreter} v#{RUBY_VERSION} on #{HostOS}"
+      if HostOS.interpreter.jit_enabled?
+        str = "#{str} using #{HostOS.interpreter.jit_type.upcase}"
+      end
+      puts(str)
     end
 
     def benchmark_start(benchmark)

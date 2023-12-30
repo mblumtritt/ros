@@ -11,6 +11,12 @@ RubyOnSpeed.benchmark 'Array:iterate - iterate over all Array elements' do
     sum
   end
 
+  code '#each_1' do
+    sum = 0
+    sample_array.each { sum += _1 }
+    sum
+  end
+
   code '#[]' do
     sum = 0
     sample_array.size.times { |index| sum += sample_array[index] }

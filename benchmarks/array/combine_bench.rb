@@ -12,6 +12,10 @@ RubyOnSpeed.benchmark 'Array:combine - create an combined Array' do
     ret
   end
 
+  code '#map#map' do
+    sample_array_a.map { |a| sample_array_b.map { |b| "#{a}#{b}" } }.flatten(1)
+  end
+
   code '#product' do
     ret = []
     sample_array_a.product(sample_array_b) { |com| ret << com.join }

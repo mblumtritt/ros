@@ -12,7 +12,7 @@ RubyOnSpeed.fixtures(
   chars_hash_sym: RubyOnSpeed.fixture(:chars_hash).transform_keys(&:to_sym)
 )
 
-if defined?(Data)
+if defined?(Data.define)
   RubyOnSpeed.fixtures(
     data:
       begin

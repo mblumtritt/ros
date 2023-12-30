@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-return unless defined?(Data)
+return unless defined?(Data.define)
 
 require_relative '../../lib/ruby-on-speed'
 

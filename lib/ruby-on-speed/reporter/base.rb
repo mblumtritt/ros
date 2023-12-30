@@ -106,8 +106,10 @@ module RubyOnSpeed
       value = value.to_f
       scale = (Math.log10(value) / 3).to_i
       suffix = ' kMBTQ'[scale] || ' '
-      scale = 0 if scale == 0 || scale > 5
-      format("%10.3f#{suffix}", value / (1000**scale))
+      format(
+        "%10.3f#{suffix}",
+        scale == 0 || scale > 5 ? value : value / (1000**scale)
+      )
     end
   end
 

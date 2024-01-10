@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Hash:access - get values of Hash in Hash' do
     sample.dig(:a, :b, :c, :d)
   end
 end
-
-RubyOnSpeed.report! __FILE__

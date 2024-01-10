@@ -33,13 +33,12 @@ module RubyOnSpeed
     end
 
     def self.each
-      return enum_for(__method__) unless block_given?
-      names.each { |name| yield(@reg[name]) }
+      block_given? ? names.each { yield(@reg[_1]) } : enum_for(__method__)
     end
 
     def self.keep_if
-      return enum_for(__method__) unless block_given?
-      names.each { |name| delete(name) unless yield(name) }
+      return names.each { delete(_1) unless yield(_1) } if block_given?
+      enum_for(__method__)
     end
   end
 end

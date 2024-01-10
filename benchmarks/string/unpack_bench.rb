@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark 'String:unpack - Integers from binary String' do
     sample.unpack('l<l<l<l<l<')
   end
 end
-
-RubyOnSpeed.report! __FILE__

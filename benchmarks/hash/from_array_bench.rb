@@ -29,5 +29,3 @@ RubyOnSpeed.benchmark 'Hash:from_array - create a Hash from an Array' do
     data.map(&:id).zip(data).to_h
   end
 end
-
-RubyOnSpeed.report! __FILE__

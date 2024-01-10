@@ -4,74 +4,50 @@ require 'host-os'
 require_relative 'base'
 
 module RubyOnSpeed
-  class DefaultReporter < CompetitionReporter
-    def suite_start(_benchmark_count)
-      str =
-        "RubyOnSpeed v#{RubyOnSpeed::VERSION} for " \
-          "#{HostOS.interpreter} v#{RUBY_VERSION} on #{HostOS}"
-      if HostOS.interpreter.jit_enabled?
-        str = "#{str} using #{HostOS.interpreter.jit_type.upcase}"
-      end
-      title(str)
-    end
-
-    def benchmark_start(benchmark)
-      super
-      str = benchmark.label
+  class DefaultReporter < Reporter
+    def start
+      str = info.benchmark.label
       puts("╭#{'─' * 77}╮", "│ ⚙︎ #{str}#{' ' * (74 - str.size)}│")
     end
 
-    def start_warming
+    def warming_start
       section('warmup')
     end
 
-    def warming(name, _warming_rounds)
-      left_part("#{name}:")
+    def test_warming_start
+      left_part("#{info.test.name}:")
+    end
+    alias test_run_start test_warming_start
+
+    def test_warming_end
+      right_part(instruction_per_mill(info.test.warmup_timing))
     end
 
-    def warmup_stats(_warmup_time_us, timing)
-      right_part(instruction_per_mill(timing))
-    end
-
-    def start_running
+    def running_start
       section('benchmark')
     end
 
-    def running_report(report)
-      left_part("#{report.label}:")
+    def test_run_end
+      stats = info.test.stats
       right_part(
-        instruction_per_second(
-          report.stats.central_tendency,
-          report.stats.error_percentage
-        )
+        instruction_per_second(stats.central_tendency, stats.error_percentage)
       )
     end
 
-    def start_result
+    def results(best, other)
       puts("╞#{'═' * 68} result ═╡")
-    end
-
-    def winner_result(name, tendency)
-      left_part("#{name}:")
-      right_part("#{scaled(tendency)} i/s")
-    end
-
-    def other_result(name, tendency, slowdown, error)
-      left_part("#{name}:")
-      right_part(tendency(tendency, slowdown, error))
-    end
-
-    def end_result
+      best.each_pair do |name, tendency|
+        left_part("#{name}:")
+        right_part("#{scaled(tendency)} i/s")
+      end
+      other.each_pair do |name, (tendency, slowdown)|
+        left_part("#{name}:")
+        right_part(tendency(tendency, slowdown))
+      end
       puts("╰#{'─' * 77}╯", nil)
     end
 
     protected
-
-    def title(str)
-      puts("┏#{'━' * 77}┓")
-      puts("┃ 🔻 #{str}#{' ' * (73 - str.size)}┃")
-      puts("┗#{'━' * 77}┛", nil)
-    end
 
     def section(str)
       puts("├#{'─' * (74 - str.size)} #{str} ─┤")

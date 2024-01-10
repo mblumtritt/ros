@@ -118,5 +118,3 @@ RubyOnSpeed.benchmark 'Ruby:method_call - calling methods' do
     sample_base.__send__(:call, 21)
   end
 end
-
-RubyOnSpeed.report! __FILE__

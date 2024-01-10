@@ -3,9 +3,9 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:group - group Array in number of sub-arrays' do
-  test_result { |result| result.map(&:size) }
+  test_with { |result| result.map(&:size) }
 
-  sample_array = fixture(:objects)
+  sample = fixture(:objects)
   sample_size = 11
 
   def via_hash(array, number)
@@ -26,12 +26,10 @@ RubyOnSpeed.benchmark 'Array:group - group Array in number of sub-arrays' do
   end
 
   code 'via_hash' do
-    via_hash(sample_array, sample_size)
+    via_hash(sample, sample_size)
   end
 
   code 'grouping' do
-    grouping(sample_array, sample_size)
+    grouping(sample, sample_size)
   end
 end
-
-RubyOnSpeed.report! __FILE__

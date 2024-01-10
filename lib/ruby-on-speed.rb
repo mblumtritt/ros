@@ -2,7 +2,8 @@
 
 module RubyOnSpeed
   Error = Class.new(StandardError)
-  Skipped = Class.new(StandardError)
+
+  ROOT_DIR = File.expand_path('..', __dir__)
 
   require_relative('ruby-on-speed/version')
   require_relative('ruby-on-speed/register')
@@ -10,10 +11,18 @@ module RubyOnSpeed
   require_relative('ruby-on-speed/benchmark')
 
   class << self
+    def report_formats
+      REPORT_FORMATS.keys
+    end
+
     def benchmark(label, &block)
       raise('no block given') unless block
       load_fixture_file!
       Register.add(Benchmark.new(label, block))
+      @process ||= Process.argv0
+      @process_alt ||= File.expand_path(@process, Dir.pwd)
+      called_by = caller_locations(1, 1).first.absolute_path
+      report if (called_by == @process) || (called_by == @process_alt)
       label
     end
     alias test benchmark
@@ -28,6 +37,10 @@ module RubyOnSpeed
       Fixtures[name]
     end
 
+    def add_fixture(name, value = nil, &block)
+      Fixtures.add(name, value, &block)
+    end
+
     def fixtures(**pairs)
       pairs.each_pair { |name, value| Fixtures[name] = value }
     end
@@ -36,18 +49,16 @@ module RubyOnSpeed
       Register.each.to_a
     end
 
-    def test!(&block)
-      block ||= DEFAULT_TEST_REPORT
-      Register.each.sum { |bm| test_benchmark(bm, &block) } == Register.size
+    def test!(report: DEFAULT_TEST_REPORT, &block)
+      block ||= report
+      Register.each.sum do |bm|
+        state, msg = bm.test_result
+        block.call(state, bm, msg) if block
+        state == :error ? 0 : 1
+      end == Register.size
     end
 
-    def report_formats
-      REPORT_FORMATS.keys
-    end
-
-    def report!(file_name = nil, format: nil)
-      return if file_name && file_name != Process.argv0
-      format ||= 'default'
+    def report(format: 'default')
       require_relative("ruby-on-speed/reporter/#{format}")
       run(const_get("#{format.capitalize}Reporter").new)
     rescue LoadError
@@ -56,7 +67,8 @@ module RubyOnSpeed
 
     def filter!(*regexp)
       return if regexp.empty?
-      Register.keep_if { |name| regexp.any? { |re| re.match?(name) } }
+      Register.keep_if { |name| regexp.any? { _1.match?(name) } }
+      self
     end
 
     private
@@ -83,26 +95,24 @@ module RubyOnSpeed
       require(fname) if File.file?(fname)
     end
 
-    def test_benchmark(benchmark)
-      benchmark.test!
-      yield(:ok, benchmark)
-      1
-    rescue Skipped => e
-      yield(:skipped, benchmark, e)
-      1
-    rescue Error => e
-      yield(:error, benchmark, e)
-      0
+    def count_valid
+      Register.each.sum do |bm|
+        state, msg = bm.test_result
+        next 1 if state != :error
+        $stderr.puts("❗️ Error found in '#{bm}' - #{msg}")
+        0
+      end
     end
 
     def run(reporter)
       return false if Register.empty?
-      reporter.suite_start(Register.size)
-      Register.each { |benchmark| benchmark.run(reporter) }
-      reporter.suite_end
+      facade = ReportFacade.new(Register, reporter)
+      facade.suite_start
+      Register.each { _1.run(facade) } if count_valid == Register.size
+      facade.suite_end
       true
     rescue Interrupt
-      reporter.interrupted!
+      facade.interrupted!
       130
     end
   end

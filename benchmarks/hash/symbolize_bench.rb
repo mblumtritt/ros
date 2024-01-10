@@ -19,5 +19,3 @@ RubyOnSpeed.benchmark 'Hash:symbolize - symbolize all keys of a Hash' do
     sample.keys.map!(&:to_sym).zip(sample.values).to_h
   end
 end
-
-RubyOnSpeed.report! __FILE__

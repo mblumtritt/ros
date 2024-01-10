@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Integer:from_string - convert a String to Integer' do
     Integer(sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

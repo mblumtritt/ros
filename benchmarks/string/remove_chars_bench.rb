@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark 'String:remove_chars - remove some chars' do
     sample.delete(' e')
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -18,5 +18,3 @@ RubyOnSpeed.benchmark 'Ruby:if - if vs. ternary if vs. and' do
     sample1 == sample2 and 42
   end
 end
-
-RubyOnSpeed.report! __FILE__

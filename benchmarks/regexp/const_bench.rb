@@ -14,5 +14,3 @@ RubyOnSpeed.benchmark 'Regexp:match - find Match of an Regexp' do
     sample.match(text)
   end
 end
-
-RubyOnSpeed.report! __FILE__

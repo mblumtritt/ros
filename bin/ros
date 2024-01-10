@@ -154,7 +154,11 @@ end
 if COMMAND == 'test'
   parse_args(formats: %w[default quiet])
   perform do
-    OPTIONS.format == 'quiet' ? RubyOnSpeed.test! {} : RubyOnSpeed.test!
+    if OPTIONS.format == 'quiet'
+      RubyOnSpeed.test!(report: false)
+    else
+      RubyOnSpeed.test!
+    end
   end
 end
 
@@ -165,7 +169,7 @@ end
 
 if COMMAND == 'run'
   parse_args(formats: %w[default simple compact winner json])
-  perform { RubyOnSpeed.report!(format: OPTIONS.format) }
+  perform { RubyOnSpeed.report(format: OPTIONS.format) }
 end
 
 unless COMMAND == 'list'
@@ -178,7 +182,7 @@ perform do
   case OPTIONS.format
   when 'markdown'
     benchmarks.each do |bm|
-      puts "- [#{bm.name}](#{bm.source_file_name}) - #{bm.description}"
+      puts "- [#{bm.name}](#{bm.relative_source_file_name}) - #{bm.description}"
     end
   else
     width = benchmarks.max_by { |bm| bm.name.size }.name.size

@@ -1,81 +1,22 @@
 # frozen_string_literal: true
 
+require 'host-os'
+
 module RubyOnSpeed
   class Reporter
-    # at the start of the suite
-    def suite_start(_benchmark_count)
-      # nop
+    attr_reader :info
+
+    def setup(info)
+      @info = info
+      puts("🔻 #{info.details}", nil)
     end
 
-    # before each benchmark
-    def benchmark_start(_benchmark)
-      @reports = []
+    def teardown
+      @info = nil
     end
 
-    # warming starts
-    def start_warming
-      # nop
-    end
-
-    # at warming
-    def warming(_name, _warming_rounds)
-      # nop
-    end
-
-    # statistic for warming
-    def warmup_stats(_warmup_time_us, _timing)
-      # nop
-    end
-
-    # run starts
-    def start_running
-      # nop
-    end
-
-    # at running
-    def running(_name, _run_time)
-      # nop
-    end
-
-    # at run result avail
-    def add_report(report, _source)
-      @reports << report
-      running_report(report)
-    end
-
-    def running_report(report)
-      # nop
-    end
-
-    # at end of a benchmark run
-    def footer
-      sorted = @reports.sort_by { |e| e.stats.central_tendency }.reverse
-      best = [sorted.shift]
-      while !sorted.empty? && sorted[0].stats.overlaps?(best[0].stats)
-        best << sorted.shift
-      end
-      compare(best, sorted)
-      benchmark_end
-    end
-
-    # present results
-    def compare(_best, _sorted)
-      # nop
-    end
-
-    # at benchmark end
-    def benchmark_end
-      @reports = nil
-    end
-
-    # at suite end
-    def suite_end
-      # nop
-    end
-
-    # whenever interrupted
-    def interrupted!
-      # nop
+    def interrupted
+      $stderr.puts(' ABORTED')
     end
 
     protected
@@ -90,63 +31,119 @@ module RubyOnSpeed
       "#{scaled(timing)} (±#{format('%4.1f%%', error_percent)}) i/s"
     end
 
-    # size = 25
-    def iterations_per_seconds(iterations, runtime)
-      "#{scaled(iterations)} in #{format('%9.6f', runtime)}s"
-    end
-
     # size = 30
-    def tendency(tendency, slowdown, error)
-      "#{scaled(tendency)} i/s - #{format('%.2f', slowdown)}x#{
-        format(' (± %.2f%%)', error) if error
-      } slower"
+    def tendency(tendency, slowdown)
+      "#{scaled(tendency)} i/s - #{format('%.2f', slowdown)}x slower"
     end
 
     def scaled(value)
       value = value.to_f
       scale = (Math.log10(value) / 3).to_i
-      suffix = ' kMBTQ'[scale] || ' '
       format(
-        "%10.3f#{suffix}",
+        "%10.3f#{' kMBTQ'[scale] || ' '}",
         scale == 0 || scale > 5 ? value : value / (1000**scale)
       )
     end
   end
 
-  class CompetitionReporter < Reporter
-    def compare(best, others)
-      start_result
-      best.each do |report|
-        winner_result(report.label, report.stats.central_tendency)
+  class ReportFacade
+    SuiteInfo =
+      Struct.new(:benchmarks, :benchmark, :test) do
+        def details
+          str =
+            "RubyOnSpeed v#{RubyOnSpeed::VERSION} for #{
+              HostOS.interpreter
+            } v#{RUBY_VERSION} on #{HostOS}"
+          return str unless HostOS.interpreter.jit_enabled?
+          str + " using #{HostOS.interpreter.jit_type.upcase}"
+        end
       end
-      others.each do |report|
-        other_result(
-          report.label,
-          report.stats.central_tendency,
-          *report.stats.slowdown(best[0].stats)
-        )
+
+    TestInfo = Struct.new(:name, :warmup_timing, :stats)
+
+    def initialize(benchmarks, reporter)
+      @info = SuiteInfo.new(benchmarks.names)
+      @reporter = reporter
+    end
+
+    def suite_start
+      @reporter.setup(@info)
+    end
+
+    def benchmark_start(benchmark)
+      @info.benchmark = benchmark
+      @reporter.start if defined?(@reporter.start)
+    end
+
+    def start_warming
+      @reporter.warming_start if defined?(@reporter.warming_start)
+    end
+
+    def warming(name, _warming_rounds)
+      @info.test = TestInfo.new(name)
+      @reporter.test_warming_start if defined?(@reporter.test_warming_start)
+    end
+
+    def warmup_stats(_warmup_time_us, timing)
+      return unless defined?(@reporter.test_warming_end)
+      @info.test.warmup_timing = timing
+      @reporter.test_warming_end
+    end
+
+    def start_running
+      @info.test = nil
+      @reporter._warming_end if defined?(@reporter.warming_end)
+      @test_reports = []
+      @reporter.running_start if defined?(@reporter.running_start)
+    end
+
+    def running(name, _run_time)
+      @info.test = TestInfo.new(name)
+      @reporter.test_run_start if defined?(@reporter.test_run_start)
+    end
+
+    def add_report(report, _caller)
+      @test_reports << report
+      return unless defined?(@reporter.test_run_end)
+      @info.test.stats = report.stats
+      @reporter.test_run_end
+    end
+
+    def footer
+      @info.test = nil
+      @reporter.running_end if defined?(@reporter.running_end)
+      unless @test_reports.empty?
+        @test_reports.sort_by! { _1.stats.central_tendency }.reverse!
+        @reporter.raw_results(@test_reports) if defined?(@reporter.raw_results)
+        report_results if defined?(@reporter.results)
       end
-      end_result
+      @test_reports = nil
     end
 
-    # result starts
-    def start_result
-      # nop
+    def suite_end
+      @info.benchmark = nil
+      @reporter.teardown if defined?(@reporter.teardown)
+      @info = nil
     end
 
-    # result for winner
-    def winner_result(_name, _tendency)
-      raise(NotImplementedError)
+    def interrupted!
+      @reporter.interrupted if defined?(@reporter.interrupted)
     end
 
-    # result for other
-    def other_result(_name, _tendency, _slowdown, _error)
-      raise(NotImplementedError)
-    end
+    private
 
-    # result end
-    def end_result
-      # nop
+    def report_results
+      top = @test_reports.first
+      best, other = @test_reports.partition { _1.stats.overlaps?(top.stats) }
+      @reporter.results(
+        best.to_h { [_1.label, _1.stats.central_tendency] },
+        other.to_h do |report|
+          [
+            report.label,
+            [report.stats.central_tendency, report.stats.slowdown(top.stats)[0]]
+          ]
+        end
+      )
     end
   end
 end

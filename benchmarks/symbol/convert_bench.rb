@@ -5,27 +5,21 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark 'Symbol:convert - convert to a Symbol' do
   test_by_type!
 
-  samples = ['test', :test, -'sample', :sample, Object.new, 42].freeze
+  sample = ['test', :test, -'sample', :sample, Object.new, 42].freeze
 
   code '#to_s#to_sym' do
-    sample = samples.sample
-    sample.to_s.to_sym
+    sample.map { _1.to_s.to_sym }
   end
 
   code 'interpolation' do
-    sample = samples.sample
-    :"#{sample}"
+    sample.map { :"#{_1}" }
   end
 
   code '#respond_to?+#to_x' do
-    sample = samples.sample
-    sample.respond_to?(:to_sym) ? sample.to_sym : sample.to_s.to_sym
+    sample.map { _1.respond_to?(:to_sym) ? _1.to_sym : _1.to_s.to_sym }
   end
 
   code 'defined?+#to_x' do
-    sample = samples.sample
-    defined?(sample.to_sym) ? sample.to_sym : sample.to_s.to_sym
+    sample.map { defined?(_1.to_sym) ? _1.to_sym : _1.to_s.to_sym }
   end
 end
-
-RubyOnSpeed.report! __FILE__

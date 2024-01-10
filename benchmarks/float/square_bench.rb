@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Float:square - calculate the square of a Float' do
     sample * sample
   end
 end
-
-RubyOnSpeed.report! __FILE__

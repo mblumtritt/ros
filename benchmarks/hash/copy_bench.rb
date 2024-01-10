@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Hash:copy - create a copy of a Hash' do
     sample.dup
   end
 end
-
-RubyOnSpeed.report! __FILE__

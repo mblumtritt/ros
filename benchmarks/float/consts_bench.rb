@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Float:const - float constants' do
     sample * (1.5 / 2.75)
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -9,13 +9,17 @@ module RubyOnSpeed
     end
 
     def self.[](name)
-      @fixtures.fetch(name.to_s) do
-        raise(ArgumentError, "undefined Fixture - #{name}")
-      end
+      ret = @fixtures[name.to_s]
+      raise(ArgumentError, "undefined Fixture - #{name}") if ret.nil?
+      ret.is_a?(Proc) ? ret.call.freeze : ret
     end
 
     def self.[]=(name, value)
       @fixtures[name.to_s] = value.freeze
+    end
+
+    def self.add(name, value = nil, &block)
+      @fixtures[name.to_s] = value.nil? ? block : value.freeze
     end
   end
 end

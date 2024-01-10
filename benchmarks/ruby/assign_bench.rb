@@ -24,5 +24,3 @@ RubyOnSpeed.test 'Ruby:assign - variable assignment' do
     a + b + c + d + e + f + g + h + i + j + x
   end
 end
-
-RubyOnSpeed.report! __FILE__

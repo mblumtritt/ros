@@ -21,5 +21,3 @@ RubyOnSpeed.benchmark(
     Hash[Array.new(data.size, &:itself).zip(data)]
   end
 end
-
-RubyOnSpeed.report! __FILE__

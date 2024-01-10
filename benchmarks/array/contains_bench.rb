@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark(
   'Array:contains - check if an Array contains an element'
 ) do
-  has_truthy_results!
+  test_truthy_results!
 
   sample_array = fixture(:objects)
   sample = sample_array.sample
@@ -22,5 +22,3 @@ RubyOnSpeed.benchmark(
     sample_array.include?(sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

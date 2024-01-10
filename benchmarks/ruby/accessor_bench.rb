@@ -42,5 +42,3 @@ RubyOnSpeed.benchmark 'Ruby:accessor - access object member' do
     sample.foo = sample.foo
   end
 end
-
-RubyOnSpeed.report! __FILE__

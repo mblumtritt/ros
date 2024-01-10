@@ -20,5 +20,3 @@ RubyOnSpeed.benchmark(
     sample_class === sample
   end
 end
-
-RubyOnSpeed.report! __FILE__

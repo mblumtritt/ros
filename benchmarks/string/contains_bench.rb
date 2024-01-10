@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark(
   'String:contains - test if a String contains another String'
 ) do
-  has_truthy_results!
+  test_truthy_results!
 
   sample = fixture(:lorem_ipsum)
 
@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark(
     sample.include?('pariatur')
   end
 end
-
-RubyOnSpeed.report! __FILE__

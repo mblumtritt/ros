@@ -3,19 +3,17 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:copy - create a copy of an Array' do
-  sample_array = fixture(:objects)
+  sample = fixture(:objects)
 
   code '::new' do
-    Array.new(sample_array)
+    Array.new(sample)
   end
 
   code '#dup' do
-    sample_array.dup
+    sample.dup
   end
 
   code '[*array]' do
-    [*sample_array]
+    [*sample]
   end
 end
-
-RubyOnSpeed.report! __FILE__

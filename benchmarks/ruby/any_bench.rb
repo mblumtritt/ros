@@ -19,5 +19,3 @@ RubyOnSpeed.benchmark 'Ruby:any - single test vs. any' do
     test_any(1, 3, 5, 7)
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark 'Integer:zero - test if an Integer is zero' do
     sample.zero?
   end
 end
-
-RubyOnSpeed.report! __FILE__

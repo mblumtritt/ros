@@ -19,5 +19,3 @@ RubyOnSpeed.benchmark(
     sample[0, 5] == 'Hello'
   end
 end
-
-RubyOnSpeed.report! __FILE__

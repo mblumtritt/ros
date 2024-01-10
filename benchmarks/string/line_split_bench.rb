@@ -36,5 +36,3 @@ RubyOnSpeed.benchmark('String:line_split - split lines') do
     each_each_line(*sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

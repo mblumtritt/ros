@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'date'
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Range:comparison - is a Comparable in a Range' do
+  require('date')
+
   start_value = Time.utc(2020)
   end_value = Time.utc(2020, 1, 2, 3, 4, 5)
 
@@ -30,5 +31,3 @@ RubyOnSpeed.benchmark 'Range:comparison - is a Comparable in a Range' do
     start_value <= sample && sample <= end_value
   end
 end
-
-RubyOnSpeed.report! __FILE__

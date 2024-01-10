@@ -31,5 +31,3 @@ RubyOnSpeed.benchmark 'Object:method_argument - test (default) arguments' do
     kwdefault
   end
 end
-
-RubyOnSpeed.report! __FILE__

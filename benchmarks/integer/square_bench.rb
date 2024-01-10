@@ -13,5 +13,3 @@ RubyOnSpeed.test 'Integer:square - calculate the square of a Integer' do
     sample * sample
   end
 end
-
-RubyOnSpeed.report! __FILE__

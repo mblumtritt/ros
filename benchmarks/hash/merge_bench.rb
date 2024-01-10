@@ -14,5 +14,3 @@ RubyOnSpeed.benchmark 'Hash:merge - merge two Hashes' do
     { :a => 1, :b => 2, 1 => :a, 2 => :b, **sample }
   end
 end
-
-RubyOnSpeed.report! __FILE__

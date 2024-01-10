@@ -61,5 +61,3 @@ RubyOnSpeed.benchmark 'Ruby:CONST - using a constant' do
     ConstB2.check(21)
   end
 end
-
-RubyOnSpeed.report! __FILE__

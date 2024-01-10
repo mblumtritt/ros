@@ -26,5 +26,3 @@ RubyOnSpeed.benchmark 'String:copy - create a String copy' do
     "#{sample}"
   end
 end
-
-RubyOnSpeed.report! __FILE__

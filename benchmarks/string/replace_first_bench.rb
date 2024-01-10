@@ -39,5 +39,3 @@ RubyOnSpeed.benchmark 'String: replace_first - replace first sub string' do
     str
   end
 end
-
-RubyOnSpeed.report! __FILE__

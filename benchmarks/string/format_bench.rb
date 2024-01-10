@@ -11,6 +11,10 @@ RubyOnSpeed.benchmark 'String::format - format a Float with two digits' do
     format('%.2f', Math::PI)
   end
 
+  code 'Kernel#format_named' do
+    format('%<pi>.2f', pi: Math::PI)
+  end
+
   code 'Float#round#to_s' do
     Math::PI.round(2).to_s
   end
@@ -19,5 +23,3 @@ RubyOnSpeed.benchmark 'String::format - format a Float with two digits' do
     "#{Math::PI.round(2)}"
   end
 end
-
-RubyOnSpeed.report! __FILE__

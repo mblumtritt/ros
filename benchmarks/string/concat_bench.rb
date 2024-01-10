@@ -30,5 +30,3 @@ RubyOnSpeed.benchmark 'String:concat - concat two Strings' do
     format('just a test%s', sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

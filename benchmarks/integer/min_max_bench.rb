@@ -21,5 +21,3 @@ RubyOnSpeed.benchmark 'Integer:min_max - find min and max' do
     compare(21, 42) << compare(42, 21)
   end
 end
-
-RubyOnSpeed.report! __FILE__

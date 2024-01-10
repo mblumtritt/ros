@@ -4,41 +4,17 @@ require 'host-os'
 require_relative 'base'
 
 module RubyOnSpeed
-  class CompactReporter < CompetitionReporter
-    def suite_start(_benchmark_count)
-      str =
-        "RubyOnSpeed v#{RubyOnSpeed::VERSION} for " \
-          "#{HostOS.interpreter} v#{RUBY_VERSION} on #{HostOS}"
-      if HostOS.interpreter.jit_enabled?
-        str += " using #{HostOS.interpreter.jit_type.upcase}"
+  class CompactReporter < Reporter
+    def results(best, other)
+      puts("• #{info.benchmark.label}:")
+      width = (best.keys + other.keys).max_by(&:size).size + 2
+      best.each_pair do |name, tendency|
+        puts("#{name.rjust(width)}: #{scaled(tendency)} i/s")
       end
-      puts(str, nil)
-    end
-
-    def benchmark_start(benchmark)
-      super
-      print("• #{benchmark.label}:")
-    end
-
-    def start_result
-      @width = @reports.max_by { |r| r.label.size }.label.size + 2
+      other.each_pair do |name, (tendency, slowdown)|
+        puts("#{name.rjust(width)}: #{tendency(tendency, slowdown)}")
+      end
       puts
-    end
-
-    def winner_result(name, tendency)
-      puts("#{name.rjust(@width)}: #{scaled(tendency)} i/s")
-    end
-
-    def other_result(name, tendency, slowdown, error)
-      puts("#{name.rjust(@width)}: #{tendency(tendency, slowdown, error)}")
-    end
-
-    def end_result
-      puts
-    end
-
-    def interrupted!
-      $stderr.puts(' ABORTED')
     end
   end
 end

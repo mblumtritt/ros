@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Ruby:forwarding - forward a call' do
-  has_truthy_results!
+  test_truthy_results!
 
   class CallOrigin
     attr_accessor :value
@@ -112,5 +112,3 @@ RubyOnSpeed.benchmark 'Ruby:forwarding - forward a call' do
     caller2.value = 42
   end
 end
-
-RubyOnSpeed.report! __FILE__

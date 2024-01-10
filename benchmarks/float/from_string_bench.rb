@@ -13,5 +13,3 @@ RubyOnSpeed.benchmark 'Float:from_string - convert a String to Float' do
     Float(sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

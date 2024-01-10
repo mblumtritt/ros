@@ -19,5 +19,3 @@ RubyOnSpeed.test 'Range:rand - get a random element of a Range' do
     rand(100) + 100
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -26,5 +26,3 @@ RubyOnSpeed.benchmark 'Array:empty - use of an empty Array' do
     sample.as_create
   end
 end
-
-RubyOnSpeed.report! __FILE__

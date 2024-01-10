@@ -14,5 +14,3 @@ RubyOnSpeed.benchmark 'Ruby:defined - const_defined' do
     sample.const_defined?(:MAX)
   end
 end
-
-RubyOnSpeed.report! __FILE__

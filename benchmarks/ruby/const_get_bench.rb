@@ -19,5 +19,3 @@ RubyOnSpeed.benchmark 'Ruby:const_get - get a constant value' do
     ConstGet.const_get('VALUE')
   end
 end
-
-RubyOnSpeed.report! __FILE__

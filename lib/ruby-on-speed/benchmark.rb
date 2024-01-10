@@ -4,17 +4,15 @@ require 'benchmark/ips'
 require_relative 'fixtures'
 
 module RubyOnSpeed
-  ROOT_DIR = File.expand_path('../..', __dir__)
-
   class Benchmark
     attr_reader :source_file_name
-    attr_writer :skip_test_reason
+    attr_writer :skip_test_reason, :test_method
 
     def initialize(label, block)
       @label = label
       @block = block
-      @source_file_name = relative_source(block)
-      @test_type = :call
+      @source_file_name = block.source_location[0]
+      @test_method = :call
     end
 
     def entries
@@ -26,15 +24,11 @@ module RubyOnSpeed
       @entries
     end
 
-    def add(entry)
-      label = entry.label
-      raise('no name given') if label.empty?
-      raise("name already used - #{label}") if entries.key?(label)
-      @entries[label] = entry
-    end
-
-    def test_with(&block)
-      @test_type = block
+    def add(name, block)
+      name = name.to_s
+      raise('no name given') if name.empty?
+      raise("name already used - #{name}") if entries.key?(name)
+      @entries[name] = Job::Entry.new(name, block)
     end
 
     def label
@@ -50,10 +44,22 @@ module RubyOnSpeed
       label.split(' - ', 2).last
     end
 
-    def test!
+    def relative_source_file_name
+      ".#{source_file_name.delete_prefix(ROOT_DIR)}"
+    end
+
+    def test_result
       values = entries.values
-      raise(Skipped, @skip_test_reason) if @skip_test_reason
-      test_all(values, &@test_type)
+      return :skipped, @skip_test_reason if @skip_test_reason
+      test = @test_method.to_proc
+      first = values.shift
+      result = test[first.action]
+      values.each do |entry|
+        if test[entry.action] != result
+          return :error, "#{entry.label} has different result as #{first.label}"
+        end
+      end
+      :ok
     end
 
     def run(reporter)
@@ -64,27 +70,27 @@ module RubyOnSpeed
       job.run
     end
 
-    private
-
-    def relative_source(block)
-      "./#{block.source_location.first.delete_prefix(ROOT_DIR)[1..]}"
-    end
-
-    def test_all(entries)
-      first = entries.shift
-      result = yield(first.action)
-      entries.each do |entry|
-        unless yield(entry.action) == result
-          raise(Error, "#{entry.label} has different result as #{first.label}")
-        end
-      end
-    end
-
     class Job < ::Benchmark::IPS::Job
       def reporter=(reporter)
         @out = reporter
       end
+
+      class Entry
+        attr_reader :name, :action
+
+        alias label name
+
+        def call_times(times)
+          times.times(&@action)
+        end
+
+        def initialize(name, action)
+          @name = name
+          @action = action
+        end
+      end
     end
+    private_constant :Job
 
     class DSL
       def initialize(benchmark, block)
@@ -94,10 +100,11 @@ module RubyOnSpeed
 
       def code(name, &block)
         raise('no block given') if block.nil?
-        @benchmark.add(::Benchmark::IPS::Job::Entry.new(name, block))
+        @benchmark.add(name, block)
       end
 
       def ignore(*_)
+        # nop
       end
       alias xcode ignore
 
@@ -105,27 +112,27 @@ module RubyOnSpeed
         Fixtures[name]
       end
 
-      def test_result
-        @benchmark.test_with { |f| yield(f.call) }
+      def test_with
+        @benchmark.test_method = ->(v) { yield(v.call) }
       end
 
       def test_by_type!
-        test_result(&:class)
+        @benchmark.test_method = :class
+      end
+
+      def test_boolean_results!
+        @benchmark.test_method = ->(v) { v == true || v == false }
+      end
+
+      def test_truthy_results!
+        @benchmark.test_method = ->(v) { v ? true : false }
       end
 
       def has_random_results!
         @benchmark.skip_test_reason = 'random results'
       end
-
-      def has_truthy_results!
-        test_result { |o| !!o }
-      end
-
-      def has_boolean_results!
-        test_result { |o| (o == true) || (o == false) ? :truthy : :other }
-      end
     end
 
-    private_constant(:Job, :DSL)
+    private_constant :DSL
   end
 end

@@ -42,5 +42,3 @@ RubyOnSpeed.benchmark 'Ruby:variable - access a value' do
     sample.use_reader
   end
 end
-
-RubyOnSpeed.report! __FILE__

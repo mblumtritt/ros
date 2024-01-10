@@ -30,5 +30,3 @@ RubyOnSpeed.benchmark('Ruby:endless_loop - different (nearly) endless loops') do
     x
   end
 end
-
-RubyOnSpeed.report! __FILE__

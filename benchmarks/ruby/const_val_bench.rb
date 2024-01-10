@@ -30,5 +30,3 @@ RubyOnSpeed.benchmark 'Ruby:const - const value access' do
     sample_instane.value
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -5,25 +5,20 @@ require_relative 'default'
 
 module RubyOnSpeed
   class SimpleReporter < DefaultReporter
-    def suite_start(_benchmark_count)
-      puts(
-        '=' * 79,
-        " RubyOnSpeed v#{RubyOnSpeed::VERSION} for " \
-          "#{HostOS.interpreter} v#{RUBY_VERSION} on " \
-          "#{HostOS}"
-      )
+    def start
+      puts(info.benchmark.label)
     end
 
-    def benchmark_start(benchmark)
-      @reports = []
-      puts('=' * 79, " #{benchmark.label}")
-    end
-
-    def start_result
-      puts('=' * 79)
-    end
-
-    def end_result
+    def results(best, other)
+      section('result')
+      best.each_pair do |name, tendency|
+        left_part("#{name}:")
+        right_part("#{scaled(tendency)} i/s")
+      end
+      other.each_pair do |name, (tendency, slowdown)|
+        left_part("#{name}:")
+        right_part(tendency(tendency, slowdown))
+      end
       puts('=' * 79, nil)
     end
 

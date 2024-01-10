@@ -11,5 +11,3 @@ RubyOnSpeed.benchmark 'Array:fill - create an Array with Integers' do
     [].fill(0, 100, &:itself)
   end
 end
-
-RubyOnSpeed.report! __FILE__

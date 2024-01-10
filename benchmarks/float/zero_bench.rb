@@ -25,5 +25,3 @@ RubyOnSpeed.benchmark 'Float:zero - test if a Float is zero' do
     sample.zero?
   end
 end
-
-RubyOnSpeed.report! __FILE__

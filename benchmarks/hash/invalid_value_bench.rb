@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark 'Hash:invalid_value - find non-existing value of Hash' do
     sample.fetch('not') { 'default' }
   end
 end
-
-RubyOnSpeed.report! __FILE__

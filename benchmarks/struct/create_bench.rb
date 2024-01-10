@@ -5,7 +5,7 @@ return unless defined?(Data.define)
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Struct:create - create a Struct/Data/Hash' do
-  test_result { |o| o.to_h == { a: 1, b: 2, c: 3, d: 4 } }
+  test_with { _1.to_h == { a: 1, b: 2, c: 3, d: 4 } }
 
   sample = Struct.new(:a, :b, :c, :d)
   data_sample = Data.define(:a, :b, :c, :d)
@@ -46,5 +46,3 @@ RubyOnSpeed.benchmark 'Struct:create - create a Struct/Data/Hash' do
     { a: 1, b: 2, c: 3, d: 4 }
   end
 end
-
-RubyOnSpeed.report! __FILE__

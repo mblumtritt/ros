@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark('String:lines_count - count number of lines') do
     sample.count($/)
   end
 end
-
-RubyOnSpeed.report! __FILE__

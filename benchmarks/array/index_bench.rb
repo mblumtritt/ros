@@ -22,5 +22,3 @@ RubyOnSpeed.benchmark 'Array:index - find the index of an Array element' do
     sample_array.find_index { |i| i == sample }
   end
 end
-
-RubyOnSpeed.report! __FILE__

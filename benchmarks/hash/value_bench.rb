@@ -31,5 +31,3 @@ RubyOnSpeed.benchmark 'Hash:value - find value from a key' do
     sample.fetch('ru')
   end
 end
-
-RubyOnSpeed.report! __FILE__

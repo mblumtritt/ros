@@ -23,5 +23,3 @@ RubyOnSpeed.benchmark(
     hash[:a] + hash[:b] + hash[:c] + hash[:d]
   end
 end
-
-RubyOnSpeed.report! __FILE__

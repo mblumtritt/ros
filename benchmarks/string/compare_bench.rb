@@ -19,5 +19,3 @@ RubyOnSpeed.benchmark(
     sample.casecmp?(sample)
   end
 end
-
-RubyOnSpeed.report! __FILE__

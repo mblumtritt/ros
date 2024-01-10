@@ -16,5 +16,3 @@ RubyOnSpeed.benchmark 'String:replace - replace all sub strings' do
     str
   end
 end
-
-RubyOnSpeed.report! __FILE__

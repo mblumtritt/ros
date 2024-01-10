@@ -1,6 +1,8 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Integer:rand - check 50% chance' do
+  has_random_results!
+
   code '< 50' do
     rand(100) < 50
   end
@@ -13,5 +15,3 @@ RubyOnSpeed.benchmark 'Integer:rand - check 50% chance' do
     rand(100).even?
   end
 end
-
-RubyOnSpeed.report! __FILE__

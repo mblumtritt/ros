@@ -30,5 +30,3 @@ RubyOnSpeed.benchmark 'Ruby:loop - different loops' do
     x
   end
 end
-
-RubyOnSpeed.report! __FILE__

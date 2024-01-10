@@ -17,5 +17,3 @@ RubyOnSpeed.benchmark 'String:remove_char - remove a single char' do
     sample.delete(' ')
   end
 end
-
-RubyOnSpeed.report! __FILE__

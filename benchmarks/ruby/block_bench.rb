@@ -33,5 +33,3 @@ RubyOnSpeed.benchmark 'Ruby:block - call a block' do
     block[1]
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -11,5 +11,3 @@ RubyOnSpeed.benchmark 'Hash:store - add a key/value pair to a Hash' do
     {}[42] = :Ruby
   end
 end
-
-RubyOnSpeed.report! __FILE__

@@ -21,5 +21,3 @@ RubyOnSpeed.benchmark 'Proc:call - call a Proc with parameters' do
     sample.yield(28, 14)
   end
 end
-
-RubyOnSpeed.report! __FILE__

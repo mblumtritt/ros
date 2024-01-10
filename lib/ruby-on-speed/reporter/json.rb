@@ -1,40 +1,35 @@
 # frozen_string_literal: true
 
-require 'host-os'
 require_relative 'base'
 
 module RubyOnSpeed
   class JsonReporter < Reporter
-    def suite_start(_)
+    def setup(info)
+      @info = info
       @benchmarks = []
     end
 
-    def benchmark_start(benchmark)
-      super
-      @benchmarks << (
-        @current = {
-          'name' => benchmark.name,
-          'description' => benchmark.description
-        }
-      )
+    def raw_results(reports)
+      top = reports.first
+      @benchmarks << {
+        'name' => info.benchmark.name,
+        'description' => info.benchmark.description,
+        'data' =>
+          reports.map do |report|
+            {
+              'name' => report.label,
+              'central_tendency' => report.stats.central_tendency,
+              'slowdown' => report.stats.slowdown(top.stats)[0],
+              'error' => report.stats.error,
+              'iterations' => report.iterations,
+              'microseconds' => report.microseconds,
+              'cycles' => report.measurement_cycle
+            }
+          end
+      }
     end
 
-    def benchmark_end
-      @current['data'] = @reports.map do |entry|
-        {
-          'name' => entry.label,
-          'central_tendency' => entry.stats.central_tendency,
-          'iterations' => entry.iterations,
-          'microseconds' => entry.microseconds,
-          'error' => entry.stats.error,
-          'cycles' => entry.measurement_cycle
-        }
-      end
-      @current = nil
-      super
-    end
-
-    def suite_end
+    def teardown
       puts(
         as_json(
           'meta' => {
@@ -48,6 +43,7 @@ module RubyOnSpeed
         )
       )
       @benchmarks = nil
+      super
     end
 
     private

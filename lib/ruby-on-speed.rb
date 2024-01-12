@@ -3,8 +3,6 @@
 module RubyOnSpeed
   Error = Class.new(StandardError)
 
-  ROOT_DIR = File.expand_path('..', __dir__)
-
   require_relative('ruby-on-speed/version')
   require_relative('ruby-on-speed/register')
   require_relative('ruby-on-speed/fixtures')
@@ -19,10 +17,8 @@ module RubyOnSpeed
       raise('no block given') unless block
       load_fixture_file!
       Register.add(Benchmark.new(label, block))
-      @process ||= Process.argv0
-      @process_alt ||= File.expand_path(@process, Dir.pwd)
-      called_by = caller_locations(1, 1).first.absolute_path
-      report if (called_by == @process) || (called_by == @process_alt)
+      @process_name ||= File.expand_path(Process.argv0)
+      report if @process_name == caller_locations(1, 1).first.absolute_path
       label
     end
     alias test benchmark

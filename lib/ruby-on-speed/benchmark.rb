@@ -45,7 +45,8 @@ module RubyOnSpeed
     end
 
     def relative_source_file_name
-      ".#{source_file_name.delete_prefix(ROOT_DIR)}"
+      @@root_dir ||= File.expand_path('../..', __dir__)
+      ".#{source_file_name.delete_prefix(@@root_dir)}"
     end
 
     def test_result

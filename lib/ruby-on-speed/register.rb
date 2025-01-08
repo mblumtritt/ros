@@ -4,13 +4,10 @@ module RubyOnSpeed
   module Register
     @reg = {}
 
-    def self.empty?
-      @reg.empty?
-    end
-
-    def self.size
-      @reg.size
-    end
+    def self.empty? = @reg.empty?
+    def self.size = @reg.size
+    def self.names = @reg.keys.sort!
+    def self.delete(name) = @reg.delete(name)
 
     def self.benchmark_size
       sum = 0
@@ -18,18 +15,10 @@ module RubyOnSpeed
       sum
     end
 
-    def self.names
-      @reg.keys.sort!
-    end
-
     def self.add(benchmark)
       @reg.key?(benchmark.label) and
         raise("benchmark already registered - #{benchmark.label}")
       @reg[benchmark.label] = benchmark
-    end
-
-    def self.delete(name)
-      @reg.delete(name)
     end
 
     def self.each

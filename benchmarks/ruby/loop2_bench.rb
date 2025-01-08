@@ -3,30 +3,27 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark('Ruby:endless_loop - different (nearly) endless loops') do
+  def use_loop(max, x = 0)
+    loop { return x if (x += 1) == max }
+  end
+
+  def use_while(max, x = 0)
+    return x if (x += 1) == max while true
+  end
+
+  def use_until(max, x = 0)
+    return x if (x += 1) == max until false
+  end
+
   code 'loop' do
-    x = 0
-    loop do
-      x += 1
-      break if x == 10
-    end
-    x
+    use_loop(10)
   end
 
   code 'while' do
-    x = 0
-    while true
-      x += 1
-      break if x == 10
-    end
-    x
+    use_while(10)
   end
 
   code 'until' do
-    x = 0
-    until false
-      x += 1
-      break if x == 10
-    end
-    x
+    use_until(10)
   end
 end

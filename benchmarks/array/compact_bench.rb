@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:compact - remove all nil elements from an Array' do
-  sample = (Array.new(40, 1) + Array.new(10)).shuffle!.freeze!
+  sample = (Array.new(40, 1) + Array.new(10)).shuffle!.freeze
 
   code '#compact' do
     Array.new(sample).compact

@@ -17,6 +17,12 @@ RubyOnSpeed.benchmark 'Ruby:block - call a block' do
 
   block = proc { |i| i + i }
 
+  def just_a_method(i)
+    i + i
+  end
+
+  meth = method(:just_a_method)
+
   code 'yield' do
     use_yield(1) { |i| i + i }
   end
@@ -31,5 +37,9 @@ RubyOnSpeed.benchmark 'Ruby:block - call a block' do
 
   code 'block#[]' do
     block[1]
+  end
+
+  code 'method' do
+    meth.call(1)
   end
 end

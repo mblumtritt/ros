@@ -2,7 +2,10 @@
 
 An open collection of Ruby benchmarks.
 
-Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and reproducible way. It's based on the wonderful [Benchmark/Ips](https://github.com/evanphx/benchmark-ips) gem and provides an easy to use DSL to create the benchmark collection.
+Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and
+reproducible way. It's based on the wonderful
+[Benchmark/Ips](https://github.com/evanphx/benchmark-ips) gem and provides an
+easy to use DSL to create the benchmark collection.
 
 ## Usage
 
@@ -32,6 +35,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 
 ## List of Benchmarks
 
+- [Array:add](./benchmarks/array/add_bench.rb) - add items to an Array
 - [Array:combine](./benchmarks/array/combine_bench.rb) - create an combined Array
 - [Array:compact](./benchmarks/array/compact_bench.rb) - remove all nil elements from an Array
 - [Array:concat](./benchmarks/array/concat_bench.rb) - concatenate two Arrays
@@ -43,6 +47,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Array:find_sorted](./benchmarks/array/find_sorted_bench.rb) - find element in a sorted Array
 - [Array:first](./benchmarks/array/first_bench.rb) - access the first element of an Array
 - [Array:group](./benchmarks/array/group_bench.rb) - group Array in number of sub-arrays
+- [Array:include](./benchmarks/array/const_bench.rb) - check if element is contained
 - [Array:index](./benchmarks/array/index_bench.rb) - find the index of an Array element
 - [Array:index_iterate](./benchmarks/array/index_iterate_bench.rb) - iterate all elements
 - [Array:iterate](./benchmarks/array/iterate_bench.rb) - iterate over all Array elements
@@ -61,6 +66,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Float:square](./benchmarks/float/square_bench.rb) - calculate the square of a Float
 - [Float:zero](./benchmarks/float/zero_bench.rb) - test if a Float is zero
 - [Hash:access](./benchmarks/hash/access_bench.rb) - get values of Hash in Hash
+- [Hash:as_string](./benchmarks/hash/as_string_bench.rb) - create a key/value String
 - [Hash:copy](./benchmarks/hash/copy_bench.rb) - create a copy of a Hash
 - [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create a Hash from an Array
 - [Hash:from_indexed_array](./benchmarks/hash/from_indexed_array_bench.rb) - create a Hash from positional Array
@@ -84,6 +90,7 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Range:rand](./benchmarks/range/rand_bench.rb) - get a random element of a Range
 - [Range:to_a](./benchmarks/range/to_a_bench.rb) - convert a Range to an Array
 - [Regexp:match](./benchmarks/regexp/const_bench.rb) - find Match of an Regexp
+- [Regexp:match](./benchmarks/regexp/inline_bench.rb) - named match groups
 - [Ruby:CONST](./benchmarks/ruby/const_bench.rb) - using a constant
 - [Ruby:accessor](./benchmarks/ruby/accessor_bench.rb) - access object member
 - [Ruby:any](./benchmarks/ruby/any_bench.rb) - single test vs. any
@@ -91,12 +98,16 @@ Ruby On Speed (ROS) allows you to run your Ruby code idioms in an elegant and re
 - [Ruby:block](./benchmarks/ruby/block_bench.rb) - call a block
 - [Ruby:const](./benchmarks/ruby/const_val_bench.rb) - const value access
 - [Ruby:const_get](./benchmarks/ruby/const_get_bench.rb) - get a constant value
+- [Ruby:defined](./benchmarks/ruby/const_defined_bench.rb) - const_defined
+- [Ruby:defined](./benchmarks/ruby/method_defined_bench.rb) - method_defined
 - [Ruby:endless_loop](./benchmarks/ruby/loop2_bench.rb) - different (nearly) endless loops
+- [Ruby:ensure](./benchmarks/ruby/ensure_bench.rb) - cost of ensure call
 - [Ruby:forwarding](./benchmarks/ruby/forwarding_bench.rb) - forward a call
 - [Ruby:if](./benchmarks/ruby/if_bench.rb) - if vs. ternary if vs. and
 - [Ruby:loop](./benchmarks/ruby/loop_bench.rb) - different loops
 - [Ruby:method_call](./benchmarks/ruby/method_call_bench.rb) - calling methods
 - [Ruby:variable](./benchmarks/ruby/variable_bench.rb) - access a value
+- [Some:main](./benchmarks/local/some_bench.rb) - Some:main
 - [String: replace_first](./benchmarks/string/replace_first_bench.rb) - replace first sub string
 - [String::format](./benchmarks/string/format_bench.rb) - format a Float with two digits
 - [String:casecmp](./benchmarks/string/compare_bench.rb) - comparing two Strings case-insensitive

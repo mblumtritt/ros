@@ -41,9 +41,7 @@ module RubyOnSpeed
       pairs.each_pair { |name, value| Fixtures[name] = value }
     end
 
-    def to_a
-      Register.each.to_a
-    end
+    def to_a = Register.each.to_a
 
     def test!(report: DEFAULT_TEST_REPORT, &block)
       block ||= report

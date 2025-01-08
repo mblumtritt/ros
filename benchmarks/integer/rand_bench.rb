@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Integer:rand - check 50% chance' do

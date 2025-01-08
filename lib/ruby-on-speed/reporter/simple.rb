@@ -33,7 +33,7 @@ module RubyOnSpeed
         puts(" #{str}")
         print(' ' * 38)
       else
-        print("#{str.rjust(38)}")
+        print(str.rjust(38))
       end
     end
 

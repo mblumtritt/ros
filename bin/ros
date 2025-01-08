@@ -80,13 +80,14 @@ def die!(msg, include_command: true, code: 1)
   exit(code)
 end
 
-if %w[-h --help help].include?(COMMAND)
-  sub_command = ARGV.shift || 'ros'
+def cmd_help(sub_command)
   help = HELP[sub_command] or die!("unknown command - #{sub_command}")
   print('usage: ')
   puts(help)
   exit
 end
+
+cmd_help(ARGV.shift || 'ros') if %w[-h --help help].include?(COMMAND)
 
 OPTIONS = Struct.new(:format, :bundle, :dir, :regexp).new('default', true)
 

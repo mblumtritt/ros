@@ -89,7 +89,7 @@ end
 
 cmd_help(ARGV.shift || 'ros') if %w[-h --help help].include?(COMMAND)
 
-OPTIONS = Struct.new(:format, :bundle, :dir, :regexp).new('default', true)
+OPTIONS = Struct.new(:format, :bundle, :dir, :regexp)['default', true]
 
 def as_directory(dir)
   dir = File.expand_path(dir)
@@ -123,7 +123,6 @@ def parse_args(formats:)
     when '--dir'
       OPTIONS.dir = as_directory(ARGV.shift || die!('argument missing - --dir'))
     else
-      # (block_given? && yield(opt, ARGV)) or
       die!("unknown option - #{opt}")
     end
   end
@@ -146,7 +145,7 @@ def perform
   bundle! if OPTIONS.bundle
   require_relative('../lib/ruby-on-speed')
   OPTIONS.dir ||= File.expand_path('../benchmarks', __dir__)
-  Dir.glob(File.join(OPTIONS.dir, '**/*_bench.rb')) { |fname| load(fname) }
+  RubyOnSpeed.load_from(OPTIONS.dir)
   RubyOnSpeed.filter!(*OPTIONS.regexp) if OPTIONS.regexp
   $stdout.sync = true
   exit(yield)
@@ -179,15 +178,14 @@ end
 
 parse_args(formats: %w[default markdown])
 perform do
-  benchmarks = RubyOnSpeed.to_a
   case OPTIONS.format
   when 'markdown'
-    benchmarks.each do |bm|
+    RubyOnSpeed.each do |bm|
       puts "- [#{bm.name}](#{bm.relative_source_file_name}) - #{bm.description}"
     end
   else
-    width = benchmarks.max_by { |bm| bm.name.size }.name.size
-    benchmarks.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
+    width = RubyOnSpeed.each.max_by { |bm| bm.name.size }.name.size
+    RubyOnSpeed.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
   end
   true
 end

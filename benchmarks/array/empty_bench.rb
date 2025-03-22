@@ -2,21 +2,20 @@
 
 require_relative '../../lib/ruby-on-speed'
 
+class SampleClass
+  EMPTY = [].freeze
+
+  def as_const
+    EMPTY
+  end
+
+  def as_create
+    []
+  end
+end
+
 RubyOnSpeed.benchmark 'Array:empty - use of an empty Array' do
-  sample =
-    Class
-      .new do
-        EMPTY = [].freeze
-
-        def as_const
-          EMPTY
-        end
-
-        def as_create
-          []
-        end
-      end
-      .new
+  sample = SampleClass.new
 
   code 'const' do
     sample.as_const

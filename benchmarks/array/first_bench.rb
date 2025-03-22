@@ -3,13 +3,13 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:first - access the first element of an Array' do
-  sample = fixture(:integers)
+  array = (0..100).to_a.freeze
 
   code '#[0]' do
-    sample[0]
+    array[0]
   end
 
   code '#first' do
-    sample.first
+    array.first
   end
 end

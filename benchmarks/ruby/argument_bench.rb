@@ -19,6 +19,10 @@ RubyOnSpeed.benchmark 'Object:method_argument - test (default) arguments' do
     arg1 + arg2
   end
 
+  def nil_default(arg1 = nil, arg2 = nil)
+    (arg1 || val) + (arg2 || val)
+  end
+
   code 'simple' do
     simple(val, val)
   end
@@ -29,5 +33,9 @@ RubyOnSpeed.benchmark 'Object:method_argument - test (default) arguments' do
 
   code 'kwdefault' do
     kwdefault
+  end
+
+  code 'nil_default' do
+    nil_default
   end
 end

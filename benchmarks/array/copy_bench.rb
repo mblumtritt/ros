@@ -3,17 +3,17 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:copy - create a copy of an Array' do
-  sample = fixture(:objects)
+  array = Array.new(255) { Object.new }.freeze
 
   code '.new' do
-    Array.new(sample)
+    Array.new(array)
   end
 
   code '#dup' do
-    sample.dup
+    Array.new(array)
   end
 
   code '[*array]' do
-    [*sample]
+    [*array]
   end
 end

@@ -3,9 +3,10 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Ruby:accessor - access object member' do
-  sample =
+  object =
     Class
       .new do
+        attr_reader :foo
         attr_accessor :bar
 
         def initialize
@@ -20,10 +21,6 @@ RubyOnSpeed.benchmark 'Ruby:accessor - access object member' do
           @baz = value
         end
 
-        def foo
-          @foo
-        end
-
         def foo=(value)
           @foo = value
         end
@@ -31,14 +28,14 @@ RubyOnSpeed.benchmark 'Ruby:accessor - access object member' do
       .new
 
   code 'accessor' do
-    sample.bar = sample.bar
-  end
-
-  code 'getter/setter' do
-    sample.baz = sample.baz
+    object.bar = object.bar
   end
 
   code 'getter/setter*' do
-    sample.foo = sample.foo
+    object.foo = object.foo
+  end
+
+  code 'getter/setter' do
+    object.baz = object.baz
   end
 end

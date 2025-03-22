@@ -5,13 +5,13 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark 'Float:const - float constants' do
   test_with { _1.round(10) }
 
-  sample = 4.45
+  number = 4.45
 
-  code '#*#*' do
-    sample * sample * sample * sample * sample
+  code 'x**5' do
+    number**5
   end
 
-  code '#**5' do
-    sample**5
+  code 'x * x * x * x * x' do
+    number * number * number * number * number
   end
 end

@@ -41,7 +41,9 @@ module RubyOnSpeed
       pairs.each_pair { |name, value| Fixtures[name] = value }
     end
 
-    def to_a = Register.each.to_a
+    def each(&block)
+      Register.each(&block)
+    end
 
     def test!(report: DEFAULT_TEST_REPORT, &block)
       block ||= report
@@ -63,6 +65,10 @@ module RubyOnSpeed
       return if regexp.empty?
       Register.keep_if { |name| regexp.any? { _1.match?(name) } }
       self
+    end
+
+    def load_from(dirname)
+      Dir.glob("#{dirname}/**/*_bench.rb") { load(_1, Module.new) }
     end
 
     private

@@ -3,28 +3,28 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Hash:value - find value from a key' do
-  sample = fixture(:chars_hash)
-  sample_sym = fixture(:chars_hash_sym)
+  sample = ('aa'..'zz').to_h { [_1, _1] }.freeze
+  sample_sym = sample.transform_keys(&:to_sym).freeze
   sample_sym_identity = Hash[sample_sym].compare_by_identity.freeze
-
-  code '#[symbol]' do
-    sample_sym[:ru]
-  end
-
-  code '#fetch(symbol)' do
-    sample_sym.fetch(:ru)
-  end
 
   code '#[symbol] (*)' do
     sample_sym_identity[:ru]
   end
 
-  code '#fetch(symbol) (*)' do
-    sample_sym_identity.fetch(:ru)
+  code '#[symbol]' do
+    sample_sym[:ru]
   end
 
   code '#[string]' do
     sample['ru']
+  end
+
+  code '#fetch(symbol) (*)' do
+    sample_sym_identity.fetch(:ru, 'bad')
+  end
+
+  code '#fetch(symbol)' do
+    sample_sym.fetch(:ru, 'bad')
   end
 
   code '#fetch(string)' do

@@ -3,13 +3,13 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:concat - concatenate two Arrays' do
-  sample = fixture(:integers)
+  array = (0..999).to_a.freeze
 
   code '#+' do
-    [] + sample + sample
+    [] + array + array
   end
 
   code '#concat' do
-    [].concat(sample).concat(sample)
+    [].concat(array).concat(array)
   end
 end

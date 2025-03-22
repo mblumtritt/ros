@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Hash:access - get values of Hash in Hash' do
-  sample = { a: { b: { c: { d: 1 } } } }
+  sample = { a: { b: { c: { d: 42 } } } }.freeze
 
   code '#[]' do
     sample[:a][:b][:c][:d]

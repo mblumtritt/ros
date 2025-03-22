@@ -3,13 +3,13 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Float:square - calculate the square of a Float' do
-  sample = 113.11
+  number = 113.11
 
   code 'x**2' do
-    sample**2
+    number**2
   end
 
   code 'x * x' do
-    sample * sample
+    number * number
   end
 end

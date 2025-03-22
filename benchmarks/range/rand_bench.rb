@@ -3,16 +3,16 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.test 'Range:rand - get a random element of a Range' do
-  has_random_results!
+  test_with { _1.between?(100, 2000) }
 
-  sample = (100..2000)
+  range = (100..2000)
 
   code 'inline' do
     rand(100..2000)
   end
 
   code 'explicite' do
-    rand(sample)
+    rand(range)
   end
 
   code 'no_range' do

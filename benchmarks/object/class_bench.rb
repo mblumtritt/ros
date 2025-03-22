@@ -2,21 +2,22 @@
 
 require_relative '../../lib/ruby-on-speed'
 
+SampleBaseClass = Class.new
+SampleClass = Class.new(SampleBaseClass)
+
 RubyOnSpeed.benchmark(
   'Object:class - test if an Object is derived from a  Class'
 ) do
-  sample_class = Class.new
-  sample = Class.new(sample_class).new
+  object = SampleClass.new
 
   code '#is_a?' do
-    sample.is_a?(sample_class)
-  end
-
-  code '#kind_of?' do
-    sample.kind_of?(sample_class)
+    object.is_a?(SampleClass)
   end
 
   code '===' do
-    sample_class === sample
+    SampleClass === object
+  end
+  code '#kind_of?' do
+    object.kind_of?(SampleClass)
   end
 end

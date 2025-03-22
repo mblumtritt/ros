@@ -2,47 +2,47 @@
 
 require_relative '../../lib/ruby-on-speed'
 
+class SampleBase
+  def self.call(num)
+    21 + num
+  end
+
+  def call(num)
+    21 + num
+  end
+
+  define_method(:defined_call) { |num| 21 + num }
+  eval('def evaled_call(num); 21 + num; end')
+end
+
+class SampleChild < SampleBase
+end
+
+class SampleOverride < SampleBase
+  def call(num)
+    super
+  end
+
+  def defined_call(num)
+    super
+  end
+
+  def evaled_call(num)
+    super
+  end
+end
+
+module SampleMixin
+  def call(num)
+    21 + num
+  end
+end
+
+class SampleWithMixin
+  include SampleMixin
+end
+
 RubyOnSpeed.benchmark 'Ruby:method_call - calling methods' do
-  class SampleBase
-    def self.call(num)
-      21 + num
-    end
-
-    def call(num)
-      21 + num
-    end
-
-    define_method(:defined_call) { |num| 21 + num }
-    eval('def evaled_call(num); 21 + num; end')
-  end
-
-  class SampleChild < SampleBase
-  end
-
-  class SampleOverride < SampleBase
-    def call(num)
-      super
-    end
-
-    def defined_call(num)
-      super
-    end
-
-    def evaled_call(num)
-      super
-    end
-  end
-
-  module SampleMixin
-    def call(num)
-      21 + num
-    end
-  end
-
-  class SampleWithMixin
-    include SampleMixin
-  end
-
   sample_base = SampleBase.new
   sample_child = SampleChild.new
   sample_override = SampleOverride.new

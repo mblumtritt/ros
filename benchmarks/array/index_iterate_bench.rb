@@ -3,17 +3,17 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:index_iterate - iterate all elements' do
-  sample = fixture(:integers)
+  array = (0..999).to_a.freeze
 
   code '#each_with_index' do
     ret = 0
-    sample.each_with_index { |element, index| ret += element + index }
+    array.each_with_index { |element, index| ret += element + index }
     ret
   end
 
   code '#each' do
     ret = index = 0
-    sample.each do |element|
+    array.each do |element|
       ret += element + index
       index += 1
     end
@@ -22,7 +22,7 @@ RubyOnSpeed.benchmark 'Array:index_iterate - iterate all elements' do
 
   code '#[]' do
     ret = 0
-    sample.size.times { |index| ret += sample[index] + index }
+    array.size.times { |index| ret += array[index] + index }
     ret
   end
 end

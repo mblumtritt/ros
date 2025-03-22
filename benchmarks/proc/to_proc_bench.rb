@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
-return unless defined?(Data.define) # for some older Ruby versions
-
 require_relative '../../lib/ruby-on-speed'
 
+SampleClass = Struct.new(:value)
+
 RubyOnSpeed.test 'Proc:to_proc - to_proc vs. call' do
-  sample_type = Data.define(:value)
-  sample = Array.new(23) { |i| sample_type.new(i) }
+  sample = Array.new(23) { |i| SampleClass.new(i) }
+  func = ->(obj) { obj.value }
 
   code '#to_proc' do
     sample.sum(&:value)
   end
 
-  code 'explicite' do
-    sample.sum { |i| i.value }
+  code '{}' do
+    sample.sum { _1.value }
+  end
+
+  code '(&)' do
+    sample.sum(&func)
   end
 end

@@ -5,7 +5,7 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark 'Object:respond_to - test if object responds to' do
   test_truthy_results!
 
-  sample =
+  object =
     Class
       .new do
         def foo
@@ -14,11 +14,11 @@ RubyOnSpeed.benchmark 'Object:respond_to - test if object responds to' do
       end
       .new
 
-  code '#respond_to?' do
-    sample.respond_to?(:foo)
+  code 'defined?' do
+    defined?(object.foo)
   end
 
-  code 'defined?' do
-    defined?(sample.foo)
+  code '#respond_to?' do
+    object.respond_to?(:foo)
   end
 end

@@ -3,7 +3,7 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Hash:invalid_value - find non-existing value of Hash' do
-  sample = fixture(:chars_hash)
+  sample = ('aa'..'zz').to_h { [_1, _1] }.freeze
 
   code '#[] || def' do
     sample['not'] || 'default'

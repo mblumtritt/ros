@@ -5,22 +5,18 @@ require_relative '../../lib/ruby-on-speed'
 RubyOnSpeed.benchmark 'Array:sample - get a random element of an Array' do
   test_by_type!
 
-  sample = fixture(:integers)
-  sample_max = sample.size - 1
+  array = (0..999).to_a.freeze
+  size = array.size
 
   code '#sample' do
-    sample.sample
+    array.sample
   end
 
   code '#[rand]' do
-    sample[Random.rand(sample.size - 1)]
-  end
-
-  code '#[rand2]' do
-    sample[Random.rand(sample_max)]
+    array[Random.rand(size)]
   end
 
   code '#shuffle[0]' do
-    sample.shuffle[0]
+    array.shuffle[0]
   end
 end

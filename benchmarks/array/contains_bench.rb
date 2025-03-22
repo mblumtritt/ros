@@ -7,18 +7,18 @@ RubyOnSpeed.benchmark(
 ) do
   test_truthy_results!
 
-  sample_array = fixture(:objects)
-  sample = sample_array.sample
-
-  code '#index' do
-    sample_array.index(sample)
-  end
+  array = Array.new(255) { Object.new }.freeze
+  sample = array.sample
 
   code '#find_index' do
-    sample_array.find_index(sample)
+    array.find_index(sample)
   end
 
   code '#include?' do
-    sample_array.include?(sample)
+    array.include?(sample)
+  end
+
+  code '#index' do
+    array.index(sample)
   end
 end

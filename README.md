@@ -69,7 +69,6 @@ easy to use DSL to create the benchmark collection.
 - [Hash:as_string](./benchmarks/hash/as_string_bench.rb) - create a key/value String
 - [Hash:copy](./benchmarks/hash/copy_bench.rb) - create a copy of a Hash
 - [Hash:from_array](./benchmarks/hash/from_array_bench.rb) - create a Hash from an Array
-- [Hash:from_indexed_array](./benchmarks/hash/from_indexed_array_bench.rb) - create a Hash from positional Array
 - [Hash:invalid_value](./benchmarks/hash/invalid_value_bench.rb) - find non-existing value of Hash
 - [Hash:merge](./benchmarks/hash/merge_bench.rb) - merge two Hashes
 - [Hash:store](./benchmarks/hash/store_bench.rb) - add a key/value pair to a Hash
@@ -121,8 +120,8 @@ easy to use DSL to create the benchmark collection.
 - [String:replace](./benchmarks/string/replace_bench.rb) - replace all sub strings
 - [String:start](./benchmarks/string/start_bench.rb) - test if s String starts with a given String
 - [String:unpack](./benchmarks/string/unpack_bench.rb) - Integers from binary String
-- [Struct:access](./benchmarks/struct/access_bench.rb) - access member Struct/Hash
-- [Struct:access_cmp](./benchmarks/struct/read_cmp_bench.rb) - read access member Struct/Data/Hash
 - [Struct:create](./benchmarks/struct/create_bench.rb) - create a Struct/Data/Hash
 - [Struct:member](./benchmarks/struct/member_bench.rb) - access the member of a Struct
+- [Struct:read_member](./benchmarks/struct/read_member_bench.rb) - read member Struct/Data/Hash
+- [Struct:write_member](./benchmarks/struct/write_member_bench.rb) - write member Struct/Hash
 - [Symbol:convert](./benchmarks/symbol/convert_bench.rb) - convert to a Symbol

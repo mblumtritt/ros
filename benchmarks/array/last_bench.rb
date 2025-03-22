@@ -3,13 +3,13 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:last - access the last element of an Array' do
-  sample = fixture(:integers)
+  array = (0..99).to_a.freeze
 
   code '#[-1]' do
-    sample[-1]
+    array[-1]
   end
 
   code '#last' do
-    sample.last
+    array.last
   end
 end

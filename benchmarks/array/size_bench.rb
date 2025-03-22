@@ -3,17 +3,17 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:size - get the count of Array entries ' do
-  sample = fixture(:integers)
+  array = (0..999).to_a.freeze
 
   code '#size' do
-    sample.size
-  end
-
-  code '#count' do
-    sample.count
+    array.size
   end
 
   code '#length' do
-    sample.length
+    array.length
+  end
+
+  code '#count' do
+    array.count
   end
 end

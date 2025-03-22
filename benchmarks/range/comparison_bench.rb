@@ -11,20 +11,20 @@ RubyOnSpeed.benchmark 'Range:comparison - is a Comparable in a Range' do
   range = (start_value..end_value)
   sample = range.begin + 86_400
 
-  code '#cover?' do
-    range.cover?(sample)
-  end
-
   code '#between?' do
     sample.between?(start_value, end_value)
   end
 
-  code '#member?' do
-    range.member?(sample)
+  code '#cover?' do
+    range.cover?(sample)
   end
 
   code '#include?' do
     range.include?(sample)
+  end
+
+  code '#member?' do
+    range.member?(sample)
   end
 
   code 'explicite #<=' do

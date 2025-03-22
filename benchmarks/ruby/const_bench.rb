@@ -2,62 +2,62 @@
 
 require_relative '../../lib/ruby-on-speed'
 
+module ModuleA
+  CONST = 21
+
+  def self.check(arg)
+    CONST + arg
+  end
+end
+
+module ModuleB
+  CONST = 21
+
+  def self.check(arg)
+    self::CONST + arg
+  end
+end
+
+module ModuleC
+  def self.check(arg)
+    21 + arg
+  end
+end
+
+class ClassA
+  CONST = 21
+
+  def self.check(arg)
+    CONST + arg
+  end
+end
+
+class ClassB
+  CONST = 21
+
+  def self.check(arg)
+    self::CONST + arg
+  end
+end
+
 RubyOnSpeed.benchmark 'Ruby:CONST - using a constant' do
-  module ConstA
-    CONST = 21
-
-    def self.check(x)
-      CONST + x
-    end
-  end
-
-  module ConstB
-    CONST = 21
-
-    def self.check(x)
-      self::CONST + x
-    end
-  end
-
-  class ConstA2
-    CONST = 21
-
-    def self.check(x)
-      CONST + x
-    end
-  end
-
-  class ConstB2
-    CONST = 21
-
-    def self.check(x)
-      self::CONST + x
-    end
-  end
-
-  module ConstC
-    def self.check(x)
-      21 + x
-    end
-  end
-
   code 'direct' do
-    ConstC.check(21)
-  end
-
-  code 'class.CONST' do
-    ConstA2.check(21)
+    ModuleC.check(21)
   end
 
   code 'module.CONST' do
-    ConstA.check(21)
+    ModuleA.check(21)
+  end
+
+  code 'class.CONST' do
+    ClassA.check(21)
   end
 
   code 'module::CONST' do
-    ConstB.check(21)
+    ModuleB.check(21)
   end
 
   code 'class::CONST' do
-    ConstB2.check(21)
+    ClassB.check(21)
   end
 end

@@ -3,9 +3,9 @@
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Hash:copy - create a copy of a Hash' do
-  sample = fixture(:chars_hash)
+  sample = ('aa'..'zz').to_h { [_1.to_sym, _1] }.freeze
 
-  code '::[]' do
+  code '.[]' do
     Hash[sample]
   end
 

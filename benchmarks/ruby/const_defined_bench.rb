@@ -2,17 +2,18 @@
 
 require_relative '../../lib/ruby-on-speed'
 
+module SampleModule
+  MAX = 42
+end
+
 RubyOnSpeed.benchmark 'Ruby:defined - const_defined' do
   test_boolean_results!
 
-  sample = Module.new
-  sample::MAX = 10
-
   code 'defined?' do
-    defined?(sample::MAX)
+    defined?(SampleModule::MAX)
   end
 
   code 'const_defined?' do
-    sample.const_defined?(:MAX)
+    SampleModule.const_defined?(:MAX)
   end
 end

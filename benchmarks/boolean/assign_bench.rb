@@ -4,13 +4,13 @@ require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Boolean:assign - assign value' do
   test_boolean_results!
-  samples = [false, true, nil, 1, Object.new].freeze
+  array = [false, true, nil, 1, Object.new].freeze
 
   code '!!value' do
-    !!samples.sample
+    array.map { !!_1 }
   end
 
   code '? true : false' do
-    samples.sample ? true : false
+    array.map { _1 ? true : false }
   end
 end

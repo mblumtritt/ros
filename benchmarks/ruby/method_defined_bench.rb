@@ -16,7 +16,7 @@ RubyOnSpeed.benchmark 'Ruby:defined - method_defined' do
     defined?(sample.foo)
   end
 
-  code 'method_defined?' do
+  code '#method_defined?' do
     sample.method_defined?(:foo)
   end
 end

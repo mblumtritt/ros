@@ -7,14 +7,14 @@ RubyOnSpeed.benchmark(
 ) do
   require('date')
 
-  sample1 = Date.new(2020, 1, 1)
-  sample2 = Date.new(2020, 1, 31)
+  start_date = Date.new(2020)
+  end_date = start_date + 111
 
-  code 'subtract' do
-    sample2 - sample1
+  code '#-' do
+    end_date - start_date
   end
 
-  code 'subtract_jd' do
-    sample2.jd - sample1.jd
+  code '#jd#-' do
+    end_date.jd - start_date.jd
   end
 end

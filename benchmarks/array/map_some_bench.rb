@@ -1,33 +1,34 @@
 # frozen_string_literal: true
 
+require 'date'
 require_relative '../../lib/ruby-on-speed'
 
 RubyOnSpeed.benchmark 'Array:map_some - modify' do
-  sample = fixture(:sorted_dates)
+  array = (Date.new(2012)..Date.new(2014)).to_a.freeze
 
   code '#select#map!' do
-    sample.select(&:saturday?).map!(&:to_s)
+    array.select(&:saturday?).map!(&:to_s)
   end
 
   code '#map#compact!' do
-    sample.map { |e| e.saturday? ? e.to_s : nil }.compact!
+    array.map { |e| e.to_s if e.saturday? }.compact!
   end
 
   code '#each#cmp' do
     ret = []
-    sample.each { |e| ret << e.to_s if e.saturday? }
+    array.each { |e| ret << e.to_s if e.saturday? }
     ret
   end
 
   code '#each_with_object#cmp' do
-    sample.each_with_object([]) { |e, ret| ret << e.to_s if e.saturday? }
+    array.each_with_object([]) { |e, ret| ret << e.to_s if e.saturday? }
   end
 
   code '#filter_map' do
-    sample.filter_map { |e| e.saturday? ? e.to_s : nil }
+    array.filter_map { |e| e.to_s if e.saturday? }
   end
 
   code 'copy#keep_if#map!' do
-    Array.new(sample).keep_if(&:saturday?).map!(&:to_s)
+    Array.new(array).keep_if(&:saturday?).map!(&:to_s)
   end
 end

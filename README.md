@@ -1,3 +1,7 @@
+> [!IMPORTANT]  
+> I archived this repo here and moved it to [Codeberg](https://codeberg.org/mblumtritt/ros) for several reasons.
+> <br/><br/>🛠️ It's still active there!
+
 # Ruby On Speed
 
 An open collection of Ruby benchmarks.

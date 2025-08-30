@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby --disable-all
 # frozen_string_literal: true
 
 HELP = {
@@ -23,9 +23,9 @@ HELP = {
     options:
     --format <format>   specify the output format
                         default  - simple list
+                        files    - file list of found benchmarks
                         markdown - markdown list with links
     --dir <name>        use <name> as directory to find benchmarks
-    --no-bundle         don't use Bundler
   HELP
   'run' => <<~HELP,
     ros run [<options>] [<regexp> ...]
@@ -40,7 +40,6 @@ HELP = {
                         winner  - print only fastest code name
                         json    - JSON information
     --dir <name>        use <name> as directory to find benchmarks
-    --no-bundle         don't use Bundler
   HELP
   'test' => <<~HELP,
     ros test [<options>] [<regexp> ...]
@@ -53,7 +52,6 @@ HELP = {
                         default - status list
                         quite   - no output, just set the error code
     --dir <name>        use <name> as directory to find benchmarks
-    --no-bundle         don't use Bundler
   HELP
   'help' => <<~HELP,
     ros help [<command>]
@@ -67,9 +65,7 @@ HELP = {
   HELP
 }.freeze
 
-COMMAND = ARGV.shift || 'help'
-
-if %w[--version version].include?(COMMAND)
+if %w[-v --version version].include?(ARGV[0])
   require_relative('../lib/ruby-on-speed/version')
   puts("RubyOnSpeed v#{RubyOnSpeed::VERSION}")
   exit
@@ -81,111 +77,109 @@ def die!(msg, include_command: true, code: 1)
 end
 
 def cmd_help(sub_command)
-  help = HELP[sub_command] or die!("unknown command - #{sub_command}")
   print('usage: ')
-  puts(help)
+  puts(HELP[sub_command])
   exit
 end
 
-cmd_help(ARGV.shift || 'ros') if %w[-h --help help].include?(COMMAND)
-
-OPTIONS = Struct.new(:format, :bundle, :dir, :regexp)['default', true]
-
-def as_directory(dir)
-  dir = File.expand_path(dir)
-  return dir if File.directory?(dir) && File.readable?(dir)
-  die!("not a readble directory - #{dir}")
+def valid_cmd?(name)
+  HELP.key?(name)
 end
 
-def as_regexp(*args)
-  args =
-    args.filter_map do |arg|
-      Regexp.new(arg, Regexp::IGNORECASE) unless arg.empty?
-    rescue RegexpError => e
-      die("invalid regular expression `#{arg}` - #{e}")
-    end
-  args.empty? ? nil : args
+if %w[-h --help help].include?(ARGV[0])
+  cmd = ARGV[1] or cmd_help('ros')
+  cmd_help(cmd) if valid_cmd?(cmd)
+  die!("unknown command - #{cmd}", include_command: false)
 end
 
-def parse_args(formats:)
-  while ARGV[0]&.start_with?('-')
-    case opt = ARGV.shift
-    when '--'
-      break
-    when '-h', '--help'
-      cmd_help(COMMAND)
-    when '--format'
-      OPTIONS.format = ARGV.shift or die!('argument missing - --format')
-      next if formats.include?(OPTIONS.format)
-      die!("unknown --format argument - #{OPTIONS.format}")
-    when '--no-bundle'
-      OPTIONS.bundle = false
-    when '--dir'
-      OPTIONS.dir = as_directory(ARGV.shift || die!('argument missing - --dir'))
-    else
-      die!("unknown option - #{opt}")
+unless valid_cmd?(COMMAND = ARGV.shift)
+  die!("unknown command - #{COMMAND}", include_command: false)
+end
+
+OPTIONS = Struct.new(:format, :dir, :regexp)['default']
+while ARGV[0]&.start_with?('-')
+  case opt = ARGV.shift
+  when '--'
+    break
+  when '-h', '--help'
+    cmd_help(COMMAND)
+  when '--format'
+    OPTIONS.format = ARGV.shift or die!('argument missing - --format')
+  when '--dir'
+    dir = File.expand_path(ARGV.shift || die!('argument missing - --dir'))
+    unless File.directory?(dir) && File.readable?(dir)
+      die!("not a readble directory - #{dir}")
     end
+    OPTIONS.dir = dir
+  else
+    die!("unknown option - #{opt}")
   end
-  OPTIONS.regexp = as_regexp(*ARGV)
-  nil
 end
+OPTIONS.dir ||= File.expand_path('../benchmarks', __dir__)
+
+args =
+  ARGV.filter_map do |arg|
+    Regexp.new(arg, Regexp::IGNORECASE) unless arg.empty?
+  rescue RegexpError => e
+    die!("invalid regular expression `#{arg}` - #{e}")
+  end
+OPTIONS.regexp = args.empty? ? nil : args
 
 def bundle!
   require('bundler/inline')
   gemfile do
     source('https://rubygems.org')
-    gem('benchmark-ips', '>=2.9.3')
-    gem('host-os')
+    gem('benchmark-ips', '>=2.9.3', require: false)
+    gem('host-os', require: false)
   end
+  require_relative('../lib/ruby-on-speed')
 rescue LoadError => e
   die!(e, code: 3)
+rescue Bundler::BundlerError => e
+  die!("unable to load prerequisites - #{e}", code: 2)
 end
 
-def perform
-  bundle! if OPTIONS.bundle
-  require_relative('../lib/ruby-on-speed')
-  OPTIONS.dir ||= File.expand_path('../benchmarks', __dir__)
+def perform(formats)
+  unless formats.include?(OPTIONS.format)
+    die!("unknown --format argument - #{OPTIONS.format}")
+  end
+  bundle!
   RubyOnSpeed.load_from(OPTIONS.dir)
   RubyOnSpeed.filter!(*OPTIONS.regexp) if OPTIONS.regexp
   $stdout.sync = true
-  exit(yield)
+  exit(yield(OPTIONS.format))
 end
 
 if COMMAND == 'test'
-  parse_args(formats: %w[default quiet])
-  perform do
-    if OPTIONS.format == 'quiet'
-      RubyOnSpeed.test!(report: false)
-    else
-      RubyOnSpeed.test!
-    end
+  perform(%w[default quiet]) do |fmt|
+    fmt == 'quiet' ? RubyOnSpeed.test!(report: false) : RubyOnSpeed.test!
   end
 end
 
-if COMMAND == 'compare'
-  parse_args(formats: %w[default])
-  perform { RubyOnSpeed.find_best! }
-end
-
 if COMMAND == 'run'
-  parse_args(formats: %w[default simple compact winner json])
-  perform { RubyOnSpeed.report(format: OPTIONS.format) }
+  perform(%w[default simple compact winner json]) do |fmt|
+    RubyOnSpeed.report(format: fmt)
+  end
 end
 
-unless COMMAND == 'list'
-  die!("unknown command - #{COMMAND}", include_command: false)
-end
-
-parse_args(formats: %w[default markdown])
-perform do
-  case OPTIONS.format
-  when 'markdown'
+perform(%w[default markdown files]) do |fmt|
+  if fmt == 'markdown'
     RubyOnSpeed.each do |bm|
-      puts "- [#{bm.name}](#{bm.relative_source_file_name}) - #{bm.description}"
+      puts(
+        "- [#{bm.name}](#{bm.relative_source_file_name}) - #{bm.description}"
+      )
     end
-  else
-    width = RubyOnSpeed.each.max_by { |bm| bm.name.size }.name.size
-    RubyOnSpeed.each { |bm| puts "#{bm.name.ljust(width)}  #{bm.description}" }
+    next true
+  end
+  all = RubyOnSpeed.each.to_a
+  next true if all.empty?
+  width = all.max_by { _1.name.size }.name.size
+  if fmt == 'default'
+    all.each { puts("#{_1.name.ljust(width)}  #{_1.description}") }
+    next true
+  end
+  all.each do |bm|
+    puts("#{bm.name.ljust(width)}  #{bm.relative_source_file_name}")
   end
   true
 end
